@@ -5,7 +5,7 @@ import bsCustomFileInput from 'bs-custom-file-input';
 import axios from 'axios';
 
 
-export class BasicElements extends Component {
+class BasicElements extends Component {
   state = {
     startDate: new Date(),
     predictions: [],
@@ -22,7 +22,7 @@ export class BasicElements extends Component {
   };
 
   componentDidMount() {
-    this.makeHttpRequestWithPage(2);   
+    this.makeHttpRequestWithPage(1);
 
     bsCustomFileInput.init()
   }
@@ -39,9 +39,9 @@ export class BasicElements extends Component {
 
     this.setState({
       predictions: data.predictions,
-      // total: data.total,
       _per_page: data.per_page,
       _page: data.page,
+      predictionsLength: data.total
     });
   }
 
@@ -60,8 +60,9 @@ export class BasicElements extends Component {
     let predictions, renderPageNumbers;
 
     if (this.state.predictions !== null) {
-      predictions = this.state.predictions.map(prediction => (
+      predictions = this.state.predictions.map((prediction, id) => (
         <tr key={prediction.phone_number}>
+          <td> {id} </td>
           <td>{prediction.phone_number}</td>
           <td>{prediction.status}</td>
           <td>{prediction.expected_winning}</td>
@@ -72,24 +73,25 @@ export class BasicElements extends Component {
       ));
     }
 
-    // const pageNumbers = [];
-    // if (this.predictionsLength !== null) {
-    //   for (let i = 1; i <= Math.ceil(this.predictionsLength / this.state._per_page); i++) {
-    //     pageNumbers.push(i);
-    //   }
+    const pageNumbers = [];
+    if (this.predictionsLength !== null) {
+      for (let i = 1; i <= Math.ceil(this.predictionsLength / this.state._per_page); i++) {
+        pageNumbers.push(i);
+      }
 
 
-    //   renderPageNumbers = pageNumbers.map(number => {
-    //     // let classes = this.state.current_page === number ? styles.active : '';
+      renderPageNumbers = pageNumbers.map(number => {
+        // let classes = this.state.current_page === number ? styles.active : '';
 
-    //     return (
-    //       <span key={number} onClick={() => this.makeHttpRequestWithPage(number)}>{number}</span>
-    //     );
-    //   });
-    // }
+        return (
+          <span key={number} onClick={() => this.makeHttpRequestWithPage(number)}>{number}</span>
+        );
+      });
+    }
 
     return (
       <div>
+        {console.log('pred' + this.state.predictions)}
         <div className="page-header">
           <h3 className="page-title"> All Predictions: {this.state.predictionsLength} </h3>
         </div>
@@ -115,12 +117,11 @@ export class BasicElements extends Component {
             <div className="card">
               <div className="card-body">
                 <h4 className="card-title">All Players</h4>
-                {/* <p className="card-description"> Add className <code>.table-striped</code> */}
-                {/* </p> */}
                 <div className="table-responsive">
                   <table className="table table-striped">
                     <thead>
                       <tr>
+                        <th> ID </th>
                         <th> Phone Number </th>
                         <th> Status </th>
                         <th> Expected Winning </th>
@@ -130,7 +131,19 @@ export class BasicElements extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                    { predictions }
+                      { predictions }
+                      {/* {
+                        this.state.predictions.map(prediction => (
+                          <tr key={prediction.phone_number}>
+                            <td>{prediction.phone_number}</td>
+                            <td>{prediction.status}</td>
+                            <td>{prediction.expected_winning}</td>
+                            <td>{prediction.amount}</td>
+                            <td>{prediction.staked_at}</td>
+                            <td>{prediction.prediction}</td>
+                          </tr>
+                        ))
+                      } */}
                     </tbody>
                   </table>
                 </div>

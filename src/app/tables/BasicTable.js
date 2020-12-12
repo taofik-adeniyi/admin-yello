@@ -13,17 +13,63 @@ let active = 2;
       );
     }
 class BasicTable extends Component {
+
+  state = {
+    startDate: new Date(),
+    users: [],
+    per_page: null,
+    current_page: null,
+    total: null
+  };
+
+  componentDidMount() {
+    this.makeHttpRequestWithPage(1);
+  }
+
+  makeHttpRequestWithPage = async pageNumber => {
+    let response = await fetch(`https://api.humbergames.com/trivia/admin/summary?_page=${pageNumber}`, {
+      method: 'GET',
+      headers: {
+        'client-id': "live_95274a0b52ae18ea7349"
+      },
+    });
+
+    const data = await response.json();
+
+    this.setState({
+      users: data.users,
+      total: data.total,
+      _per_page: data._per_page,
+      _page: data._page,
+    });
+  }
   render() {
+    let active = 2;
+    let items = [];
+    for (let number = 1; number <= 16; number++) {
+      items.push(
+        <Pagination.Item key={number} active={number === active} onClick={() => this.makeHttpRequestWithPage(number)}>
+          {number}
+        </Pagination.Item>,
+      );
+    }
+
+    let users, renderPageNumbers;
+
+    if (this.state.users !== null) {
+      users = this.state.users.map((user, id) => (
+        <tr key={user.phone_number}>
+          <td> {id} </td>
+          <td>{user.phone_number}</td>
+          <td>{user.attempted_questions_count}</td>
+          <td>{user.total_points}</td>
+        </tr>
+      ));
+    }
     return (
       <div>
         <div className="page-header">
-          <h3 className="page-title"> All Players </h3>
-          {/* <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item"><a href="!#" onClick={event => event.preventDefault()}>Tables</a></li>
-              <li className="breadcrumb-item active" aria-current="page">Basic tables</li>
-            </ol>
-          </nav> */}
+          <h3 className="page-title"> All Players: {this.state.total} </h3>
         </div>
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
@@ -55,81 +101,24 @@ class BasicTable extends Component {
                   <table className="table table-bordered">
                     <thead>
                       <tr>
-                        <th> # </th>
-                        <th> First name </th>
-                        <th> Product </th>
-                        <th> Amount </th>
-                        <th> Deadline </th>
+                        <th> ID </th>
+                        <th> Phone Number </th>
+                        <th> Attempted Questions </th>
+                        <th> Total Points </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr className="table-info">
-                        <td> 1 </td>
-                        <td> Herman Beck </td>
-                        <td> Photoshop </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr className="table-warning">
-                        <td> 2 </td>
-                        <td> Messsy Adam </td>
-                        <td> Flash </td>
-                        <td> $245.30 </td>
-                        <td> July 1, 2015 </td>
-                      </tr>
-                      <tr className="table-danger">
-                        <td> 3 </td>
-                        <td> John Richards </td>
-                        <td> Premeire </td>
-                        <td> $138.00 </td>
-                        <td> Apr 12, 2015 </td>
-                      </tr>
-                      <tr className="table-success">
-                        <td> 4 </td>
-                        <td> Peter Meggik </td>
-                        <td> After effects </td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr className="table-primary">
-                        <td> 5 </td>
-                        <td> Edward </td>
-                        <td> Illustrator </td>
-                        <td> $ 160.25 </td>
-                        <td> May 03, 2015 </td>
-                      </tr>
-                      <tr className="table-primary">
-                        <td> 6 </td>
-                        <td> Edward </td>
-                        <td> Illustrator </td>
-                        <td> $ 160.25 </td>
-                        <td> May 03, 2015 </td>
-                      </tr>
-                      <tr className="table-primary">
-                        <td> 7 </td>
-                        <td> Edward </td>
-                        <td> Illustrator </td>
-                        <td> $ 160.25 </td>
-                        <td> May 03, 2015 </td>
-                      </tr>
-                      <tr className="table-primary">
-                        <td> 8 </td>
-                        <td> Edward </td>
-                        <td> Illustrator </td>
-                        <td> $ 160.25 </td>
-                        <td> May 03, 2015 </td>
-                      </tr>
+                     {users}
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="row grid-margin" style={{margin: "10px"}}>
-          <Pagination size="sm">{items}</Pagination>
-        </div>
-        <div className="row grid-margin">
+          <div className="row grid-margin" style={{margin: "10px"}}>
+            <Pagination size="sm">{items}</Pagination>
+          </div>
+          {/* <div className="row grid-margin">
           <Pagination>
             <Pagination.First />
             <Pagination.Prev />
@@ -147,6 +136,7 @@ class BasicTable extends Component {
             <Pagination.Next />
             <Pagination.Last />
           </Pagination>
+        </div> */}
         </div>
       </div>
       
