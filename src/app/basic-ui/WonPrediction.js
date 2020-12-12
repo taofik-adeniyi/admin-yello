@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
 import { Dropdown, ButtonGroup, Pagination } from 'react-bootstrap';
-
-
+import axios from 'axios';
 
 let active = 2;
-    let items = [];
-    for (let number = 1; number <= 5; number++) {
-      items.push(
-        <Pagination.Item key={number} active={number === active}>
-          {number}
-        </Pagination.Item>,
-      );
-    }
+  let items = [];
+  for (let number = 1; number <= 5; number++) {
+    items.push(
+      <Pagination.Item key={number} active={number === active}>
+        {number}
+      </Pagination.Item>,
+    );
+  }
+   
+
 export class WonPrediction extends Component {
+  state = {
+    predictionsLength: null
+  };
+
+  componentDidMount() {
+    axios.get("https://api.humbergames.com/predictions/admin/predictions?status=won", {
+      headers: {
+        'client-id': "live_95274a0b52ae18ea7349"
+      }
+    }
+    ).then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   render() {
     return (
       <div>
