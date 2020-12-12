@@ -47,7 +47,6 @@ export class BasicElements extends Component {
 
 
   render() {
-
     let active = 2;
     let items = [];
     for (let number = 1; number <= 16; number++) {
@@ -73,21 +72,21 @@ export class BasicElements extends Component {
       ));
     }
 
-    const pageNumbers = [];
-    if (this.predictionsLength !== null) {
-      for (let i = 1; i <= Math.ceil(this.predictionsLength / this.state._per_page); i++) {
-        pageNumbers.push(i);
-      }
+    // const pageNumbers = [];
+    // if (this.predictionsLength !== null) {
+    //   for (let i = 1; i <= Math.ceil(this.predictionsLength / this.state._per_page); i++) {
+    //     pageNumbers.push(i);
+    //   }
 
 
-      renderPageNumbers = pageNumbers.map(number => {
-        // let classes = this.state.current_page === number ? styles.active : '';
+    //   renderPageNumbers = pageNumbers.map(number => {
+    //     // let classes = this.state.current_page === number ? styles.active : '';
 
-        return (
-          <span key={number} onClick={() => this.makeHttpRequestWithPage(number)}>{number}</span>
-        );
-      });
-    }
+    //     return (
+    //       <span key={number} onClick={() => this.makeHttpRequestWithPage(number)}>{number}</span>
+    //     );
+    //   });
+    // }
 
     return (
       <div>
