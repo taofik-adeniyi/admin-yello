@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import './App.scss';
 import AppRoutes from './AppRoutes';
 import Navbar from './shared/Navbar';
@@ -7,6 +7,7 @@ import Sidebar from './shared/Sidebar';
 import SettingsPanel from './shared/SettingsPanel';
 import Footer from './shared/Footer';
 import { withTranslation } from "react-i18next";
+import Login from './user-pages/Login';
 
 class App extends Component {
   state = {}
@@ -19,7 +20,8 @@ class App extends Component {
     let SettingsPanelComponent = !this.state.isFullPageLayout ? <SettingsPanel/> : '';
     let footerComponent = !this.state.isFullPageLayout ? <Footer/> : '';
     return (
-      <div className="container-scroller">
+      <Router>
+        <div className="container-scroller">
         { navbarComponent }
         <div className="container-fluid page-body-wrapper">
           { sidebarComponent }
@@ -32,6 +34,10 @@ class App extends Component {
           </div>
         </div>
       </div>
+      <Switch>
+        <Route exact path="/" component={Login}/>
+      </Switch>
+      </Router>
     );
   }
 
