@@ -181,7 +181,7 @@ class Sidebar extends Component {
               </ul>
             </Collapse>
           </li>*/}
-          <li className={ this.isPathActive('/user-pages') ? 'nav-item active' : 'nav-item' }>
+          {/* <li className={ this.isPathActive('/user-pages') ? 'nav-item active' : 'nav-item' }>
             <div className={ this.state.userPagesMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('userPagesMenuOpen') } data-toggle="collapse">
               <i className="mdi mdi-lock-outline menu-icon"></i>
               <span className="menu-title"><Trans>Login Logout</Trans></span>
@@ -193,7 +193,7 @@ class Sidebar extends Component {
                 <li className="nav-item"> <Link className={ this.isPathActive('/user-pages/register-1') ? 'nav-link active' : 'nav-link' } to="/user-pages/register-1"><Trans>Register</Trans></Link></li>
               </ul>
             </Collapse>
-          </li> 
+          </li>  */}
           {/* <li className={ this.isPathActive('/error-pages') ? 'nav-item active' : 'nav-item' }>
             <div className={ this.state.errorPagesMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('errorPagesMenuOpen') } data-toggle="collapse">
               <i className="mdi mdi-information-outline menu-icon"></i>

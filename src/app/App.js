@@ -7,6 +7,7 @@ import Sidebar from './shared/Sidebar';
 import SettingsPanel from './shared/SettingsPanel';
 import Footer from './shared/Footer';
 import { withTranslation } from "react-i18next";
+import Login from './user-pages/Login';
 
 class App extends Component {
   state = {}
@@ -25,7 +26,8 @@ class App extends Component {
           { sidebarComponent }
           <div className="main-panel">
             <div className="content-wrapper">
-              <AppRoutes/>
+              <AppRoutes />
+              
               { SettingsPanelComponent }
             </div>
             { footerComponent }
