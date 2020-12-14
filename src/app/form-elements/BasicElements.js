@@ -169,7 +169,7 @@ class BasicElements extends Component {
                         </Modal.Title>
                       </Modal.Header>
                       <Modal.Body>...</Modal.Body>
-                    </Modal>  
+                    </Modal> 
                   :
                   null
                 }
