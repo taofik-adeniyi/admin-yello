@@ -1473,57 +1473,7 @@ export class Dashboard extends Component {
               </div>
             </div>
           </div> */}
-          <div className="col-md-4 grid-margin stretch-card" style={{marginBottom: "250px"}}>
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title mb-0">People Also Played</h4>
-                {/* <div className="table-responsive">
-                  <table className="table table-stretched">
-                    <thead>
-                      <tr>
-                        <th>Symbol</th>
-                        <th>Last Price</th>
-                        <th>Change</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <p className="mb-1 text-dark font-weight-medium">NFLX</p><small className="font-weight-medium">Netflix, Inc.</small>
-                        </td>
-                        <td className="font-weight-medium">$250.00</td>
-                        <td className="text-success font-weight-medium">+12.64</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p className="mb-1 text-dark font-weight-medium">TSLA</p><small className="font-weight-medium">Tesla, Inc.</small>
-                        </td>
-                        <td className="font-weight-medium">$458.00</td>
-                        <td className="text-danger font-weight-medium">-14.53</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p className="mb-1 text-dark font-weight-medium">GOOG</p><small className="font-weight-medium">Alphabet, Inc.</small>
-                        </td>
-                        <td className="font-weight-medium">$250.00</td>
-                        <td  className="text-danger font-weight-medium">+12.64</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p className="mb-1 text-dark font-weight-medium">AMZN</p><small className="font-weight-medium">Amazon.com, Inc.</small>
-                        </td>
-                        <td className="font-weight-medium">$546.00</td>
-                        <td className="text-success font-weight-medium">+24.34</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div> */}
-                {/* <a className="d-block mt-3" href="!#" onClick={evt =>evt.preventDefault()}>Show all</a> */}
-              </div>
-            </div>
-          </div>
         </div>
-        
       </div> 
     );
   }

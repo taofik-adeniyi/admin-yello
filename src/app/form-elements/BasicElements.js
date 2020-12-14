@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Dropdown, Pagination, Page } from 'react-bootstrap';
+import { Form, Dropdown, Pagination, Page, Modal } from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 import bsCustomFileInput from 'bs-custom-file-input';
 import axios from 'axios';
@@ -12,7 +12,8 @@ class BasicElements extends Component {
     totalReactPackages: '',
     predictionsLength: null,
     per_page: null,
-    current_page: null
+    current_page: null,
+    lgShow: false
   };
  
   handleChange = date => {
@@ -63,6 +64,11 @@ class BasicElements extends Component {
       predictions = this.state.predictions.map((prediction, id) => (
         <tr key={prediction.phone_number}>
           <td> {id} </td>
+          <td>
+            <button onClick={() => this.setState({lgShow: true})}>
+            View Player
+            </button>
+          </td>
           <td>{prediction.phone_number}</td>
           <td>{prediction.status}</td>
           <td>{prediction.expected_winning}</td>
@@ -147,6 +153,26 @@ class BasicElements extends Component {
                     </tbody>
                   </table>
                 </div>
+                {
+                  this.state.lgShow ? 
+                    <Modal
+                      size="lg"
+                      show={this.state.lgShow}
+                      onHide={() => this.setState({
+                        lgShow: false
+                      })}
+                      aria-labelledby="example-modal-sizes-title-lg"
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title id="example-modal-sizes-title-lg">
+                          Details of all predictions by user
+                        </Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>...</Modal.Body>
+                    </Modal>  
+                  :
+                  null
+                }
               </div>
             </div>
           </div>

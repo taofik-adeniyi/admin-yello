@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { ProgressBar, Dropdown, Pagination } from 'react-bootstrap';
 
-
-
 let active = 2;
     let items = [];
     for (let number = 1; number <= 5; number++) {
