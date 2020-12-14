@@ -31,7 +31,7 @@ class WonPrediction extends Component {
   }
 
   makeHttpRequestWithPage = async pageNumber => {
-    let response = await fetch(`https://api.humbergames.com/predictions/admin/predictions?status=won`, {
+    let response = await fetch(`https://api.humbergames.com/predictions/admin/predictions?status=won?_page=${pageNumber}`, {
       method: 'GET',
       headers: {
         'client-id': "live_95274a0b52ae18ea7349"
@@ -55,7 +55,7 @@ class WonPrediction extends Component {
     if (this.state.predictions !== null) {
       predictions = this.state.predictions.map((prediction, id) => (
         <tr key={prediction.phone_number}>
-          <td> {id} </td>
+          <td> {id+1} </td>
           <td>{prediction.phone_number}</td>
           <td>{prediction.status}</td>
           <td>{prediction.expected_winning}</td>

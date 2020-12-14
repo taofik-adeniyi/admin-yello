@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Dropdown, Pagination, Page, Modal } from 'react-bootstrap';
+import { Form, Dropdown, Pagination, Page, Modal, Button } from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 import bsCustomFileInput from 'bs-custom-file-input';
 import axios from 'axios';
@@ -63,11 +63,11 @@ class BasicElements extends Component {
     if (this.state.predictions !== null) {
       predictions = this.state.predictions.map((prediction, id) => (
         <tr key={prediction.phone_number}>
-          <td> {id} </td>
+          <td> {id+1} </td>
           <td>
-            <button onClick={() => this.setState({lgShow: true})}>
+            <Button variant="primary" onClick={() => this.setState({lgShow: true})}>
             View Player
-            </button>
+            </Button>
           </td>
           <td>{prediction.phone_number}</td>
           <td>{prediction.status}</td>
