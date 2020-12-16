@@ -128,6 +128,7 @@ class BasicElements extends Component {
                     <thead>
                       <tr>
                         <th> ID </th>
+                        <th>Check Player</th>
                         <th> Phone Number </th>
                         <th> Status </th>
                         <th> Expected Winning </th>

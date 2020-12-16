@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ProgressBar, Dropdown, Pagination } from 'react-bootstrap';
+import { ProgressBar, Dropdown, Pagination, Spinner } from 'react-bootstrap';
 
 let active = 2;
     let items = [];
@@ -17,7 +17,8 @@ class BasicTable extends Component {
     users: [],
     per_page: null,
     current_page: null,
-    total: null
+    total: null,
+    spinner: true
   };
 
   componentDidMount() {
@@ -39,6 +40,7 @@ class BasicTable extends Component {
       total: data.total,
       _per_page: data._per_page,
       _page: data._page,
+      spinner: false
     });
   }
   render() {
@@ -57,7 +59,7 @@ class BasicTable extends Component {
     if (this.state.users !== null) {
       users = this.state.users.map((user, id) => (
         <tr key={user.phone_number}>
-          <td> {id} </td>
+          <td> {id+1} </td>
           <td>{user.phone_number}</td>
           <td>{user.attempted_questions_count}</td>
           <td>{user.total_points}</td>
@@ -86,6 +88,12 @@ class BasicTable extends Component {
             </Dropdown>
           </div>
         </div>
+        {/* <div className="text-center">
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        </div> */}
+       
         <div className="row">    
           <div className="col-lg-12 stretch-card">
             <div className="card">

@@ -4,6 +4,8 @@ import { Collapse } from 'react-bootstrap';
 import { Dropdown } from 'react-bootstrap';
 import { Trans } from 'react-i18next';
 
+import '../../assets/styles/mine/sidebar.css';
+
 class Sidebar extends Component {
   state = {};
 
@@ -54,12 +56,12 @@ class Sidebar extends Component {
     return (
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
         <div className="text-center sidebar-brand-wrapper d-flex align-items-center">
-          <a className="sidebar-brand brand-logo" href="index.html">
-            <h3 style={{color: "#FFF", fontWeight: "bold", paddingTop: "50px"}}>
-              Yello Star - Admin
+          <Link className="sidebar-brand brand-logo" href="index.html">
+            <h3>
+              Yello Star
             </h3>
             {/* <img src={require("../../assets/images/logo.svg")} alt="logo" /> */}
-          </a>
+          </Link>
           {/* <a className="sidebar-brand brand-logo-mini pt-3" href="index.html"><img src={require("../../assets/images/logo-mini.svg" )} alt="logo" /></a> */}
         </div>
         <ul className="nav">

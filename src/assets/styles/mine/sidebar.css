@@ -1,0 +1,100 @@
+.sidebar > .nav .nav-item .nav-link i.menu-arrow:before {
+    content: "\F054";
+    font-family: "Material Design Icons";
+    font-size: 18px;
+    line-height: 1;
+    font-style: normal;
+    vertical-align: middle;
+    color: #000000 !important;
+}
+/* .sidebar > .nav .nav-item.active > .nav-link .menu-title {
+    color: black !important;
+} */
+.sidebar {
+    min-height: calc(100vh - 63px);
+    /* background: linear-gradient(to top, #5768f3, #1c45ef); */
+    background: linear-gradient(to top, #fc0, #fc0) !important;
+    font-family: "Roboto", sans-serif;
+    padding: 0;
+    width: 270px;
+    z-index: 11;
+    transition: width 0.25s ease, background 0.25s ease;
+    -webkit-transition: width 0.25s ease, background 0.25s ease;
+    -moz-transition: width 0.25s ease, background 0.25s ease;
+    -ms-transition: width 0.25s ease, background 0.25s ease;
+}
+
+.sidebar > .nav .nav-item.nav-profile .nav-link .profile-name {
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #000 !important;
+}
+.sidebar > .nav .nav-item.nav-profile .nav-link .designation {
+    margin-bottom: 0;
+    font-weight: 400;
+    color: #000;
+}
+.sidebar-brand > h3 {
+    color: #000;
+    font-weight: bold;
+    padding-top: 50px;
+}
+
+
+.sidebar > .nav .nav-item .nav-link .menu-title {
+    color: #000 !important;
+    display: inline-block;
+    font-size: 15px;
+    line-height: 1;
+    vertical-align: middle;
+    font-weight: 500;
+}
+
+
+.nav-item .nav-link .menu-title:hover{
+    color:#fff !important;
+}
+ li a span:hover{
+    color:#fff !important;
+}
+
+.sidebar > .nav .nav-item .sub-menu .nav-item .nav-link {
+    padding: 10px 0px 10px 70px;
+    position: relative;
+    color: black !important;
+    font-size: calc(15px - 2px);
+    font-weight: 500;
+    transition-duration: 0.5s;
+    transition-timing-function: "ease-in-out";
+    transition-property: "background", "color", "box-shadow", "padding";
+    display: block;
+    max-width: 100%;
+    display: block;
+}
+
+.sidebar > .nav .nav-item .sub-menu .nav-item .nav-link:before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 35px;
+    display: block;
+    height: 100%;
+    width: 2px;
+    background: #fff !important;
+}
+
+/* .sidebar > .nav .nav-item .nav-link:hover {
+    color: white !important;
+} */
+
+.sidebar > .nav:not(.sub-menu) > .nav-item:hover:not(.nav-profile):not(.hover-open) > .nav-link:not([aria-expanded="true"]) {
+    background: #0c0c0c00 !important;
+    padding-left: 65px;
+   
+}
+.sidebar > .nav:not(.sub-menu) > .nav-item:hover{
+    color: #fff !important;
+
+}
+

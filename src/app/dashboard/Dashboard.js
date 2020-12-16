@@ -924,7 +924,7 @@ export class Dashboard extends Component {
         </div> */}
         <div className="row">
           <div className="col-md-3 grid-margin stretch-card">
-            <div className="card" style={{color: "blue"}}>
+            <div className="card" style={{color: "black"}}>
               <div className="card-body">
                 <div className="d-flex justify-content-between pb-2 align-items-center">
                   <h3 className="font-weight-semibold mb-0">Trivia</h3>
@@ -939,7 +939,7 @@ export class Dashboard extends Component {
             </div>
           </div>
           <div className="col-md-3 grid-margin stretch-card">
-            <div className="card" style={{color: "blue"}}>
+            <div className="card" style={{color: "black"}}>
               <div className="card-body">
                 <div className="d-flex justify-content-between pb-2 align-items-center">
                   <h3 className="font-weight-semibold mb-0">Prediction</h3>
@@ -954,7 +954,7 @@ export class Dashboard extends Component {
             </div>
           </div>
           <div className="col-md-3 grid-margin stretch-card">
-            <div className="card" style={{color: "blue"}}>
+            <div className="card" style={{color: "black"}}>
               <div className="card-body">
                 <div className="d-flex justify-content-between pb-2 align-items-center">
                   <h3 className="font-weight-semibold mb-0">#NO</h3>
@@ -969,7 +969,7 @@ export class Dashboard extends Component {
             </div>
           </div>
           <div className="col-md-3 grid-margin stretch-card">
-            <div className="card" style={{color: "blue"}}>
+            <div className="card" style={{color: "black"}}>
               <div className="card-body">
                 <div className="d-flex justify-content-between pb-2 align-items-center">
                   <h2 className="font-weight-semibold mb-0">Users</h2>
