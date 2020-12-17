@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Dropdown, ButtonGroup, Pagination, Page } from 'react-bootstrap';
+import { Dropdown, Button, ButtonGroup, Pagination, PageItem, InputGroup, FormControl  } from 'react-bootstrap';
+import axios from 'axios';
 
-
-let active = 2;
+    let active = 2;
     let items = [];
     for (let number = 1; number <= 5; number++) {
       items.push(
@@ -11,25 +11,19 @@ let active = 2;
         </Pagination.Item>,
       );
     }
-export class Dropdowns extends Component {
-  render() {
+
+class Alltrivia extends Component {
+  render () {
     return (
       <div>
         <div className="page-header">
-          <h3 className="page-title"> All Won Trivia </h3>
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              {/* <li className="breadcrumb-item"> */}
-                {/* <a href="!#" onClick={event => event.preventDefault()}> */}
-                  
-                {/* </a> */}
-                {/* </li> */}
-              <li className="breadcrumb-item active" aria-current="page"> Won Trivia</li>
-            </ol>
-          </nav>
+          <h3 className="page-title"> 
+            <Button variant="warning">Back</Button>&nbsp;&nbsp;
+            All Trivias
+        </h3>
         </div>
         <div className="row">
-          <div className="col-lg-12 grid-margin stretch-card">
+          <div className="col-lg-3 grid-margin stretch-card">
             <Dropdown>
               <Dropdown.Toggle variant="btn btn-outline-warning" id="dropdownMenuOutlineButton1">
                 Filter
@@ -43,6 +37,20 @@ export class Dropdowns extends Component {
                 <Dropdown.Item>300</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+          </div>
+          <div className="col-lg-3"></div>
+          <div className="col-lg-3"></div>
+          <div className="col-lg-3">
+            <InputGroup className="mb-3">
+              <FormControl
+                placeholder="Search By Phone No or Name"
+                aria-label="User Phone Number"
+                aria-describedby="basic-addon2"
+              />
+              <InputGroup.Append>
+                <Button variant="outline-secondary">Search</Button>
+              </InputGroup.Append>
+            </InputGroup>
           </div>
         </div>
         <div className="row">
@@ -66,7 +74,7 @@ export class Dropdowns extends Component {
                     <tbody>
                       <tr>
                         <td className="py-1">
-                          <img src={require("../../assets/images/faces/face1.jpg")} alt="user icon" />
+                          <img src={require("../../../assets/images/faces/face1.jpg")} alt="user icon" />
                         </td>
                         <td> Herman Beck </td>
                         <td>New Here</td>
@@ -75,7 +83,7 @@ export class Dropdowns extends Component {
                       </tr>
                       <tr>
                         <td className="py-1">
-                          <img src={require("../../assets/images/faces/face2.jpg")} alt="user icon" />
+                          <img src={require("../../../assets/images/faces/face2.jpg")} alt="user icon" />
                         </td>
                         <td> Messsy Adam </td>
                         <td>How are you</td>
@@ -84,7 +92,7 @@ export class Dropdowns extends Component {
                       </tr>
                       <tr>
                         <td className="py-1">
-                          <img src={require("../../assets/images/faces/face3.jpg")} alt="user icon" />
+                          <img src={require("../../../assets/images/faces/face3.jpg")} alt="user icon" />
                         </td>
                         <td> John Richards </td>
                         <td>Almost there</td>
@@ -93,7 +101,7 @@ export class Dropdowns extends Component {
                       </tr>
                       <tr>
                         <td className="py-1">
-                          <img src={require("../../assets/images/faces/face4.jpg")} alt="user icon" />
+                          <img src={require("../../../assets/images/faces/face4.jpg")} alt="user icon" />
                         </td>
                         <td> Peter Meggik </td>
                         <td>right here</td>
@@ -102,7 +110,7 @@ export class Dropdowns extends Component {
                       </tr>
                       <tr>
                         <td className="py-1">
-                          <img src={require("../../assets/images/faces/face5.jpg")} alt="user icon" />
+                          <img src={require("../../../assets/images/faces/face5.jpg")} alt="user icon" />
                         </td>
                         <td> Edward </td>
                         <td>Now</td>
@@ -111,7 +119,7 @@ export class Dropdowns extends Component {
                       </tr>
                       <tr>
                         <td className="py-1">
-                          <img src={require("../../assets/images/faces/face6.jpg")} alt="user icon" />
+                          <img src={require("../../../assets/images/faces/face6.jpg")} alt="user icon" />
                         </td>
                         <td> John Doe </td>
                         <td>Knew</td>
@@ -120,7 +128,7 @@ export class Dropdowns extends Component {
                       </tr>
                       <tr>
                         <td className="py-1">
-                          <img src={require("../../assets/images/faces/face7.jpg")} alt="user icon" />
+                          <img src={require("../../../assets/images/faces/face7.jpg")} alt="user icon" />
                         </td>
                         <td> Henry Tom </td>
                         <td>Dont know</td>
@@ -134,7 +142,7 @@ export class Dropdowns extends Component {
             </div>
           </div>
         </div>
-        <div>
+          <div>
             <Pagination size="sm">{items}</Pagination>
           </div>
           <div>
@@ -157,8 +165,8 @@ export class Dropdowns extends Component {
             </Pagination>
           </div>
         </div>
-    )
+    );
   }
 }
 
-export default Dropdowns
+export default Alltrivia;

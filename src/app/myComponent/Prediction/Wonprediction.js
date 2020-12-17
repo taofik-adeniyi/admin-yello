@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, ButtonGroup, Pagination } from 'react-bootstrap';
+import { Dropdown, Button, ButtonGroup, Pagination , InputGroup, FormControl} from 'react-bootstrap';
 import axios from 'axios';
 
 let active = 2;
@@ -13,7 +13,7 @@ let active = 2;
   }
    
 
-class WonPrediction extends Component {
+class Wonprediction extends Component {
  
   state = {
     startDate: new Date(),
@@ -70,15 +70,13 @@ class WonPrediction extends Component {
         { console.log('won pred') }
         {console.log(this.state.predictions)}
         <div className="page-header">
-          <h3 className="page-title"> All Won Predictions: {this.state.total} </h3>
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item active" aria-current="page"> Won Predictions</li>
-            </ol>
-          </nav>
+          <h3 className="page-title"> 
+          <Button variant="warning">Back</Button>&nbsp;&nbsp;
+          
+          All Won Predictions: {this.state.total} </h3>
         </div>
         <div className="row">
-          <div className="col-lg-12 grid-margin stretch-card">
+          <div className="col-lg-3 grid-margin stretch-card">
             <Dropdown>
               <Dropdown.Toggle variant="btn btn-outline-warning" id="dropdownMenuOutlineButton1">
                 Filter
@@ -92,6 +90,20 @@ class WonPrediction extends Component {
                 <Dropdown.Item>300</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+          </div>
+          <div className="col-lg-3"></div>
+          <div className="col-lg-3"></div>
+          <div className="col-lg-3">
+            <InputGroup className="mb-3">
+              <FormControl
+                placeholder="Search By Phone No or Name"
+                aria-label="User Phone Number"
+                aria-describedby="basic-addon2"
+              />
+              <InputGroup.Append>
+                <Button variant="outline-secondary">Search</Button>
+              </InputGroup.Append>
+            </InputGroup>
           </div>
         </div>
         <div className="row">
@@ -150,4 +162,4 @@ class WonPrediction extends Component {
   }
 }
 
-export default WonPrediction
+export default Wonprediction

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ProgressBar, Dropdown, Pagination, Spinner } from 'react-bootstrap';
+import { ProgressBar, Button, Dropdown, Pagination, Spinner, InputGroup, FormControl } from 'react-bootstrap';
 
 let active = 2;
     let items = [];
@@ -10,7 +10,7 @@ let active = 2;
         </Pagination.Item>,
       );
     }
-class BasicTable extends Component {
+class Users extends Component {
 
   state = {
     startDate: new Date(),
@@ -69,10 +69,12 @@ class BasicTable extends Component {
     return (
       <div>
         <div className="page-header">
-          <h3 className="page-title"> All Players: {this.state.total} </h3>
+          <h3 className="page-title"> 
+          <Button variant="warning">Back</Button>&nbsp;&nbsp;
+          All Players: {this.state.total} </h3>
         </div>
         <div className="row">
-          <div className="col-lg-12 grid-margin stretch-card">
+          <div className="col-lg-3 grid-margin stretch-card">
             <Dropdown>
               <Dropdown.Toggle variant="btn btn-outline-warning" id="dropdownMenuOutlineButton1">
                 Filter
@@ -86,6 +88,20 @@ class BasicTable extends Component {
                 <Dropdown.Item>300</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+          </div>
+          <div className="col-lg-3"></div>
+          <div className="col-lg-3"></div>
+          <div className="col-lg-3">
+            <InputGroup className="mb-3">
+              <FormControl
+                placeholder="Search By Phone No or Name"
+                aria-label="User Phone Number"
+                aria-describedby="basic-addon2"
+              />
+              <InputGroup.Append>
+                <Button variant="outline-secondary">Search</Button>
+              </InputGroup.Append>
+            </InputGroup>
           </div>
         </div>
         {/* <div className="text-center">
@@ -150,4 +166,4 @@ class BasicTable extends Component {
   }
 }
 
-export default BasicTable
+export default Users

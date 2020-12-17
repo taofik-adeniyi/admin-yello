@@ -37,6 +37,8 @@ class AppRoutes extends Component {
 
           <Route path="/all-prediction" component={ Prediction } />
           <Route path="/won-prediction" component={ WonPrediction } />
+          
+          <Route path="/revenue" component={ WonPrediction } />
 
 
           <Route path="/all-players" component={ AllPlayers } />

@@ -98,3 +98,13 @@
 
 }
 
+.card-body a {
+    text-decoration: none !important;
+    color: #000 !important;
+}
+.card-body a:hover {
+    color: #fc0 !important;
+}
+.sidebar-brand:hover {
+    text-decoration: none !important;
+}

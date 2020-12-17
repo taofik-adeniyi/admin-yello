@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Form, Dropdown, Pagination, Page, Modal, Button } from 'react-bootstrap';
+import { Form, Dropdown, Pagination, Page, Modal, Button, InputGroup, FormControl } from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 import bsCustomFileInput from 'bs-custom-file-input';
 import axios from 'axios';
 
 
-class BasicElements extends Component {
+class Allprediction extends Component {
   state = {
     startDate: new Date(),
     predictions: [],
@@ -122,10 +122,12 @@ class BasicElements extends Component {
       <div>
         {console.log('pred' + this.state.predictions)}
         <div className="page-header">
-          <h3 className="page-title"> All Predictions: {this.state.predictionsLength} </h3>
+          < h3 className="page-title"> 
+          <Button variant="warning">Back</Button>&nbsp;&nbsp;
+          All Predictions: {this.state.predictionsLength} </h3>
         </div>
         <div className="row">
-          <div className="col-lg-12 grid-margin stretch-card">
+          <div className="col-lg-3 grid-margin stretch-card">
             <Dropdown>
               <Dropdown.Toggle variant="btn btn-outline-warning" id="dropdownMenuOutlineButton1">
                 Filter
@@ -139,6 +141,20 @@ class BasicElements extends Component {
                 <Dropdown.Item>300</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+          </div>
+          <div className="col-lg-3"></div>
+          <div className="col-lg-3"></div>
+          <div className="col-lg-3">
+            <InputGroup className="mb-3">
+              <FormControl
+                placeholder="Search By Phone No or Name"
+                aria-label="User Phone Number"
+                aria-describedby="basic-addon2"
+              />
+              <InputGroup.Append>
+                <Button variant="outline-secondary">Search</Button>
+              </InputGroup.Append>
+            </InputGroup>
           </div>
         </div>
         <div className="row">
@@ -245,4 +261,4 @@ class BasicElements extends Component {
   }
 }
 
-export default BasicElements
+export default Allprediction

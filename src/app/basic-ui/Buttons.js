@@ -32,7 +32,7 @@ class Buttons extends Component {
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
             <Dropdown>
-              <Dropdown.Toggle variant="btn btn-outline-primary" id="dropdownMenuOutlineButton1">
+              <Dropdown.Toggle variant="btn btn-outline-warning" id="dropdownMenuOutlineButton1">
                 Filter
               </Dropdown.Toggle>
               <Dropdown.Menu>
