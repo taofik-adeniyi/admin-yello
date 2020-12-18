@@ -114,11 +114,11 @@ class Winning extends Component {
                                 <thead>
                                 <tr>
                                     <th> Games </th>
-                                    <th> <Link>Today</Link> </th>
-                                    <th> <Link>Past Week</Link> </th>
-                                    <th> <Link>Past Month</Link> </th>
-                                    <th> <Link>Past Two Month</Link> </th>
-                                    <th> <Link>Total</Link> </th>
+                                    <th> <Link to="/winnings/listings">Today</Link> </th>
+                                    <th> <Link to="/winnings/listings">Past Week</Link> </th>
+                                    <th> <Link to="/winnings/listings">Past Month</Link> </th>
+                                    <th> <Link to="/winnings/listings">Past Two Month</Link> </th>
+                                    <th> <Link to="/winnings/listings">Total</Link> </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -173,11 +173,11 @@ class Winning extends Component {
                                 <thead>
                                 <tr>
                                     <th> Games </th>
-                                    <th> <Link>Today</Link> </th>
-                                    <th> <Link>Past Week</Link> </th>
-                                    <th> <Link>Past Month</Link> </th>
-                                    <th> <Link>Past Two Month</Link> </th>
-                                    <th> <Link>Total</Link> </th>
+                                    <th> <Link to="/winnings/listings">Today</Link> </th>
+                                    <th> <Link to="/winnings/listings">Past Week</Link> </th>
+                                    <th> <Link to="/winnings/listings">Past Month</Link> </th>
+                                    <th> <Link to="/winnings/listings">Past Two Month</Link> </th>
+                                    <th> <Link to="/winnings/listings">Total</Link> </th>
                                 </tr>
                                 </thead>
                                 <tbody>

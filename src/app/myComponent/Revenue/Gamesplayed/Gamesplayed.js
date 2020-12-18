@@ -111,11 +111,11 @@ class Gamesplayed extends Component {
                             <thead>
                             <tr>
                                 <th> Games </th>
-                                <th> <Link>Today</Link> </th>
-                                <th> <Link>Past Week name</Link> </th>
-                                <th> <Link>Past Month</Link> </th>
-                                <th> <Link>Past Two Month</Link> </th>
-                                <th> <Link>Total</Link> </th>
+                                <th> <Link to="/games-played/listings">Today</Link> </th>
+                                <th> <Link to="/games-played/listings">Past Week name</Link> </th>
+                                <th> <Link to="/games-played/listings">Past Month</Link> </th>
+                                <th> <Link to="/games-played/listings">Past Two Month</Link> </th>
+                                <th> <Link to="/games-played/listings">Total</Link> </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -169,11 +169,11 @@ class Gamesplayed extends Component {
                             <thead>
                             <tr>
                                 <th> Games </th>
-                                <th> <Link>Today</Link> </th>
-                                <th> <Link>Past Week name</Link> </th>
-                                <th> <Link>Past Month</Link> </th>
-                                <th> <Link>Past Two Month</Link> </th>
-                                <th> <Link>Total</Link> </th>
+                                <th> <Link to="/games-played/listings">Today</Link> </th>
+                                <th> <Link to="/games-played/listings">Past Week name</Link> </th>
+                                <th> <Link to="/games-played/listings">Past Month</Link> </th>
+                                <th> <Link to="/games-played/listings">Past Two Month</Link> </th>
+                                <th> <Link to="/games-played/listings">Total</Link> </th>
                             </tr>
                             </thead>
                             <tbody>

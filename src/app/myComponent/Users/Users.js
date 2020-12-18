@@ -60,6 +60,7 @@ class Users extends Component {
       users = this.state.users.map((user, id) => (
         <tr key={user.phone_number}>
           <td> {id+1} </td>
+          <td> <Button variant="warning"> Click to delete </Button> </td>
           <td>{user.phone_number}</td>
           <td>{user.attempted_questions_count}</td>
           <td>{user.total_points}</td>
@@ -124,6 +125,7 @@ class Users extends Component {
                     <thead>
                       <tr>
                         <th> ID </th>
+                        <th> Delete User</th>
                         <th> Phone Number </th>
                         <th> Attempted Questions </th>
                         <th> Total Points </th>

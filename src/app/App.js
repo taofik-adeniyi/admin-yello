@@ -14,6 +14,8 @@ import Winning from './myComponent/Revenue/Winning/Winning'
 import Gamesplayed from './myComponent/Revenue/Gamesplayed/Gamesplayed'
 import Registration from './myComponent/Revenue/Registration/Registration'
 import Deposit from './myComponent/Revenue/Deposit/Deposit'
+import GamesPlayedFilter from './myComponent/GamesPlayedFilter/GamesPlayedFilter';
+import WinningFilter from './myComponent/WinningFilter/WinningFilter';
 
 class App extends Component {
   render () {
@@ -80,10 +82,22 @@ class App extends Component {
               <Trivia />
             </PageLayout>
           </Route>
-          
+
           <Route exact path="/won-trivia" >
             <PageLayout>
               <Wontrivia />
+            </PageLayout>
+          </Route>
+
+          <Route exact path="/games-played/listings" >
+            <PageLayout>
+              <GamesPlayedFilter />
+            </PageLayout>
+          </Route>
+
+          <Route exact path="/winnings/listings" >
+            <PageLayout>
+              <WinningFilter />
             </PageLayout>
           </Route>
         <Redirect to="/" />
