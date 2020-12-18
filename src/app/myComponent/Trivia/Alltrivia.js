@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, Button, ButtonGroup, Pagination, PageItem, InputGroup, FormControl  } from 'react-bootstrap';
+import { Dropdown, Button, ButtonGroup, Pagination, PageItem, InputGroup, FormControl, Modal  } from 'react-bootstrap';
 import axios from 'axios';
 
     let active = 2;
@@ -13,7 +13,28 @@ import axios from 'axios';
     }
 
 class Alltrivia extends Component {
+  state = {
+    lgShow: false,
+    _page: 1
+  }
   render () {
+
+    const onFirst = () => {
+      this.makeHttpRequestWithPage(this.state._page)
+    }
+
+    const onPrev = () => {
+      this.makeHttpRequestWithPage(this.state._page - 1)
+    }
+
+    const onNext = () => {
+      return this.state._page + 1
+      this.makeHttpRequestWithPage(this.state._page + 1)
+    }
+
+    const onLast = () => {
+      this.makeHttpRequestWithPage(this.state._page)
+    }
     return (
       <div>
         <div className="page-header">
@@ -73,63 +94,77 @@ class Alltrivia extends Component {
                     </thead>
                     <tbody>
                       <tr>
-                        <td className="py-1">
-                          <img src={require("../../../assets/images/faces/face1.jpg")} alt="user icon" />
-                        </td>
+                      <td>
+                        <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
+                        View Player
+                        </Button>
+                      </td>
                         <td> Herman Beck </td>
                         <td>New Here</td>
                         <td> $ 77.99 </td>
                         <td> May 15, 2015 </td>
                       </tr>
                       <tr>
-                        <td className="py-1">
-                          <img src={require("../../../assets/images/faces/face2.jpg")} alt="user icon" />
-                        </td>
+                      <td>
+                        <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
+                        View Player
+                        </Button>
+                      </td>
                         <td> Messsy Adam </td>
                         <td>How are you</td>
                         <td> $245.30 </td>
                         <td> July 1, 2015 </td>
                       </tr>
                       <tr>
-                        <td className="py-1">
-                          <img src={require("../../../assets/images/faces/face3.jpg")} alt="user icon" />
-                        </td>
+                      <td>
+                        <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
+                        View Player
+                        </Button>
+                      </td>
                         <td> John Richards </td>
                         <td>Almost there</td>
                         <td> $138.00 </td>
                         <td> Apr 12, 2015 </td>
                       </tr>
                       <tr>
-                        <td className="py-1">
-                          <img src={require("../../../assets/images/faces/face4.jpg")} alt="user icon" />
-                        </td>
+                      <td>
+                        <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
+                        View Player
+                        </Button>
+                      </td>
                         <td> Peter Meggik </td>
                         <td>right here</td>
                         <td> $ 77.99 </td>
                         <td> May 15, 2015 </td>
                       </tr>
                       <tr>
-                        <td className="py-1">
-                          <img src={require("../../../assets/images/faces/face5.jpg")} alt="user icon" />
-                        </td>
+                      <td>
+                        <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
+                        View Player
+                        </Button>
+                      </td>
                         <td> Edward </td>
                         <td>Now</td>
                         <td> $ 160.25 </td>
                         <td> May 03, 2015 </td>
                       </tr>
                       <tr>
-                        <td className="py-1">
-                          <img src={require("../../../assets/images/faces/face6.jpg")} alt="user icon" />
-                        </td>
+                      <td>
+                        <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
+                        View Player
+                        </Button>
+                      </td>
                         <td> John Doe </td>
                         <td>Knew</td>
                         <td> $ 123.21 </td>
                         <td> April 05, 2015 </td>
                       </tr>
                       <tr>
-                        <td className="py-1">
-                          <img src={require("../../../assets/images/faces/face7.jpg")} alt="user icon" />
-                        </td>
+                      <td>
+                        <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
+                        View Player
+                        </Button>
+                      </td>
                         <td> Henry Tom </td>
                         <td>Dont know</td>
                         <td> $ 150.00 </td>
@@ -138,31 +173,39 @@ class Alltrivia extends Component {
                     </tbody>
                   </table>
                 </div>
+                {
+                  this.state.lgShow ? 
+                    <Modal
+                      size="lg"
+                      show={this.state.lgShow}
+                      onHide={() => this.setState({
+                        lgShow: false
+                      })}
+                      aria-labelledby="example-modal-sizes-title-lg"
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title id="example-modal-sizes-title-lg">
+                          Details of all predictions by user
+                        </Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>...</Modal.Body>
+                    </Modal> 
+                  :
+                  null
+                }
               </div>
             </div>
           </div>
         </div>
           <div>
-            <Pagination size="sm">{items}</Pagination>
-          </div>
-          <div>
-            <Pagination>
-              <Pagination.First />
-              <Pagination.Prev />
-              <Pagination.Item>{1}</Pagination.Item>
-              <Pagination.Ellipsis />
-
-              <Pagination.Item>{10}</Pagination.Item>
-              <Pagination.Item>{11}</Pagination.Item>
-              <Pagination.Item active>{12}</Pagination.Item>
-              <Pagination.Item>{13}</Pagination.Item>
-              <Pagination.Item disabled>{14}</Pagination.Item>
-
-              <Pagination.Ellipsis />
-              <Pagination.Item>{20}</Pagination.Item>
-              <Pagination.Next />
-              <Pagination.Last />
-            </Pagination>
+          <Pagination size="sm">
+            <Pagination.First onClick={onFirst} />
+            <Pagination.Prev onClick={onPrev} />
+              {/* {items} */}
+              <Pagination.Item>{this.state._page}</Pagination.Item>
+            <Pagination.Next onClick={onNext} />
+            <Pagination.Last onClick={onLast} />
+          </Pagination>
           </div>
         </div>
     );

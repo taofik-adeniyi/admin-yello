@@ -14,7 +14,8 @@ class Allprediction extends Component {
     per_page: null,
     current_page: null,
     lgShow: false,
-    val: ''
+    val: '',
+    _page: 1
   };
  
   handleChange = date => {
@@ -118,6 +119,23 @@ class Allprediction extends Component {
       });
     }
 
+    const onFirst = () => {
+      this.makeHttpRequestWithPage(this.state._page)
+    }
+
+    const onPrev = () => {
+      this.makeHttpRequestWithPage(this.state._page - 1)
+    }
+
+    const onNext = () => {
+      return this.state._page + 1
+      this.makeHttpRequestWithPage(this.state._page + 1)
+    }
+
+    const onLast = () => {
+      this.makeHttpRequestWithPage(this.state._page)
+    }
+
     return (
       <div>
         {console.log('pred' + this.state.predictions)}
@@ -178,18 +196,6 @@ class Allprediction extends Component {
                     </thead>
                     <tbody>
                       { predictions }
-                      {/* {
-                        this.state.predictions.map(prediction => (
-                          <tr key={prediction.phone_number}>
-                            <td>{prediction.phone_number}</td>
-                            <td>{prediction.status}</td>
-                            <td>{prediction.expected_winning}</td>
-                            <td>{prediction.amount}</td>
-                            <td>{prediction.staked_at}</td>
-                            <td>{prediction.prediction}</td>
-                          </tr>
-                        ))
-                      } */}
                     </tbody>
                   </table>
                 </div>
@@ -217,44 +223,17 @@ class Allprediction extends Component {
             </div>
           </div>
         </div>
-        {/* <div>
-          <span onClick={() => this.makeHttpRequestWithPage(1)}>&laquo;</span>
-          {renderPageNumbers}
-          <span onClick={() => this.makeHttpRequestWithPage(1)}>&raquo;</span>
-        </div> */}
-        {/* <div>
-          <span>&laquo;</span>
-          <span  onClick={() => this.makeHttpRequestWithPage(1)}>1</span>
-          <span onClick={() => this.makeHttpRequestWithPage(2)}>2</span>
-          <span onClick={() => this.makeHttpRequestWithPage(3)}>3</span>
-          <span onClick={() => this.makeHttpRequestWithPage(4)}>4</span>
-          <span>&raquo;</span>
-        </div> */}
           <div>
-            <Pagination size="sm">
-              <Pagination.First />
-                  <Pagination.Prev />
-                    {items}
-                  <Pagination.Next />
-              <Pagination.Last />
-            </Pagination>
           </div>
           <div>
-            <Pagination>
-              <Pagination.First />
-              <Pagination.Prev onClick={decreaseVal}/>
-              <Pagination.Item>{1}</Pagination.Item>
-
-              {/* <Pagination.Item>{10}</Pagination.Item>
-              <Pagination.Item>{11}</Pagination.Item> */}
-              <Pagination.Item active>{Math.floor(this.state.val/2)}</Pagination.Item>
-              {/* <Pagination.Item>{13}</Pagination.Item> */}
-              {/* <Pagination.Item disabled>{14}</Pagination.Item> */}
-
-              <Pagination.Item>{this.state.val - 1}</Pagination.Item>
-              <Pagination.Next onClick={increaseVal}/>
-              <Pagination.Last onClick={() => this.makeHttpRequestWithPage(200)}/>
-            </Pagination>
+          <Pagination size="sm">
+            <Pagination.First onClick={onFirst} />
+            <Pagination.Prev onClick={onPrev} />
+              {/* {items} */}
+              <Pagination.Item>{this.state._page}</Pagination.Item>
+            <Pagination.Next onClick={onNext} />
+            <Pagination.Last onClick={onLast} />
+          </Pagination>
           </div>
       </div>
     )

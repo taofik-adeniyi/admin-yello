@@ -1,40 +1,27 @@
 import React, { Component } from 'react';
-import { Dropdown, Button, ButtonGroup, Pagination , InputGroup, FormControl} from 'react-bootstrap';
-import axios from 'axios';
-
-let active = 2;
-  let items = [];
-  for (let number = 1; number <= 15; number++) {
-    items.push(
-      <Pagination.Item onClick={() => this.makeHttpRequestWithPage(number)} key={number} active={number === active}>
-        {number}
-      </Pagination.Item>,
-    );
-  }
+import { Dropdown, Button, ButtonGroup, Pagination , InputGroup, FormControl, Modal} from 'react-bootstrap';
    
 
 class Wonprediction extends Component {
  
   state = {
+    totalReactPackages: '',
     startDate: new Date(),
     predictions: [],
-    totalReactPackages: '',
-    predictionsLength: null,
-    per_page: null,
-    current_page: null,
-    total: ''
+    _page: 1,
+    total: '',
+    lgShow: false
   };
 
   componentDidMount() {
-    this.makeHttpRequestWithPage(1);   
-    
+    this.makeHttpRequestWithPage(this.state._page);
   }
 
-  makeHttpRequestWithPage = async pageNumber => {
-    let response = await fetch(`https://api.humbergames.com/predictions/admin/predictions?status=won?_page=${pageNumber}`, {
+  makeHttpRequestWithPage = async _page => {
+    let response = await fetch(`${process.env.REACT_APP_BASE_URL}/predictions/admin/predictions?status=won&_page=${_page}`, {
       method: 'GET',
       headers: {
-        'client-id': "live_95274a0b52ae18ea7349"
+        'client-id': `${process.env.REACT_APP_CLIENT_ID}`
       },
     });
 
@@ -43,19 +30,52 @@ class Wonprediction extends Component {
     this.setState({
       predictions: data.predictions,
       _per_page: data.per_page,
-      _page: data.page,
-      total: data.total
+      _page: data._page,
+      total: data.total,
     });
   }
 
   render() {
+    const onFirst = () => {
+      this.makeHttpRequestWithPage(this.state._page)
+    }
+
+    const onPrev = () => {
+      this.makeHttpRequestWithPage(this.state._page - 1)
+    }
+
+    const onNext = () => {
+      return this.state._page + 1
+      this.makeHttpRequestWithPage(this.state._page + 1)
+    }
+
+    const onLast = () => {
+      this.makeHttpRequestWithPage(this.state._page)
+    }
+
+    let active = this.state._page;
+    let items = [];
+    for (let _page = this.state._page; _page <= (this.state.total/this.state._per_page); _page++) {
+      items.push(
+        <Pagination.Item 
+          onClick={() => this.makeHttpRequestWithPage(_page)} 
+          key={_page} 
+          active={_page === active}>
+          {_page}
+        </Pagination.Item>,
+      );
+    }
 
     let predictions;
-
     if (this.state.predictions !== null) {
       predictions = this.state.predictions.map((prediction, id) => (
         <tr key={prediction.phone_number}>
           <td> {id+1} </td>
+          <td>
+            <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
+            View Player
+            </Button>
+          </td>
           <td>{prediction.phone_number}</td>
           <td>{prediction.status}</td>
           <td>{prediction.expected_winning}</td>
@@ -66,14 +86,13 @@ class Wonprediction extends Component {
       ))
     }
     return (
+      
       <div>
-        { console.log('won pred') }
-        {console.log(this.state.predictions)}
         <div className="page-header">
           <h3 className="page-title"> 
           <Button variant="warning">Back</Button>&nbsp;&nbsp;
           
-          All Won Predictions: {this.state.total} </h3>
+          All Won Predictions: {this.state.predictionsLength} </h3>
         </div>
         <div className="row">
           <div className="col-lg-3 grid-margin stretch-card">
@@ -111,13 +130,12 @@ class Wonprediction extends Component {
             <div className="card">
               <div className="card-body">
                 <h4 className="card-title">All Players</h4>
-                {/* <p className="card-description"> Add className <code>.table-striped</code> */}
-                {/* </p> */}
                 <div className="table-responsive">
                   <table className="table table-striped">
                     <thead>
                       <tr>
                         <th> ID </th>
+                        <th>View</th>
                         <th> Phone Number </th>
                         <th> Status </th>
                         <th> Expected winning </th>
@@ -131,32 +149,40 @@ class Wonprediction extends Component {
                     </tbody>
                   </table>
                 </div>
+                {
+                  this.state.lgShow ? 
+                    <Modal
+                      size="lg"
+                      show={this.state.lgShow}
+                      onHide={() => this.setState({
+                        lgShow: false
+                      })}
+                      aria-labelledby="example-modal-sizes-title-lg"
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title id="example-modal-sizes-title-lg">
+                          Details of all predictions by user
+                        </Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>...</Modal.Body>
+                    </Modal> 
+                  :
+                  null
+                }
               </div>
             </div>
           </div>
         </div>
         <div>
-          <Pagination size="sm">{items}</Pagination>
+          <Pagination size="sm">
+            <Pagination.First onClick={onFirst} />
+            <Pagination.Prev onClick={onPrev} />
+              {/* {items} */}
+              <Pagination.Item>{this.state._page}</Pagination.Item>
+            <Pagination.Next onClick={onNext} />
+            <Pagination.Last onClick={onLast} />
+          </Pagination>
         </div>
-          {/* <div>
-            <Pagination>
-              <Pagination.First />
-              <Pagination.Prev />
-              <Pagination.Item>{1}</Pagination.Item>
-              <Pagination.Ellipsis />
-
-              <Pagination.Item>{10}</Pagination.Item>
-              <Pagination.Item>{11}</Pagination.Item>
-              <Pagination.Item active>{12}</Pagination.Item>
-              <Pagination.Item>{13}</Pagination.Item>
-              <Pagination.Item disabled>{14}</Pagination.Item>
-
-              <Pagination.Ellipsis />
-              <Pagination.Item>{20}</Pagination.Item>
-              <Pagination.Next />
-              <Pagination.Last />
-            </Pagination>
-          </div> */}
         </div>
     )
   }

@@ -1,0 +1,8 @@
+.card .card-title {
+    font-weight: 500;
+    color: #fc0 !important;
+    margin-bottom: 15px;
+    text-transform: capitalize;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+}
