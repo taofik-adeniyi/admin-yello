@@ -1,21 +1,49 @@
 import React, { Component } from 'react';
 import { Dropdown, Button, ButtonGroup, Pagination, Page, InputGroup, FormControl, Modal } from 'react-bootstrap';
+import Spinner from '../../shared/Spinner'
 
 
-let active = 2;
-    let items = [];
-    for (let number = 1; number <= 5; number++) {
-      items.push(
-        <Pagination.Item key={number} active={number === active}>
-          {number}
-        </Pagination.Item>,
-      );
-    }
+  let active = 2;
+  let items = [];
+  for (let number = 1; number <= 5; number++) {
+    items.push(
+      <Pagination.Item key={number} active={number === active}>
+        {number}
+      </Pagination.Item>,
+    );
+  }
 class Wontrivia extends Component {
   state= {
     lgShow: false,
-    _page: 1
+    _page: 1,
+    spinner: true,
+    trivia: []
   }
+
+  componentDidMount() {
+    this.callAllWonTrivia();
+  }
+
+  callAllWonTrivia = async pageNumber => {
+    let response = await fetch(`${process.env.REACT_APP_BASE_URL}/trivia/admin/summary`, {
+      method: 'GET',
+      headers: {
+        'client-id': `${process.env.REACT_APP_CLIENT_ID}`
+      },
+    });
+
+    const data = await response.json();
+
+    this.setState({
+      trivia: data.users,
+      total: data.total,
+      _per_page: data._per_page,
+      _page: data._page,
+      spinner: false
+    });
+  }
+
+
   render() {
     
     const onFirst = () => {

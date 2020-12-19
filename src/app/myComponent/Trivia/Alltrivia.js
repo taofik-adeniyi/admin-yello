@@ -1,23 +1,71 @@
 import React, { Component } from 'react';
 import { Dropdown, Button, ButtonGroup, Pagination, PageItem, InputGroup, FormControl, Modal  } from 'react-bootstrap';
 import axios from 'axios';
+import Spinner from '../../shared/Spinner'
 
-    let active = 2;
-    let items = [];
-    for (let number = 1; number <= 5; number++) {
-      items.push(
-        <Pagination.Item key={number} active={number === active}>
-          {number}
-        </Pagination.Item>,
-      );
-    }
+  let active = 2;
+  let items = [];
+  for (let number = 1; number <= 5; number++) {
+    items.push(
+      <Pagination.Item key={number} active={number === active}>
+        {number}
+      </Pagination.Item>,
+    );
+  }
 
 class Alltrivia extends Component {
   state = {
     lgShow: false,
-    _page: 1
+    _page: 1,
+    spinner: true,
+    trivia: []
   }
+
+  componentDidMount() {
+    this.callAllTrivia();
+  }
+
+  callAllTrivia = async pageNumber => {
+    let response = await fetch(`${process.env.REACT_APP_BASE_URL}/trivia/admin/summary`, {
+      method: 'GET',
+      headers: {
+        'client-id': `${process.env.REACT_APP_CLIENT_ID}`
+      },
+    });
+
+    // console.log('users' + response.users)
+
+    const data = await response.json();
+    // console.log('users' + data.users)
+
+    this.setState({
+      trivia: data.users,
+      total: data.total,
+      _per_page: data._per_page,
+      _page: data._page,
+      spinner: false
+    });
+  }
+
   render () {
+    let allTrivia, loading;
+
+    if(this.state.spinner) {
+      return (
+        loading = <Spinner />
+      )
+    } else {
+      allTrivia = this.state.trivia.map((triviaList, id) => (
+        <tr key={triviaList.phone_number}>
+          <td>{id+1}</td>
+          <td> <Button variant="warning"> View Player </Button> </td>
+          <td>{triviaList.phone_number}</td>
+          <td>{triviaList.phone_number}</td>
+          <td>{triviaList.attempted_questions_count}</td>
+          <td>{triviaList.total_points}</td>
+        </tr>
+      ))
+    }
 
     const onFirst = () => {
       this.makeHttpRequestWithPage(this.state._page)
@@ -79,8 +127,6 @@ class Alltrivia extends Component {
             <div className="card">
               <div className="card-body">
                 <h4 className="card-title">All Players</h4>
-                {/* <p className="card-description"> Add className <code>.table-striped</code> */}
-                {/* </p> */}
                 <div className="table-responsive">
                   <table className="table table-striped">
                     <thead>
@@ -93,7 +139,10 @@ class Alltrivia extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      {loading}
+
+                      {allTrivia}
+                      {/* <tr>
                       <td>
                         <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
                         View Player
@@ -169,7 +218,7 @@ class Alltrivia extends Component {
                         <td>Dont know</td>
                         <td> $ 150.00 </td>
                         <td> June 16, 2015 </td>
-                      </tr>
+                      </tr> */}
                     </tbody>
                   </table>
                 </div>
