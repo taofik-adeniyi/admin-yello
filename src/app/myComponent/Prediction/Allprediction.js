@@ -15,7 +15,8 @@ class Allprediction extends Component {
     current_page: null,
     lgShow: false,
     val: '',
-    _page: 1
+    _page: 1,
+    userPredictions: []
   };
  
   handleChange = date => {
@@ -31,7 +32,7 @@ class Allprediction extends Component {
   }
 
    makeHttpRequestWithPage = async pageNumber => {
-    let response = await fetch(`https://api.humbergames.com/predictions/admin/predictions?_page=${pageNumber}`, {
+    let response = await fetch(`${process.env.REACT_APP_BASE_URL}/predictions/admin/predictions`, {
       method: 'GET',
       headers: {
         'client-id': "live_95274a0b52ae18ea7349"
@@ -49,6 +50,31 @@ class Allprediction extends Component {
     });
   }
 
+  callEachUserPredictions =  async phoneNumber => {
+    this.setState({lgShow: true})
+    console.log('phone' + phoneNumber)
+      const params = new URLSearchParams({
+        phone_number: phoneNumber
+      })
+      // const url = `https://wawu.com/predictions?${params.toString()}`
+      // console.log(url)
+      let response = await fetch(`${process.env.REACT_APP_BASE_URL}/predictions/admin/predictions?${params.toString()}`, {
+        method: 'GET',
+        headers: {
+          'client-id': `${process.env.REACT_APP_CLIENT_ID}`
+        },
+      });
+  
+      // console.log('users' + response.total)
+      const data = await response.json();
+      // console.log('users' + data.questions)
+  
+      this.setState({
+        userPredictions: data.predictions,
+        total: data.total,
+        spinner: false
+      });
+  }
 
   render() {
     let active = 2;
@@ -89,7 +115,7 @@ class Allprediction extends Component {
         <tr key={prediction.phone_number}>
           <td> {id+1} </td>
           <td>
-            <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
+            <Button variant="warning" onClick={() => this.callEachUserPredictions(prediction.phone_number)} >
             View Player
             </Button>
           </td>
@@ -117,6 +143,27 @@ class Allprediction extends Component {
           <span key={number} onClick={() => this.makeHttpRequestWithPage(number)}>{number}</span>
         );
       });
+    }
+
+    let userPredict
+
+    if(this.state.userPredictions != []) {
+      userPredict = this.state.userPredictions.map((predict, id) => (
+        <tr key={id}>
+          <td> {id+1} </td>
+          <td> {predict.event_label} </td>
+          <td> {predict.status} </td>
+          <td> {predict.phone_number} </td>
+          <td> {predict.amount} </td>
+          <td> {predict.expected_winning} </td>
+          <td> {predict.staked_at} </td>
+        </tr>
+      ))
+      // console.log('a')
+    }else {
+      return(
+        <div>No Data to load for this user </div>
+      )
     }
 
     const onFirst = () => {
@@ -214,7 +261,24 @@ class Allprediction extends Component {
                           Details of all predictions by user
                         </Modal.Title>
                       </Modal.Header>
-                      <Modal.Body>...</Modal.Body>
+                      <Modal.Body>
+                      <div className="table-responsive">
+                          <table className="table table-striped">
+                            <thead>
+                              <tr>
+                                <th> User </th>
+                                <th> First name </th>
+                                <th> Progress </th>
+                                <th> Amount </th>
+                                <th> Deadline </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              { userPredict }
+                            </tbody>
+                          </table>
+                        </div>
+                      </Modal.Body>
                     </Modal> 
                   :
                   null
