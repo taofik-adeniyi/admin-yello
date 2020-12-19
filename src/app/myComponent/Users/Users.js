@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ProgressBar, Button, Dropdown, Pagination, Spinner, InputGroup, FormControl } from 'react-bootstrap';
+import { Button, Dropdown, Pagination, Spinner, InputGroup, FormControl, Modal } from 'react-bootstrap';
 
 let active = 2;
     let items = [];
@@ -18,7 +18,9 @@ class Users extends Component {
     per_page: null,
     current_page: null,
     total: null,
-    spinner: true
+    spinner: true,
+    show: false,
+    smShow: false
   };
 
   componentDidMount() {
@@ -43,7 +45,7 @@ class Users extends Component {
       spinner: false
     });
   }
-  
+
   render() {
     let active = 2;
     let items = [];
@@ -68,6 +70,23 @@ class Users extends Component {
         </tr>
       ));
     }
+    
+    const handleClick = () => {
+      this.setState({show: true})
+    }
+
+    const handleClose = () => {
+      this.setState({show: false})
+    }
+
+    const handleSmClose = () => {
+      this.setState({smShow: false})
+    }
+
+    const handleSmOpen = () => {
+      this.setState({show: false, smShow: true})
+    }
+
     return (
       <div>
         <div className="page-header">
@@ -122,21 +141,117 @@ class Users extends Component {
                 {/* <p className="card-description"> Add className <code>.table-&#123;color&#125;</code>
                 </p> */}
                 <div className="table-responsive">
-                  <table className="table table-bordered">
+                  <table className="table table-striped">
                     <thead>
                       <tr>
                         <th> ID </th>
-                        <th> Delete User</th>
+                        <th> Delete/Disable </th>
                         <th> Phone Number </th>
                         <th> Attempted Questions </th>
                         <th> Total Points </th>
                       </tr>
                     </thead>
                     <tbody>
-                     {users}
+                    <tr>
+                      <td> 1 </td>
+                      <td> <Button onClick={handleClick} variant="warning"> Disable/Delete </Button> </td>
+                      <td> 08171633912 </td>
+                      <td> question no 1</td>
+                      <td> 127 </td>
+                    </tr>
+                    <tr>
+                      <td> 2 </td>
+                      <td> <Button onClick={handleClick} variant="warning"> Disable/Delete </Button> </td>
+                      <td> 08171633912 </td>
+                      <td> question no 1</td>
+                      <td> 127 </td>
+                    </tr>
+                    <tr>
+                      <td> 3 </td>
+                      <td> <Button onClick={handleClick} variant="warning"> Disable/Delete </Button> </td>
+                      <td> 08171633912 </td>
+                      <td> question no 1</td>
+                      <td> 127 </td>
+                    </tr>
+                    <tr>
+                      <td> 4 </td>
+                      <td> <Button onClick={handleClick} variant="warning"> Disable/Delete </Button> </td>
+                      <td> 08171633912 </td>
+                      <td> question no 1</td>
+                      <td> 127 </td>
+                    </tr>
+                    <tr>
+                      <td> 5 </td>
+                      <td> <Button onClick={handleClick} variant="warning"> Disable/Delete </Button> </td>
+                      <td> 08171633912 </td>
+                      <td> question no 1</td>
+                      <td> 127 </td>
+                    </tr>
+                    <tr>
+                      <td> 6 </td>
+                      <td> <Button onClick={handleClick} variant="warning"> Disable/Delete </Button> </td>
+                      <td> 08171633912 </td>
+                      <td> question no 1</td>
+                      <td> 127 </td>
+                    </tr>
+                    <tr>
+                      <td> 7 </td>
+                      <td> <Button onClick={handleClick} variant="warning"> Disable/Delete </Button> </td>
+                      <td> 08171633912 </td>
+                      <td> question no 1</td>
+                      <td> 127 </td>
+                    </tr>
+                    <tr>
+                      <td> 8 </td>
+                      <td> <Button onClick={handleClick} variant="warning"> Disable/Delete </Button> </td>
+                      <td> 08171633912 </td>
+                      <td> question no 1</td>
+                      <td> 127 </td>
+                    </tr>
+                    
                     </tbody>
                   </table>
                 </div>
+                {
+                  this.state.show ? 
+                  <Modal show={this.state.show} 
+                  onHide={handleClose}
+                  >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Confirmation are you sure</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>Do you want to delete or disable this user!</Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" 
+                    onClick={handleClose}
+                    >
+                      No
+                    </Button>
+                    <Button variant="primary" 
+                    onClick={handleSmOpen}
+                    >
+                      Yes Delete/Disable
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+                : null
+                }
+                {
+                  this.state.smShow ? 
+                  <Modal
+                    size="sm"
+                    show={this.state.smShow}
+                    onHide={handleSmClose}
+                    aria-labelledby="example-modal-sizes-title-sm"
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title id="example-modal-sizes-title-sm">
+                        User Disabled/Deleted Successful
+                      </Modal.Title>
+                    </Modal.Header>
+                  </Modal>
+      : null
+                }
               </div>
             </div>
           </div>
