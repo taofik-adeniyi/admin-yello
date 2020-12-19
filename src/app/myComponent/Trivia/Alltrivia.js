@@ -18,7 +18,8 @@ class Alltrivia extends Component {
     lgShow: false,
     _page: 1,
     spinner: true,
-    trivia: []
+    trivia: [],
+    questions: []
   }
 
   componentDidMount() {
@@ -47,6 +48,28 @@ class Alltrivia extends Component {
     });
   }
 
+  callEachUserTrivia =  async phoneNumber => {
+    this.setState({lgShow: true})
+      let response = await fetch(`${process.env.REACT_APP_BASE_URL}/trivia/admin/user`, {
+        method: 'GET',
+        headers: {
+          'client-id': `${process.env.REACT_APP_CLIENT_ID}`,
+          'phone-number': phoneNumber
+        },
+      });
+  
+      // console.log('users' + response.total)
+      // console.log(phoneNumber)
+      const data = await response.json();
+      // console.log('users' + data.questions)
+  
+      this.setState({
+        questions: data.questions,
+        total: data.total,
+        spinner: false
+      });
+  }
+
   render () {
     let allTrivia, loading;
 
@@ -58,13 +81,31 @@ class Alltrivia extends Component {
       allTrivia = this.state.trivia.map((triviaList, id) => (
         <tr key={triviaList.phone_number}>
           <td>{id+1}</td>
-          <td> <Button variant="warning"> View Player </Button> </td>
+          <td> <Button variant="warning" onClick={() => this.callEachUserTrivia(triviaList.phone_number)}> View Player </Button> </td>
           <td>{triviaList.phone_number}</td>
           <td>{triviaList.phone_number}</td>
           <td>{triviaList.attempted_questions_count}</td>
           <td>{triviaList.total_points}</td>
         </tr>
       ))
+    }
+
+    let questions
+
+    if(this.state.questions != []) {
+      questions = this.state.questions.map((question, id) => (
+        <tr key={id}>
+          <td> {question.label} </td>
+          <td> {question.status} </td>
+          <td> {question.points} </td>
+          <td> {question.drawn_at} </td>
+        </tr>
+      ))
+      // console.log('a')
+    }else {
+      return(
+        <div>No Data to load for this user </div>
+      )
     }
 
     const onFirst = () => {
@@ -139,86 +180,11 @@ class Alltrivia extends Component {
                       </tr>
                     </thead>
                     <tbody>
+
                       {loading}
 
                       {allTrivia}
-                      {/* <tr>
-                      <td>
-                        <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
-                        View Player
-                        </Button>
-                      </td>
-                        <td> Herman Beck </td>
-                        <td>New Here</td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr>
-                      <td>
-                        <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
-                        View Player
-                        </Button>
-                      </td>
-                        <td> Messsy Adam </td>
-                        <td>How are you</td>
-                        <td> $245.30 </td>
-                        <td> July 1, 2015 </td>
-                      </tr>
-                      <tr>
-                      <td>
-                        <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
-                        View Player
-                        </Button>
-                      </td>
-                        <td> John Richards </td>
-                        <td>Almost there</td>
-                        <td> $138.00 </td>
-                        <td> Apr 12, 2015 </td>
-                      </tr>
-                      <tr>
-                      <td>
-                        <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
-                        View Player
-                        </Button>
-                      </td>
-                        <td> Peter Meggik </td>
-                        <td>right here</td>
-                        <td> $ 77.99 </td>
-                        <td> May 15, 2015 </td>
-                      </tr>
-                      <tr>
-                      <td>
-                        <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
-                        View Player
-                        </Button>
-                      </td>
-                        <td> Edward </td>
-                        <td>Now</td>
-                        <td> $ 160.25 </td>
-                        <td> May 03, 2015 </td>
-                      </tr>
-                      <tr>
-                      <td>
-                        <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
-                        View Player
-                        </Button>
-                      </td>
-                        <td> John Doe </td>
-                        <td>Knew</td>
-                        <td> $ 123.21 </td>
-                        <td> April 05, 2015 </td>
-                      </tr>
-                      <tr>
-                      <td>
-                        <Button variant="warning" onClick={() => this.setState({lgShow: true})}>
-                        View Player
-                        </Button>
-                      </td>
-                        <td> Henry Tom </td>
-                        <td>Dont know</td>
-                        <td> $ 150.00 </td>
-                        <td> June 16, 2015 </td>
-                      </tr> */}
+
                     </tbody>
                   </table>
                 </div>
@@ -237,7 +203,24 @@ class Alltrivia extends Component {
                           Details of all predictions by user
                         </Modal.Title>
                       </Modal.Header>
-                      <Modal.Body>...</Modal.Body>
+                      <Modal.Body>
+                        <div className="table-responsive">
+                          <table className="table table-striped">
+                            <thead>
+                              <tr>
+                                <th> User </th>
+                                <th> First name </th>
+                                <th> Progress </th>
+                                <th> Amount </th>
+                                <th> Deadline </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              { questions }
+                            </tbody>
+                          </table>
+                        </div>
+                      </Modal.Body>
                     </Modal> 
                   :
                   null
