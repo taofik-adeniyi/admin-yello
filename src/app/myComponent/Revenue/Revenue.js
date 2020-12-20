@@ -82,6 +82,70 @@ class Revenue extends Component {
                 <div className="col-lg-12 grid-margin stretch-card">
                     <div className="card">
                     <div className="card-body">
+                        <h4 className="card-title">Subscription Summary </h4>
+                        <p className="card-description"> 
+                        <Link to="/revenue/subscription">
+                            Click here for more details <i className="mdi mdi-arrow-right"></i>
+                        </Link>
+                        </p>
+                        <div className="table-responsive">
+                        <table className="table table-striped">
+                            <thead>
+                            <tr>
+                                <th> Day Range </th>
+                                <th>  </th>
+                                <th>  </th>
+                                <th>  </th>
+                                <th>  </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td className="py-1" > Today's Subscription </td>
+                                <td>  </td>
+                                <td>  </td>
+                                <td>  </td>
+                                <td align="right"> 0 </td>
+                            </tr>
+                            <tr>
+                                <td className="py-1"> Subscription's in the Past Week </td>
+                                <td> </td>
+                                <td>  </td>
+                                <td>  </td>
+                                <td align="right"> 0 </td>
+                            </tr>
+                            <tr>
+                                <td className="py-1"> Subscription's in the Past Month </td>
+                                <td>  </td>
+                                <td>  </td>
+                                <td> </td>
+                                <td align="right"> 0 </td>
+                            </tr>
+                            <tr>
+                                <td className="py-1"> Subscription's in the Past Two Month </td>
+                                <td>  </td>
+                                <td>  </td>
+                                <td> </td>
+                                <td align="right"> 0 </td>
+                            </tr>
+                            <tr>
+                                <td className="py-1"> Total Subscription's </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td align="right"> 9287 </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+
+                <div className="col-lg-12 grid-margin stretch-card">
+                    <div className="card">
+                    <div className="card-body">
                         <h4 className="card-title">Games played summary</h4>
                         <p className="card-description"> 
                             <Link to="/revenue/games-played">

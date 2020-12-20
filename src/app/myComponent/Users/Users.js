@@ -250,36 +250,23 @@ class Users extends Component {
                       </Modal.Title>
                     </Modal.Header>
                   </Modal>
-      : null
+                  : null
                 }
               </div>
             </div>
           </div>
-          <div className="row grid-margin" style={{margin: "10px"}}>
-            <Pagination size="sm">{items}</Pagination>
-          </div>
-          {/* <div className="row grid-margin">
-          <Pagination>
+        </div>
+        <div></div>
+        <div>
+          <Pagination size="sm">
             <Pagination.First />
             <Pagination.Prev />
-            <Pagination.Item>{1}</Pagination.Item>
-            <Pagination.Ellipsis />
-
-            <Pagination.Item>{10}</Pagination.Item>
-            <Pagination.Item>{11}</Pagination.Item>
-            <Pagination.Item active>{12}</Pagination.Item>
-            <Pagination.Item>{13}</Pagination.Item>
-            <Pagination.Item disabled>{14}</Pagination.Item>
-
-            <Pagination.Ellipsis />
-            <Pagination.Item>{20}</Pagination.Item>
+              <Pagination.Item>1</Pagination.Item>
             <Pagination.Next />
             <Pagination.Last />
           </Pagination>
-        </div> */}
         </div>
       </div>
-      
     )
   }
 }

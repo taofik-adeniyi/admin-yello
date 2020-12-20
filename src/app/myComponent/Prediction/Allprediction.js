@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Dropdown, Pagination, Page, Modal, Button, InputGroup, FormControl } from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 import bsCustomFileInput from 'bs-custom-file-input';
-import axios from 'axios';
+import Spinner from '../../shared/Spinner'
 
 
 class Allprediction extends Component {
@@ -16,7 +16,8 @@ class Allprediction extends Component {
     lgShow: false,
     val: '',
     _page: 1,
-    userPredictions: []
+    userPredictions: [],
+    spinner: true,
   };
  
   handleChange = date => {
@@ -46,7 +47,8 @@ class Allprediction extends Component {
       _per_page: data.per_page,
       _page: data.page,
       predictionsLength: data.total,
-      val: data.total
+      val: data.total,
+      spinner: false
     });
   }
 
@@ -108,9 +110,11 @@ class Allprediction extends Component {
       this.state.val--
     } 
 
-    let predictions, renderPageNumbers;
+    let predictions, renderPageNumbers, loading;
 
-    if (this.state.predictions !== null) {
+    if (this.state.spinner) {
+      return loading = <Spinner />
+    } else {
       predictions = this.state.predictions.map((prediction, id) => (
         <tr key={prediction.phone_number}>
           <td> {id+1} </td>
@@ -242,6 +246,8 @@ class Allprediction extends Component {
                       </tr>
                     </thead>
                     <tbody>
+                      {loading}
+
                       { predictions }
                     </tbody>
                   </table>
@@ -293,8 +299,7 @@ class Allprediction extends Component {
           <Pagination size="sm">
             <Pagination.First onClick={onFirst} />
             <Pagination.Prev onClick={onPrev} />
-              {/* {items} */}
-              <Pagination.Item>{this.state._page}</Pagination.Item>
+              <Pagination.Item>1</Pagination.Item>
             <Pagination.Next onClick={onNext} />
             <Pagination.Last onClick={onLast} />
           </Pagination>

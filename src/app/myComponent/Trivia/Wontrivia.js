@@ -223,15 +223,11 @@ class Wontrivia extends Component {
             </div>
           </div>
         </div>
-        <div>
-            <Pagination size="sm">{items}</Pagination>
-          </div>
           <div>
           <Pagination size="sm">
             <Pagination.First onClick={onFirst} />
             <Pagination.Prev onClick={onPrev} />
-              {/* {items} */}
-              <Pagination.Item>{this.state._page}</Pagination.Item>
+              <Pagination.Item>1</Pagination.Item>
             <Pagination.Next onClick={onNext} />
             <Pagination.Last onClick={onLast} />
           </Pagination>

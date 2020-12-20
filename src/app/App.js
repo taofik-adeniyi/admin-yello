@@ -16,6 +16,7 @@ import Registration from './myComponent/Revenue/Registration/Registration'
 import Deposit from './myComponent/Revenue/Deposit/Deposit'
 import GamesPlayedFilter from './myComponent/GamesPlayedFilter/GamesPlayedFilter';
 import WinningFilter from './myComponent/WinningFilter/WinningFilter';
+import Subscription from './myComponent/Revenue/Subscription/Subscription';
 
 class App extends Component {
   render () {
@@ -44,6 +45,12 @@ class App extends Component {
           <Route exact path="/revenue/registration">
             <PageLayout>
               <Registration />
+            </PageLayout>
+          </Route>
+
+          <Route exact path="/revenue/subscription">
+            <PageLayout>
+              <Subscription />
             </PageLayout>
           </Route>
 

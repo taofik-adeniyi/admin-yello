@@ -960,9 +960,9 @@ export class Dashboard extends Component {
           <div className="col-md-3 grid-margin stretch-card">
             <div className="card" style={{color: "black"}}>
               <div className="card-body">
-                <Link to="#">
+                <Link to="/revenue">
                   <div className="d-flex justify-content-between pb-2 align-items-center">
-                    <h3 className="font-weight-semibold mb-0">#NO</h3>
+                    <h3 className="font-weight-semibold mb-0">Revenues</h3>
                     <div className="icon-holder">
                       <i className="mdi mdi-briefcase-outline"></i>
                     </div>
