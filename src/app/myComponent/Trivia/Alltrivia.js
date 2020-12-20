@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Dropdown, Button, ButtonGroup, Pagination, PageItem, InputGroup, FormControl, Modal  } from 'react-bootstrap';
 import axios from 'axios';
 import Spinner from '../../shared/Spinner'
+import GoBack from '../GoBack/GoBack';
 
   let active = 2;
   let items = [];
@@ -128,7 +129,7 @@ class Alltrivia extends Component {
       <div>
         <div className="page-header">
           <h3 className="page-title"> 
-            <Button variant="warning">Back</Button>&nbsp;&nbsp;
+            <GoBack />
             All Trivias
         </h3>
         </div>

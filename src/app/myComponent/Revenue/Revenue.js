@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker'
 import { Button, ProgressBar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './revenue.css'
+import GoBack from '../GoBack/GoBack'
 
 class Revenue extends Component {
     render() {
@@ -12,7 +13,7 @@ class Revenue extends Component {
                 </div>
                 <div className="page-header">
                 <h3 className="page-title px-3"> 
-                    <Button variant="warning">Back</Button>&nbsp;&nbsp;
+                    <GoBack />
                     Revenue Overview
                 </h3>
                 </div>

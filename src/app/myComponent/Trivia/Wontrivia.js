@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Dropdown, Button, ButtonGroup, Pagination, Page, InputGroup, FormControl, Modal } from 'react-bootstrap';
 import Spinner from '../../shared/Spinner'
+import GoBack from '../GoBack/GoBack';
 
 
   let active = 2;
@@ -67,7 +68,8 @@ class Wontrivia extends Component {
       <div>
         <div className="page-header">
             <h3 className="page-title"> 
-            <Button variant="warning">Back</Button>&nbsp;&nbsp;All Won Trivia </h3>
+            <GoBack />
+            All Won Trivia </h3>
         </div>
         <div className="row">
           <div className="col-lg-3 grid-margin stretch-card">

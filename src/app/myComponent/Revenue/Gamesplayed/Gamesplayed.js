@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Form, InputGroup, FormControl, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Line } from 'react-chartjs-2'
+import GoBack from '../../GoBack/GoBack';
 
 
 class Gamesplayed extends Component {
@@ -98,7 +99,7 @@ class Gamesplayed extends Component {
             <div>
                 <div className="page-header">
                     < h3 className="page-title"> 
-                    <Button variant="warning">Back</Button>&nbsp;&nbsp;
+                    <GoBack />
                     Games Played Overview </h3>
                 </div>
 

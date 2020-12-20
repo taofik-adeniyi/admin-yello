@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Dropdown, Pagination, Spinner, InputGroup, FormControl, Modal } from 'react-bootstrap';
+import GoBack from '../GoBack/GoBack'
 
 let active = 2;
     let items = [];
@@ -91,7 +92,7 @@ class Users extends Component {
       <div>
         <div className="page-header">
           <h3 className="page-title"> 
-          <Button variant="warning">Back</Button>&nbsp;&nbsp;
+          <GoBack />
           All Players: {this.state.total} </h3>
         </div>
         <div className="row">

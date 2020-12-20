@@ -3,7 +3,7 @@ import { Form, Dropdown, Pagination, Page, Modal, Button, InputGroup, FormContro
 import DatePicker from "react-datepicker";
 import bsCustomFileInput from 'bs-custom-file-input';
 import Spinner from '../../shared/Spinner'
-
+import GoBack from '../GoBack/GoBack'
 
 class Allprediction extends Component {
   state = {
@@ -192,7 +192,7 @@ class Allprediction extends Component {
         {console.log('pred' + this.state.predictions)}
         <div className="page-header">
           < h3 className="page-title"> 
-          <Button variant="warning">Back</Button>&nbsp;&nbsp;
+          <GoBack />
           All Predictions: {this.state.predictionsLength} </h3>
         </div>
         <div className="row">

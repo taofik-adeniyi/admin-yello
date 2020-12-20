@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Dropdown, Button, ButtonGroup, Pagination , InputGroup, FormControl, Modal} from 'react-bootstrap';
+import GoBack from '../GoBack/GoBack';
    
 
 class Wonprediction extends Component {
@@ -90,7 +91,7 @@ class Wonprediction extends Component {
       <div>
         <div className="page-header">
           <h3 className="page-title"> 
-          <Button variant="warning">Back</Button>&nbsp;&nbsp;
+          <GoBack />
           
           All Won Predictions: {this.state.predictionsLength} </h3>
         </div>
