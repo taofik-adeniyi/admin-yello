@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, Button, ButtonGroup, Pagination, PageItem, InputGroup, FormControl, Modal  } from 'react-bootstrap';
+import { Dropdown, Button, ButtonGroup, Pagination, PageItem, InputGroup, FormControl, Modal, Form  } from 'react-bootstrap';
 import axios from 'axios';
 import Spinner from '../../shared/Spinner'
 import GoBack from '../GoBack/GoBack';
@@ -20,7 +20,9 @@ class Alltrivia extends Component {
     _page: 1,
     spinner: true,
     trivia: [],
-    questions: []
+    questions: [],
+    search: '',
+    searchModal: false
   }
 
   componentDidMount() {
@@ -71,6 +73,8 @@ class Alltrivia extends Component {
       });
   }
 
+  
+
   render () {
     let allTrivia, loading;
 
@@ -84,7 +88,6 @@ class Alltrivia extends Component {
           <td>{id+1}</td>
           <td> <Button variant="warning" onClick={() => this.callEachUserTrivia(triviaList.phone_number)}> View Player </Button> </td>
           <td>{triviaList.phone_number}</td>
-          <td>{triviaList.phone_number}</td>
           <td>{triviaList.attempted_questions_count}</td>
           <td>{triviaList.total_points}</td>
         </tr>
@@ -96,10 +99,11 @@ class Alltrivia extends Component {
     if(this.state.questions != []) {
       questions = this.state.questions.map((question, id) => (
         <tr key={id}>
+          <td> {id+1} </td>
           <td> {question.label} </td>
           <td> {question.status} </td>
           <td> {question.points} </td>
-          <td> {question.drawn_at} </td>
+          <td> {new Date(question.drawn_at).toLocaleDateString('en-US')} </td>
         </tr>
       ))
       // console.log('a')
@@ -125,6 +129,36 @@ class Alltrivia extends Component {
     const onLast = () => {
       this.makeHttpRequestWithPage(this.state._page)
     }
+
+    const searchByPhone = (e) => {
+      e.preventDefault()
+      if(this.state.search == ''){
+        // return null
+        alert('Please type in a mobile phone number')
+      } else {
+        this.setState({
+          searchModal: true,
+          search: this.state.search
+        })
+      }
+      console.log(this.state.search);
+    }
+
+    const changeSearch = (e) => {
+      this.setState({
+            search: e.target.value
+        })
+    }
+
+    const closeSearchModal = () => {
+        this.setState({
+            searchModal: false 
+        })
+    }
+
+    const searchResult = this.state.trivia.filter(res => res.phone_number === this.state.search)
+
+
     return (
       <div>
         <div className="page-header">
@@ -152,16 +186,20 @@ class Alltrivia extends Component {
           <div className="col-lg-3"></div>
           <div className="col-lg-3"></div>
           <div className="col-lg-3">
-            <InputGroup className="mb-3">
-              <FormControl
-                placeholder="Search By Phone No or Name"
-                aria-label="User Phone Number"
-                aria-describedby="basic-addon2"
-              />
-              <InputGroup.Append>
-                <Button variant="outline-secondary">Search</Button>
-              </InputGroup.Append>
-            </InputGroup>
+            <Form onSubmit={searchByPhone}>
+              <InputGroup className="mb-3">
+                <FormControl
+                  onChange={changeSearch}
+                  value={this.state.search}
+                  placeholder="Search By Phone No or Name"
+                  aria-label="User Phone Number"
+                  aria-describedby="basic-addon2"
+                />
+                <InputGroup.Append>
+                  <Button variant="outline-secondary" onClick={searchByPhone}>Search</Button>
+                </InputGroup.Append>
+              </InputGroup>
+            </Form>
           </div>
         </div>
         <div className="row">
@@ -173,11 +211,11 @@ class Alltrivia extends Component {
                   <table className="table table-striped">
                     <thead>
                       <tr>
-                        <th> User </th>
-                        <th> First name </th>
-                        <th> Progress </th>
-                        <th> Amount </th>
-                        <th> Deadline </th>
+                        <th> id </th>
+                        <th> View Player </th>
+                        <th> Phone Number </th>
+                        <th> Attemted Questions </th>
+                        <th> Total Points </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -209,11 +247,11 @@ class Alltrivia extends Component {
                           <table className="table table-striped">
                             <thead>
                               <tr>
-                                <th> User </th>
-                                <th> First name </th>
-                                <th> Progress </th>
-                                <th> Amount </th>
-                                <th> Deadline </th>
+                                <th> id </th>
+                                <th> Question </th>
+                                <th> Status </th>
+                                <th> Point </th>
+                                <th> Date </th>
                               </tr>
                             </thead>
                             <tbody>
@@ -239,6 +277,60 @@ class Alltrivia extends Component {
             <Pagination.Last onClick={onLast} />
           </Pagination>
           </div>
+          {
+              this.state.searchModal ? 
+                  <Modal show={this.state.searchModal} onHide={closeSearchModal}>
+                      <Modal.Header closeButton>
+                      <Modal.Title>Modal heading</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <div className="row">
+                          <div className="col-lg-12 grid-margin stretch-card">
+                              <div className="card">
+                                <div className="card-body">
+                                  <h4 className="card-title">All Players</h4>
+                                  <div className="table-responsive">
+                                    <table className="table table-striped">
+                                      <thead>
+                                        <tr>
+                                          <th> id </th>
+                                          <th> View Player </th>
+                                          <th> Attemted Questions </th>
+                                          <th> Total Points </th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        { searchResult.map((res, id) => (
+                                          <tr>
+                                            <td> {id+1} </td>
+                                            <td> 
+                                              <Button 
+                                              variant="warning" 
+                                              onClick={() => this.callEachUserTrivia(res.phone_number)}> 
+                                              View Player 
+                                              </Button> 
+                                            </td>
+                                            <td> {res.phone_number} </td>
+                                            <td> {res.attempted_questions_count} </td>
+                                            <td> {res.total_points} </td>
+                                          </tr>
+                                        ))}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </Modal.Body>
+                      <Modal.Footer>
+                      <Button variant="secondary" onClick={closeSearchModal}>
+                          Close
+                      </Button>
+                      </Modal.Footer>
+                  </Modal>
+          : null
+          }
         </div>
     );
   }
