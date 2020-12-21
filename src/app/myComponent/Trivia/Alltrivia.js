@@ -3,6 +3,7 @@ import { Dropdown, Button, ButtonGroup, Pagination, PageItem, InputGroup, FormCo
 import axios from 'axios';
 import Spinner from '../../shared/Spinner'
 import GoBack from '../GoBack/GoBack';
+import SearchBar from '../../shared/SearchBar';
 
   let active = 2;
   let items = [];
@@ -186,20 +187,11 @@ class Alltrivia extends Component {
           <div className="col-lg-3"></div>
           <div className="col-lg-3"></div>
           <div className="col-lg-3">
-            <Form onSubmit={searchByPhone}>
-              <InputGroup className="mb-3">
-                <FormControl
-                  onChange={changeSearch}
-                  value={this.state.search}
-                  placeholder="Search By Phone No or Name"
-                  aria-label="User Phone Number"
-                  aria-describedby="basic-addon2"
-                />
-                <InputGroup.Append>
-                  <Button variant="outline-secondary" onClick={searchByPhone}>Search</Button>
-                </InputGroup.Append>
-              </InputGroup>
-            </Form>
+            <SearchBar 
+              search={this.state.search}
+              changeSearch={changeSearch}
+              searchByPhone={searchByPhone}
+            />
           </div>
         </div>
         <div className="row">
