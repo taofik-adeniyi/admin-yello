@@ -17,7 +17,8 @@ class Subscription extends Component {
         pages: null,
         search: null,
         searchModal: false,
-        searchResult: null
+        searchResult: null,
+        amountTotal: 0
     }
 
     data = {
@@ -124,14 +125,15 @@ class Subscription extends Component {
         // console.log('res' + response)
     
         const dataa = await response.json();
-        // console.log('sub' + dataa.data)
+        console.log('amount of subs' + dataa.data.amount)
     
         this.setState({
           total: dataa.total,
           pages: dataa.pages,
           spinner: false,
         //   currentPage: dataa.page,
-          allSubscription: dataa.data
+          allSubscription: dataa.data,
+          amountTotal: dataa.amount
         });
       }
 
@@ -152,6 +154,15 @@ class Subscription extends Component {
                 </tr>
             ))
         }
+
+        // const getAmountOfSubs = () => {
+        //     this.state.allSubscription.map(list => {
+        //         let Total = list.amount
+        //     })
+        //     Total.reduce((a + b) => {
+        //         return a + b
+        //     }, 0);
+        // }
 
         const onFirst = () => {
             this.setState({
@@ -274,7 +285,13 @@ class Subscription extends Component {
 
                                 {loading}
                                 { subs }
-
+                                <tr>
+                                    <td>Amount of all subscriptions</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td> { this.state.amountTotal } </td>
+                                    </tr>
                                 </tbody>
                             </table>
                             </div>
