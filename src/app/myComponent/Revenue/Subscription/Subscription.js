@@ -1,11 +1,24 @@
 import React, { Component } from 'react'
-import { Button, Form, InputGroup, FormControl, Col } from 'react-bootstrap'
+import { Button, Form, InputGroup, FormControl, Col, Dropdown, Modal } from 'react-bootstrap'
 import { Line } from 'react-chartjs-2'
 import GoBack from '../../GoBack/GoBack';
-
+import Spinner from '../../../shared/Spinner';
+import Paginate from '../../Paginate/Paginate'
   
   
 class Subscription extends Component {
+    state = {
+        spinner: true,
+        allSubscription: [],
+        limit: 50,
+        currentPage: 1,
+        total: null,
+        totalPage: null,
+        pages: null,
+        search: null,
+        searchModal: false,
+        searchResult: null
+    }
 
     data = {
         labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
@@ -95,7 +108,108 @@ class Subscription extends Component {
         },
       }
 
+      componentDidMount() {
+        this.callAllSubscription(this.state.limit, this.state.currentPage);
+      }
+
+      callAllSubscription = async (limit, page, status, userid) => {
+        let response = await fetch(`${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?limit=${limit}&page=${page}`, {
+          method: 'GET',
+          headers: {
+            'client-id': `${process.env.REACT_APP_CLIENT_ID}`
+          },
+        });
+    
+        // console.log('users' + response.users)
+        // console.log('res' + response)
+    
+        const dataa = await response.json();
+        // console.log('sub' + dataa.data)
+    
+        this.setState({
+          total: dataa.total,
+          pages: dataa.pages,
+          spinner: false,
+        //   currentPage: dataa.page,
+          allSubscription: dataa.data
+        });
+      }
+
     render() {
+
+        let subs, loading;
+        if(this.state.spinner) {
+            loading = <Spinner />
+        } else {
+            subs = this.state.allSubscription.map((subslist, id) => (
+                <tr key={subslist.userId}>
+                    <td> {id+1} </td>
+                    <td> {subslist.userId} </td>
+                    <td> {subslist.status} </td>
+                    <td> {subslist.amount} </td>
+                    <td> {subslist.chargeMode} </td>
+                    <td> {new Date(subslist.createdAt).toLocaleDateString('en-US')} </td>
+                </tr>
+            ))
+        }
+
+        const onFirst = () => {
+            this.setState({
+                currentPage: 1
+            })
+            this.callAllSubscription(this.state.limit, this.state.currentPage)
+        }
+    
+        const onPrev = () => {
+            if(this.state.currentPage >=1){
+                this.setState((prevState) => (
+                    {currentPage: prevState.currentPage -1}
+                ))
+                console.log('prev page'+this.state.currentPage)
+                
+                this.callAllSubscription(this.state.limit, this.state.currentPage)
+            }else {
+                return null
+            }
+        }
+    
+        const onNext = () => {
+            this.setState((prevState) => (
+                {currentPage: prevState.currentPage +1}
+            ))
+            console.log('current page'+this.state.currentPage)
+            this.callAllSubscription(this.state.limit, this.state.currentPage)
+        }
+    
+        const onLast = () => {
+            this.setState({
+                currentPage: this.state.pages
+            })
+            this.callAllSubscription(this.state.limit, this.state.pages)
+        }
+
+        const searchByUserId = (e) => {
+            e.preventDefault()
+            // alert('Searched ' + this.state.search)
+            // this.callAllSubscription( '5fc6a5e6ef050a001be837ad')
+            const searchResult = this.state.allSubscription.filter(res => res.userId === this.state.search)
+            this.setState({
+                searchModal: true
+            })
+        }
+
+        const changeSearch = (e) => {
+            this.setState({
+                search: e.target.value
+            })
+        }
+
+        const closeSearchModal = () => {
+            this.setState({
+                searchModal: false 
+            })
+        }
+        
         return (
             <div>
                 <div className="page-header">
@@ -103,7 +217,97 @@ class Subscription extends Component {
                 <GoBack />
                 Subscription Overview: </h3>
                 </div>
-    
+                <div className="row">
+                    <div className="col-lg-3 col-md-6 grid-margin stretch-card">
+                        <Dropdown>
+                        <Dropdown.Toggle variant="btn btn-outline-warning" id="dropdownMenuOutlineButton1">
+                            Filter
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Header>50</Dropdown.Header>
+                            <Dropdown.Item>100</Dropdown.Item>
+                            <Dropdown.Item>150</Dropdown.Item>
+                            <Dropdown.Item>200</Dropdown.Item>
+                            <Dropdown.Item>250</Dropdown.Item>
+                            <Dropdown.Item>300</Dropdown.Item>
+                        </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
+                    <div className="col-lg-3"></div>
+                    <div className="col-lg-3"></div>
+                    <div className="col-lg-3 col-md-6">
+                        <Form onSubmit={searchByUserId} >
+                            <InputGroup className="mb-3">
+                            <FormControl
+                                onChange={changeSearch}
+                                value={ this.state.search }
+                                placeholder="Search By Phone No or Name"
+                                aria-label="User Phone Number"
+                                aria-describedby="basic-addon2"
+                            />
+                            <InputGroup.Append>
+                                <Button variant="outline-secondary" onClick={searchByUserId}>Search</Button>
+                            </InputGroup.Append>
+                            </InputGroup>
+                        </Form>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-lg-12 grid-margin stretch-card">
+                        <div className="card">
+                        <div className="card-body">
+                            <h4 className="card-title">Subscriptions</h4>
+                            <div className="table-responsive">
+                            <table className="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th> id </th>
+                                    <th> UserId / Phone Number </th>
+                                    <th> Status </th>
+                                    <th> Amount Charged </th>
+                                    <th> Charge Gateway </th>
+                                    <th> Date </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {loading}
+                                { subs }
+
+                                </tbody>
+                            </table>
+                            </div>
+                            <Paginate 
+                                onNext={onNext} 
+                                onPrev={onPrev} 
+                                onFirst={onFirst} 
+                                onLast={onLast}
+                                currentPage={this.state.currentPage}
+                                noOfPages={this.state.pages}
+                            />
+                        </div>
+                        {
+                            this.state.searchModal ? 
+                                <Modal show={this.state.searchModal} onHide={closeSearchModal}>
+                                    <Modal.Header closeButton>
+                                    <Modal.Title>Modal heading</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        { this.state.search }
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                    <Button variant="secondary" onClick={closeSearchModal}>
+                                        Close
+                                    </Button>
+                                    </Modal.Footer>
+                                </Modal>
+                        : null
+                        }
+                        </div>
+                    </div>
+                </div>
+
                 <div className="col-lg-12 grid-margin stretch-card">
                         <div className="card">
                         <div className="card-body">

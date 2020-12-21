@@ -38,7 +38,7 @@ class Alltrivia extends Component {
     // console.log('users' + response.users)
 
     const data = await response.json();
-    // console.log('users' + data.users)
+    console.log('users me' + data.users)
 
     this.setState({
       trivia: data.users,
