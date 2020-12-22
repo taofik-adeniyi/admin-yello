@@ -34,6 +34,7 @@ class Alltrivia extends Component {
     questions: [],
     search: "",
     searchModal: false,
+    found: []
   };
 
   componentDidMount() {
@@ -62,6 +63,32 @@ class Alltrivia extends Component {
       _per_page: data._per_page,
       _page: data._page,
       spinner: false,
+    });
+  };
+
+  callTriviaByPhone = async (phoneNumber) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/trivia/admin/summary?phone_number=${phoneNumber}`,
+      {
+        method: "GET",
+        headers: {
+          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
+        },
+      }
+    );
+
+    // console.log('users' + response.users)
+
+    const data = await response.json();
+    // console.log("users me" + data.users);
+
+    this.setState({
+      // trivia: data.users,
+      // total: data.total,
+      // _per_page: data._per_page,
+      // _page: data._page,
+      // spinner: false,
+      found: data.users
     });
   };
 
@@ -156,9 +183,10 @@ class Alltrivia extends Component {
         // return null
         alert("Please type in a mobile phone number");
       } else {
+        this.callTriviaByPhone(this.state.search)
         this.setState({
           searchModal: true,
-          search: this.state.search,
+          // search: this.state.search,
         });
       }
       console.log(this.state.search);
@@ -304,12 +332,13 @@ class Alltrivia extends Component {
                             <tr>
                               <th> id </th>
                               <th> View Player </th>
+                              <th> Phone Number </th>
                               <th> Attemted Questions </th>
                               <th> Total Points </th>
                             </tr>
                           </thead>
                           <tbody>
-                            {searchResult.map((res, id) => (
+                            {this.state.found.map((res, id) => (
                               <tr>
                                 <td> {id + 1} </td>
                                 <td>
