@@ -27,6 +27,7 @@ class Subscription extends Component {
     searchModal: false,
     searchResult: null,
     amountTotal: 0,
+    found: []
   };
 
   data = {
@@ -125,7 +126,7 @@ class Subscription extends Component {
     this.callAllSubscription(this.state.limit, this.state.currentPage);
   }
 
-  callAllSubscription = async (limit, page, status, userid) => {
+  callAllSubscription = async (limit, page, userid, status) => {
     let response = await fetch(
       `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?limit=${limit}&page=${page}`,
       {
@@ -149,6 +150,35 @@ class Subscription extends Component {
       //   currentPage: dataa.page,
       allSubscription: dataa.data,
       amountTotal: dataa.amount,
+      found: dataa.data
+    });
+  };
+
+  userIdSubscription = async (userid) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?userId=${userid}`,
+      {
+        method: "GET",
+        headers: {
+          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
+        },
+      }
+    );
+
+    // console.log('users' + response.users)
+    // console.log('res' + response)
+
+    const dataa = await response.json();
+    // console.log("amount of subs" + dataa.data.amount);
+
+    this.setState({
+    //   total: dataa.total,
+    //   pages: dataa.pages,
+    //   spinner: false,
+      //   currentPage: dataa.page,
+    //   allSubscription: dataa.data,
+    //   amountTotal: dataa.amount,
+      found: dataa.data
     });
   };
 
@@ -223,16 +253,25 @@ class Subscription extends Component {
       // })
 
       e.preventDefault();
-      if (this.state.search == "") {
-        // return null
-        alert("Please type in a mobile phone number");
-      } else {
-        this.setState({
-          searchModal: true,
-          search: this.state.search,
-        });
+      if(this.state.search == ""){
+          alert ("Please type in a mobile phone number")
+      }else{
+          this.userIdSubscription(this.state.search)
+          console.log('searchinnnnnnn' + this.state.search)
+          this.setState({
+              searchModal: true
+          })
       }
-      console.log(this.state.search);
+    //   if (this.state.search == "") {
+    //     // return null
+    //     alert("Please type in a mobile phone number");
+    //   } else {
+    //     this.setState({
+    //       searchModal: true,
+    //       search: this.state.search,
+    //     });
+    //   }
+    //   console.log(this.state.search);
     };
 
     const searchResult = this.state.allSubscription.filter(
@@ -366,7 +405,21 @@ class Subscription extends Component {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  {searchResult.map((res, id) => (
+                                  {/* {searchResult.map((res, id) => (
+                                    <tr>
+                                      <td> {id + 1} </td>
+                                      <td> {res.userId} </td>
+                                      <td> {res.amount} </td>
+                                      <td> {res.chargeMode} </td>
+                                      <td>
+                                        {" "}
+                                        {new Date(
+                                          res.createdAt
+                                        ).toLocaleDateString("en-US")}{" "}
+                                      </td>
+                                    </tr>
+                                  ))} */}
+                                  {this.state.found.map((res, id) => (
                                     <tr>
                                       <td> {id + 1} </td>
                                       <td> {res.userId} </td>
