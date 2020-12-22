@@ -14,6 +14,7 @@ import axios from "axios";
 import Spinner from "../../shared/Spinner";
 import GoBack from "../GoBack/GoBack";
 import SearchBar from "../../shared/SearchBar";
+import Paginate from "../Paginate/Paginate";
 
 let active = 2;
 let items = [];
@@ -268,6 +269,9 @@ class Alltrivia extends Component {
                     </tbody>
                   </table>
                 </div>
+
+                <Paginate />
+
                 {this.state.lgShow ? (
                   <Modal
                     size="lg"
@@ -305,15 +309,6 @@ class Alltrivia extends Component {
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <Pagination size="sm">
-            <Pagination.First onClick={onFirst} />
-            <Pagination.Prev onClick={onPrev} />
-            <Pagination.Item>1</Pagination.Item>
-            <Pagination.Next onClick={onNext} />
-            <Pagination.Last onClick={onLast} />
-          </Pagination>
         </div>
         {this.state.searchModal ? (
           <Modal show={this.state.searchModal} onHide={closeSearchModal}>

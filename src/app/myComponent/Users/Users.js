@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Dropdown, Pagination, Spinner, InputGroup, FormControl, Modal } from 'react-bootstrap';
 import GoBack from '../GoBack/GoBack'
+import Paginate from '../Paginate/Paginate';
 
 let active = 2;
     let items = [];
@@ -213,6 +214,8 @@ class Users extends Component {
                     </tbody>
                   </table>
                 </div>
+
+                <Paginate />
                 {
                   this.state.show ? 
                   <Modal show={this.state.show} 
@@ -258,15 +261,6 @@ class Users extends Component {
           </div>
         </div>
         <div></div>
-        <div>
-          <Pagination size="sm">
-            <Pagination.First />
-            <Pagination.Prev />
-              <Pagination.Item>1</Pagination.Item>
-            <Pagination.Next />
-            <Pagination.Last />
-          </Pagination>
-        </div>
       </div>
     )
   }

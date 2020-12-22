@@ -14,5 +14,12 @@ const Paginate = ({onNext, onFirst, onPrev, onLast, noOfPages, currentPage}) => 
             </div>
         )
 }
-
+Paginate.defaultProps= {
+    onNext: null,
+    onFirst: null,
+    onPrev: null,
+    onLast: null,
+    noOfPages: 100,
+    currentPage: 1
+}
 export default Paginate
