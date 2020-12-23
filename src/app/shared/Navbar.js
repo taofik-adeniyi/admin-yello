@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { Trans } from 'react-i18next';
+import SignOut from '../myComponent/SignOut/SignOut';
 
 class Navbar extends Component {
   toggleOffcanvas() {
@@ -177,7 +178,7 @@ class Navbar extends Component {
                     <Trans>Check Inbox</Trans>
                   </Dropdown.Item> */}
                   <Dropdown.Item className="dropdown-item preview-item d-flex align-items-center border-0" onClick={evt =>evt.preventDefault()}>
-                    <Trans>Sign Out</Trans>
+                    <SignOut />
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>

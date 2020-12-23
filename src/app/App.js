@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.scss';
-import Login from './user-pages/Login';
+// import Login from './user-pages/Login';
+import Login from './myComponent/Login/Login';
 import Dashboard from './myComponent/Dashboard/Dashboard';
 import Trivia from './myComponent/Trivia/Alltrivia';
 import Wontrivia from './myComponent/Trivia/Wontrivia';
@@ -17,6 +18,7 @@ import Deposit from './myComponent/Revenue/Deposit/Deposit'
 import GamesPlayedFilter from './myComponent/GamesPlayedFilter/GamesPlayedFilter';
 import WinningFilter from './myComponent/WinningFilter/WinningFilter';
 import Subscription from './myComponent/Revenue/Subscription/Subscription';
+import SubScriberContext, { SubScriberProvider } from './myContext/SubScriberContext';
 
 class App extends Component {
   render () {
@@ -61,9 +63,11 @@ class App extends Component {
           </Route>
 
           <Route exact path="/revenue" >
-            <PageLayout>
-              <Revenue />
-            </PageLayout>
+              <PageLayout>
+                  <SubScriberProvider>
+                    <Revenue />
+                  </SubScriberProvider>
+              </PageLayout>
           </Route>
 
           <Route exact path="/all-players" >

@@ -5,6 +5,7 @@ import { Dropdown } from 'react-bootstrap';
 import { Trans } from 'react-i18next';
 
 import '../../assets/styles/mine/sidebar.css';
+import SignOut from '../myComponent/SignOut/SignOut';
 
 class Sidebar extends Component {
   state = {};
@@ -102,7 +103,8 @@ class Sidebar extends Component {
                     <Trans>Check Inbox</Trans>
                   </Dropdown.Item>
                   <Dropdown.Item className="dropdown-item preview-item d-flex align-items-center text-small" onClick={evt =>evt.preventDefault()}>
-                    <Trans>Sign Out</Trans>
+                    {/* <Trans>Sign Out</Trans> */}
+                    <SignOut />
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>

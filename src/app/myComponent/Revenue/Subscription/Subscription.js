@@ -30,6 +30,8 @@ class Subscription extends Component {
     found: []
   };
 
+  totalAmount = 0
+
   data = {
     labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
     datasets: [
@@ -141,7 +143,7 @@ class Subscription extends Component {
     // console.log('res' + response)
 
     const dataa = await response.json();
-    console.log("amount of subs" + dataa.data.amount);
+    // console.log("amount of subs" + dataa.data.amount);
 
     this.setState({
       total: dataa.total,
@@ -187,16 +189,20 @@ class Subscription extends Component {
     if (this.state.spinner) {
       loading = <Spinner />;
     } else {
-      subs = this.state.allSubscription.map((subslist, id) => (
-        <tr key={subslist.userId}>
-          <td> {id + 1} </td>
-          <td> {subslist.userId} </td>
-          <td> {subslist.status} </td>
-          <td> {subslist.amount} </td>
-          <td> {subslist.chargeMode} </td>
-          <td> {new Date(subslist.createdAt).toLocaleDateString("en-US")} </td>
-        </tr>
-      ));
+      subs = this.state.allSubscription.map((subslist, id) => {
+        this.totalAmount += Number(subslist.amount);
+        
+        return (
+            <tr key={subslist.userId}>
+            <td> {id + 1} </td>
+            <td> {subslist.userId} </td>
+            <td> {subslist.status} </td>
+            <td> {subslist.amount} </td>
+            <td> {subslist.chargeMode} </td>
+            <td> {new Date(subslist.createdAt).toLocaleDateString("en-US")} </td>
+            </tr>
+        )
+      });
     }
 
     // const getAmountOfSubs = () => {
@@ -364,11 +370,12 @@ class Subscription extends Component {
                       {loading}
                       {subs}
                       <tr>
-                        <td>Amount of all subscriptions</td>
+                        <td>Amount of all subscriptions : </td>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td> {this.state.amountTotal} </td>
+                        <td>  </td>
+                        <td> {this.totalAmount} </td>
                       </tr>
                     </tbody>
                   </table>
