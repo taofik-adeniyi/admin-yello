@@ -185,6 +185,7 @@ class Subscription extends Component {
   };
 
   render() {
+
     let subs, loading;
     if (this.state.spinner) {
       loading = <Spinner />;
@@ -741,5 +742,4 @@ class Subscription extends Component {
     );
   }
 }
-
 export default Subscription;

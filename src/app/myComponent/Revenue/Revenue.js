@@ -9,11 +9,14 @@ import RegisterCard from './Cards/RegistrationCard/RegisterCard'
 import GameCard from './Cards/GameCard/GameCard'
 import DepositCard from './Cards/DepositCard/DepositCard'
 import SubscriberContext from '../../myContext/SubScriberContext'
+import moment from 'moment'
 
 class Revenue extends Component {
     render() {
         // console.log(this.context);
-        const {username, isAutheticated, logIn, logOut, totalAmount, total} = this.context
+        const {totalAmount, totalWeekAmount} = this.context
+        // const now = moment("1995-12-25")
+        // {moment(dateToBeFormate).format('DD/MM/YYYY')}
         return (
             <div>
                 <div className="row">
@@ -21,19 +24,15 @@ class Revenue extends Component {
                 <div className="page-header">
                     <h3 className="page-title px-3"> 
                         <GoBack />
-                        Revenue Overview
+                        Revenue Overview 
                     </h3>
                 </div>
                 
                 <RegisterCard />
 
                 <SubScribeCard 
-                    username={username} 
-                    isAutheticated={isAutheticated}
-                    logIn={logIn}
-                    logOut={logOut}
                     totalAmount={totalAmount}
-                    total={total}
+                    totalWeekAmount={totalWeekAmount}
                 />
 
                 <GameCard />

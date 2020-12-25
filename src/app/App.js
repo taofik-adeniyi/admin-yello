@@ -19,11 +19,13 @@ import GamesPlayedFilter from './myComponent/GamesPlayedFilter/GamesPlayedFilter
 import WinningFilter from './myComponent/WinningFilter/WinningFilter';
 import Subscription from './myComponent/Revenue/Subscription/Subscription';
 import SubScriberContext, { SubScriberProvider } from './myContext/SubScriberContext';
+// import AuthContext, { AuthProvider } from './myContext/Auth'
 
 class App extends Component {
   render () {
     return (
-      <Switch>
+      // <AuthProvider>
+        <Switch>
           <Route exact path="/" component={ Login } />
           
           <Route exact path="/revenue/games-played">
@@ -111,8 +113,9 @@ class App extends Component {
               <WinningFilter />
             </PageLayout>
           </Route>
-        <Redirect to="/" />
-      </Switch>
+          <Redirect to="/" />
+        </Switch>
+      // </AuthProvider>
     );
   }
 }

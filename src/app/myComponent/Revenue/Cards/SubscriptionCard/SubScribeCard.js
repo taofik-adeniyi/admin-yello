@@ -1,17 +1,11 @@
 import React, { Component } from "react"
 import {Link} from 'react-router-dom'
+import  commaNumber from 'comma-number'
 
 class SubScribeCard extends Component {
-  // constructor(props) {
-  //   super(props)
-  
-  //   this.state = {
-       
-  //   }
-  // }
   
   render() {
-    const {username, isAutheticated, logIn, logOut, totalAmount, total} = this.props
+    const {totalAmount, totalTwoMonthAmount, totalWeekAmount, totalMonthAmount, todayAmount} = this.props
     return (
       <div className="col-lg-12 grid-margin stretch-card">
         <div className="card">
@@ -44,21 +38,21 @@ class SubScribeCard extends Component {
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td align="right"> 0 </td>
+                    <td align="right"> ₦{todayAmount} </td>
                   </tr>
                   <tr>
                     <td className="py-1"> Subscription's in the Past Week </td>
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td align="right"> 0 </td>
+                    <td align="right"> ₦{commaNumber(totalWeekAmount)} </td>
                   </tr>
                   <tr>
                     <td className="py-1"> Subscription's in the Past Month </td>
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td align="right"> 0 </td>
+                    <td align="right"> ₦{totalMonthAmount} </td>
                   </tr>
                   <tr>
                     <td className="py-1">
@@ -68,14 +62,14 @@ class SubScribeCard extends Component {
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td align="right"> 0 </td>
+                    <td align="right"> ₦{totalTwoMonthAmount} </td>
                   </tr>
                   <tr>
                     <td className="py-1"> Total Subscription's </td>
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td align="right"> ₦{totalAmount} </td>
+                    <td align="right"> ₦{commaNumber(totalAmount)} </td>
                   </tr>
                 </tbody>
               </table>
@@ -87,6 +81,10 @@ class SubScribeCard extends Component {
   }
 }
 SubScribeCard.defaultProps = {
-  totalAmount: 0
+  totalAmount: 0,
+  totalWeekAmount: 0,
+  totalMonthAmount: 0,
+  totalTwoMonthAmount: 0,
+  todayAmount: 0
 }
 export default SubScribeCard;

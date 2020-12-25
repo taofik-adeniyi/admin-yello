@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from "moment";
 
 const SubscriberContext = React.createContext();
 
@@ -7,56 +8,60 @@ export class SubScriberProvider extends Component {
     username: "Adeniyi Taofik",
     isAutheticated: false,
     allSubs: [],
-    limit: 1000
+    oneWeekSub: [],
+    limit: 1000,
   };
 
   totalAmount = 0;
+  totalWeekAmount = 0;
+  
+  // todays subs req
+  //   componentDidMount() {
+  //     this.togetCurrentDate(
+  //       this.togetPastWeek(),
+  //       this.togetCurrentDate(),
+  //       this.state.limit
+  //     );
+  //   }
 
-  componentDidMount() {
-    this.callAllSubscription(this.state.limit, this.state.currentPage);
-  }
+  // past week subs req
 //   componentDidMount() {
-//     this.getPastWeek(this.togetPastWeek, this.togetCurrentDate, this.state.limit);
+//     this.getPastWeek(
+//       this.togetPastWeek(),
+//       this.togetCurrentDate(),
+//       this.state.limit
+//     );
 //   }
 
-  togetCurrentDate = () => {
-      const currentDate = new Date()
-      const outcome = currentDate.toLocaleDateString('en-US')
-      return outcome
+
+// past month subs req
+//   componentDidMount() {
+//     this.togetCurrentDate(
+//       this.togetPastWeek(),
+//       this.togetCurrentDate(),
+//       this.state.limit
+//     );
+//   }
+
+// past two month subs req
+//   componentDidMount() {
+//     this.togetCurrentDate(
+//       this.togetPastWeek(),
+//       this.togetCurrentDate(),
+//       this.state.limit
+//     );
+//   }
+
+  //all subs req
+  componentDidMount() {
+    this.callAllSubscription(this.state.limit);
   }
 
-  togetPastWeek = () => {
-    const sevenDays = new Date();
-    const outcome =  sevenDays.setDate(sevenDays.getDate() - 7);
-    const result = outcome.toLocaleDateString('en-US')
-    return result;
-  };
 
-  toGetPastMonth = () => {
-    const OneMonth = new Date();
-    const outcome =  OneMonth.setDate(OneMonth.getDate() - 30);
-    const result = outcome.toLocaleDateString('en-US');
-    return result;
-  };
-
-  toGetPastTwoMonth = () => {
-    const TwoMonth = new Date();
-    const outcome =  TwoMonth.setDate(TwoMonth.getDate() - 60);
-    const result = outcome.toLocaleDateString('en-US');
-    return result;
-  };
-
-  togetAll = () => {
-    const TodaysDate = new Date();
-    const BeginningDate = new Date();
-    const outcome = BeginningDate.setDate(BeginningDate.getDate() - 110);
-    const result = outcome.toLocaleDateString('en-US');
-    return result;
-  };
-
-  callAllSubscription = async () => {
+  ///function call to request for todays subscription
+  getToday = async (dateFrom, dateTo, limit) => {
     let response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?limit=1000`,
+      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?dateFrom=${dateFrom}&dateTo=${dateTo}&limit=${limit}`,
       {
         method: "GET",
         headers: {
@@ -65,13 +70,18 @@ export class SubScriberProvider extends Component {
       }
     );
 
-    const data = await response.json();
-    // console.log('subs datas ', data.data);
+    const one = await response.json();
+    console.log("past week datas ", one.data);
     this.setState({
-      allSubs: data.data,
+      oneWeekSub: one.data,
     });
   };
 
+  
+
+
+
+  ///function call to request for last week till date subscription
   getPastWeek = async (dateFrom, dateTo, limit) => {
     let response = await fetch(
       `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?dateFrom=${dateFrom}&dateTo=${dateTo}&limit=${limit}`,
@@ -83,42 +93,133 @@ export class SubScriberProvider extends Component {
       }
     );
 
+    const one = await response.json();
+    console.log("past week datas ", one.data);
+    this.setState({
+      oneWeekSub: one.data,
+    });
+  };
+
+  ///function call to request for last month till date subscription
+  getPastMonth = async (dateFrom, dateTo, limit) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?dateFrom=${dateFrom}&dateTo=${dateTo}&limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
+        },
+      }
+    );
+
+    const one = await response.json();
+    console.log("past week datas ", one.data);
+    this.setState({
+      oneWeekSub: one.data,
+    });
+  };
+
+  ///function call to request for last month till date subscription
+  getPastTwoMonth = async (dateFrom, dateTo, limit) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?dateFrom=${dateFrom}&dateTo=${dateTo}&limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
+        },
+      }
+    );
+
+    const one = await response.json();
+    console.log("past week datas ", one.data);
+    this.setState({
+      oneWeekSub: one.data,
+    });
+  };
+
+  ///function call to request for all subscription
+  callAllSubscription = async (limit) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
+        },
+      }
+    );
+
     const data = await response.json();
-    // console.log('subs datas ', data.data);
+    console.log("all time datas ", data.data);
     this.setState({
       allSubs: data.data,
     });
   };
 
-  logIn = () => {
-    this.setState({
-      username: "Taofik",
-      isAutheticated: true,
-    });
+
+  
+
+  //to get current date
+  togetCurrentDate = () => {
+    const outcome = moment().format("DD-MM-YYYY");
+    return outcome;
   };
 
-  logOut = () => {
-    this.setState({
-      username: "",
-      isAutheticated: false,
-    });
+  //to get past week date 
+  togetPastWeek = () => {
+    const sevenDays = new Date();
+    const outcome = sevenDays.setDate(sevenDays.getDate() - 7);
+    const result = moment(outcome).format("DD-MM-YYYY");
+    return result;
   };
+
+  // to get past month date
+  toGetPastMonth = () => {
+    const OneMonth = new Date();
+    const outcome = OneMonth.setDate(OneMonth.getDate() - 30);
+    const result = moment(outcome).format("DD-MM-YYYY");
+    return result;
+  };
+
+  // to get past two month date
+  toGetPastTwoMonth = () => {
+    const TwoMonth = new Date();
+    const outcome = TwoMonth.setDate(TwoMonth.getDate() - 60);
+    const result = moment(outcome).format("DD-MM-YYYY");
+    return result;
+  };
+
+  /// to get from inception of time of launch
+  togetAllDays = () => {
+    const TodaysDate = new Date();
+    const BeginningDate = new Date();
+    const outcome = BeginningDate.setDate(BeginningDate.getDate() - 110);
+    const result = outcome.toLocaleDateString("en-US");
+    return result;
+  };
+
+
+
+
+
+
+
   render() {
     this.state.allSubs.map((subs) => {
       this.totalAmount += Number(subs.amount);
     });
 
-    const { username, isAutheticated, total } = this.state;
-    const { logIn, logOut, totalAmount } = this;
+    this.state.oneWeekSub.map((ones) => {
+      this.totalWeekAmount += Number(ones.amount);
+    });
+
+    const { totalWeekAmount, totalAmount } = this;
     return (
       <SubscriberContext.Provider
         value={{
-          username,
-          isAutheticated,
-          total,
           totalAmount,
-          logIn,
-          logOut,
+          totalWeekAmount,
         }}
       >
         {this.props.children}
