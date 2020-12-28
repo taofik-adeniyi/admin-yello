@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ProgressBar, Dropdown } from 'react-bootstrap';
 import GaugeChart from 'react-gauge-chart';
 import { VectorMap } from "react-jvectormap"
+import {TriviaProvider} from '../../myContext/TriviaContext'
 
 const mapData = {
   CN: 100000,
@@ -826,10 +827,12 @@ export class Dashboard extends Component {
   toggleProBanner() {
     document.querySelector('.proBanner').classList.toggle("hide");
   }
+
   render () {
     return (
       <div>
         <div className="row">
+          <TriviaProvider>
             <div className="col-md-3 grid-margin stretch-card">
                 <div className="card" style={{color: "black"}}>
                   <div className="card-body">
@@ -847,6 +850,7 @@ export class Dashboard extends Component {
                   </div>
                 </div>
             </div>
+          </TriviaProvider>
           <div className="col-md-3 grid-margin stretch-card">
             <div className="card" style={{color: "black"}}>
               <div className="card-body">

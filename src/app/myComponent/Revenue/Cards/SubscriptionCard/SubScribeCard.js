@@ -1,11 +1,14 @@
 import React, { Component } from "react"
 import {Link} from 'react-router-dom'
 import  commaNumber from 'comma-number'
+import SubscriberContext from '../../../../myContext/SubScriberContext'
 
 class SubScribeCard extends Component {
   
   render() {
-    const {totalAmount, totalTwoMonthAmount, totalWeekAmount, totalMonthAmount, todayAmount} = this.props
+    const {totalAmount, totalWeekAmount, totalTwoMonthAmount, totalMonthAmount, todayAmount} = this.context
+
+    // const {totalAmount, totalTwoMonthAmount, totalWeekAmount, totalMonthAmount, todayAmount} = this.props
     return (
       <div className="col-lg-12 grid-margin stretch-card">
         <div className="card">
@@ -87,4 +90,5 @@ SubScribeCard.defaultProps = {
   totalTwoMonthAmount: 0,
   todayAmount: 0
 }
+SubScribeCard.contextType = SubscriberContext
 export default SubScribeCard;

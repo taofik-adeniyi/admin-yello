@@ -64,8 +64,11 @@ class Login extends Component {
       return <Redirect to="/" />
     }
   }
-
+  
+  
+  
   render() {
+   
     const { location, history } = this.props
 
     const loginFormSubmit = (e) => {

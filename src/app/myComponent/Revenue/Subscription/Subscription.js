@@ -13,6 +13,7 @@ import GoBack from "../../GoBack/GoBack";
 import Spinner from "../../../shared/Spinner";
 import Paginate from "../../Paginate/Paginate";
 import SearchBar from "../../../shared/SearchBar";
+import SubScribeCard from "../Cards/SubscriptionCard/SubScribeCard";
 
 class Subscription extends Component {
   state = {
@@ -460,6 +461,7 @@ class Subscription extends Component {
           </div>
         </div>
 
+{/* <SubScribeCard /> */}
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="card">
             <div className="card-body">

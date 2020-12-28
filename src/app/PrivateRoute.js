@@ -1,21 +1,23 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { useAuth } from "./myContext/auth";
 
-function PrivateRoute({ component: Component, ...rest }) {
-  const isAuthenticated = useAuth();
-  return(
-    <Route
-      {...rest}
-      render={props =>
-        isAuthenticated ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/" />
-        )
-      }
-    />
-  );
+const getAuthToken = () => {
+  const checkToken = sessionStorage.getItem('isLoggedIn')
+  return checkToken
+}
+
+const isAuthenticated = getAuthToken()
+
+function PrivateRoute(props) {
+  if (isAuthenticated) {
+    return(
+      <Route exact={props.exact} path={props.path}>
+        {props.children}
+      </Route>
+    );
+  }else return (
+    <Redirect to="/not-found" />
+  )
 }
 
 export default PrivateRoute;
