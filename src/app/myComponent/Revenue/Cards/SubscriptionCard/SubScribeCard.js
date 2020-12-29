@@ -6,9 +6,7 @@ import SubscriberContext from '../../../../myContext/SubScriberContext'
 class SubScribeCard extends Component {
   
   render() {
-    const {totalAmount, totalWeekAmount, totalTwoMonthAmount, totalMonthAmount, todayAmount} = this.context
-
-    // const {totalAmount, totalTwoMonthAmount, totalWeekAmount, totalMonthAmount, todayAmount} = this.props
+    const {totalAmount, totalWeekAmount, totalTwoMonthAmount, totalMonthAmount, totalTodayAmount} = this.context
     return (
       <div className="col-lg-12 grid-margin stretch-card">
         <div className="card">
@@ -17,12 +15,8 @@ class SubScribeCard extends Component {
             <p className="card-description">
               <Link to="/revenue/subscription">
                 Click here for more details 
-                {/* {username} {" "} */}
-                {/* {isAutheticated? 'is Autheticated': 'is Un Autheticated'} */}
                 <i className="mdi mdi-arrow-right"></i>
               </Link>
-              {/* <button onClick={logIn}>logIn</button>
-              <button onClick={logOut}>logOut</button> */}
             </p>
             <div className="table-responsive">
               <table className="table table-striped">
@@ -41,7 +35,7 @@ class SubScribeCard extends Component {
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td align="right"> ₦{todayAmount} </td>
+                    <td align="right"> ₦{commaNumber(totalTodayAmount)} </td>
                   </tr>
                   <tr>
                     <td className="py-1"> Subscription's in the Past Week </td>
@@ -55,7 +49,7 @@ class SubScribeCard extends Component {
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td align="right"> ₦{totalMonthAmount} </td>
+                    <td align="right"> ₦{commaNumber(totalMonthAmount)} </td>
                   </tr>
                   <tr>
                     <td className="py-1">
@@ -65,7 +59,7 @@ class SubScribeCard extends Component {
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td align="right"> ₦{totalTwoMonthAmount} </td>
+                    <td align="right"> ₦{commaNumber(totalTwoMonthAmount)} </td>
                   </tr>
                   <tr>
                     <td className="py-1"> Total Subscription's </td>
@@ -88,7 +82,7 @@ SubScribeCard.defaultProps = {
   totalWeekAmount: 0,
   totalMonthAmount: 0,
   totalTwoMonthAmount: 0,
-  todayAmount: 0
+  totalTodayAmount: 0
 }
 SubScribeCard.contextType = SubscriberContext
 export default SubScribeCard;
