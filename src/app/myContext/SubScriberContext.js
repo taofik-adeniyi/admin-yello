@@ -7,6 +7,10 @@ export class SubScriberProvider extends Component {
   state = {
     username: "Adeniyi Taofik",
     isAutheticated: false,
+    currentDate: moment().format("DD-MM-YYYY"),
+    aweekDate: '',
+    amonthDate: '',
+    twoMonthDate: '',
     limit: 1000,
     allSubs: [],
     todaysSub: [],
@@ -21,130 +25,8 @@ export class SubScriberProvider extends Component {
   totalTwoMonthAmount = 0;
   totalTodayAmount = 0;
 
-  // to reuest for the total amount of subscription made in the last seven days
-  componentDidMount() {
-    
-    this.getToday('29-12-2020', '29-12-2020', this.state.limit)
-    
-    this.getPastWeek('22-12-2020', '29-12-2020', this.state.limit);
-    
-    this.getPastMonth('27-11-2020', '29-12-2020', this.state.limit)
-    
-    this.getPastTwoMonth('27-10-2020', '29-12-2020', this.state.limit)
-    
-    this.callAllSubscription(this.state.limit);
-
-  }
-
-
   
 
-
-  ///function call to request for todays subscription
-  getToday = async (dateFrom, dateTo, limit) => {
-    let response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?dateFrom=${dateFrom}&dateTo=${dateTo}&limit=${limit}`,
-      {
-        method: "GET",
-        headers: {
-          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
-        },
-      }
-    );
-
-    const wawu = await response.json();
-    console.log("past week datas ", wawu.data);
-    this.setState({
-      todaysSub: wawu.data,
-    });
-  };
-
-  
-
-  ///function call to request for last week till date subscription
-  getPastWeek = async (dateFrom, dateTo, limit) => {
-    let response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?dateFrom=${dateFrom}&dateTo=${dateTo}&limit=${limit}`,
-      {
-        method: "GET",
-        headers: {
-          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
-        },
-      }
-    );
-
-    const dow = await response.json();
-    console.log("past week datas ", dow.data);
-    this.setState({
-      oneWeekSub: dow.data,
-    });
-  };
-
-  ///function call to request for last month till date subscription
-  getPastMonth = async (dateFrom, dateTo, limit) => {
-    let response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?dateFrom=${dateFrom}&dateTo=${dateTo}&limit=${limit}`,
-      {
-        method: "GET",
-        headers: {
-          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
-        },
-      }
-    );
-
-    const one = await response.json();
-    console.log("past week datas ", one.data);
-    this.setState({
-      oneMonthSub: one.data,
-    });
-  };
-
-  ///function call to request for last month till date subscription
-  getPastTwoMonth = async (dateFrom, dateTo, limit) => {
-    let response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?dateFrom=${dateFrom}&dateTo=${dateTo}&limit=${limit}`,
-      {
-        method: "GET",
-        headers: {
-          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
-        },
-      }
-    );
-
-    const wan = await response.json();
-    console.log("past week datas ", wan.data);
-    this.setState({
-      twoMonthSub: wan.data,
-    });
-  };
-
-  ///function call to request for all subscription
-  callAllSubscription = async (limit) => {
-    let response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?limit=${limit}`,
-      {
-        method: "GET",
-        headers: {
-          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
-        },
-      }
-    );
-
-    const data = await response.json();
-    // console.log("all time datas ", data.data);
-    this.setState({
-      allSubs: data.data,
-    });
-  };
-
-
-  
-
-  
-
-
-
-  
   //to get current date
   toGetTodaysDate = () => {
     const outcome = moment().format("DD-MM-YYYY");
@@ -156,6 +38,9 @@ export class SubScriberProvider extends Component {
     const sevenDays = new Date();
     const outcome = sevenDays.setDate(sevenDays.getDate() - 7);
     const result = moment(outcome).format("DD-MM-YYYY");
+    this.setState({
+      aweekDate: result
+    })
     return result;
   };
 
@@ -183,8 +68,121 @@ export class SubScriberProvider extends Component {
     const result = outcome.toLocaleDateString("en-US");
     return result;
   };
+  
 
 
+  ///function call to request for todays subscription
+  getToday = async (dateFrom, dateTo, limit) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?dateFrom=${dateFrom}&dateTo=${dateTo}&limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
+        },
+      }
+    );
+
+    const wawu = await response.json();
+    // console.log("past week datas ", wawu.data);
+    this.setState({
+      todaysSub: wawu.data,
+    });
+  };
+
+  
+
+  ///function call to request for last week till date subscription
+  getPastWeek = async (dateFrom, dateTo, limit) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?dateFrom=${dateFrom}&dateTo=${dateTo}&limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
+        },
+      }
+    );
+
+    const dow = await response.json();
+    // console.log("past week datas ", dow.data);
+    this.setState({
+      oneWeekSub: dow.data,
+    });
+  };
+
+  ///function call to request for last month till date subscription
+  getPastMonth = async (dateFrom, dateTo, limit) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?dateFrom=${dateFrom}&dateTo=${dateTo}&limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
+        },
+      }
+    );
+
+    const one = await response.json();
+    // console.log("past week datas ", one.data);
+    this.setState({
+      oneMonthSub: one.data,
+    });
+  };
+
+  ///function call to request for last month till date subscription
+  getPastTwoMonth = async (dateFrom, dateTo, limit) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?dateFrom=${dateFrom}&dateTo=${dateTo}&limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
+        },
+      }
+    );
+
+    const wan = await response.json();
+    // console.log("past week datas ", wan.data);
+    this.setState({
+      twoMonthSub: wan.data,
+    });
+  };
+
+  ///function call to request for all subscription
+  callAllSubscription = async (limit) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/subscriptions/v1/subscriptions?limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+    // console.log("all time datas ", data.data);
+    this.setState({
+      allSubs: data.data,
+    });
+  };
+
+
+  // to reuest for the total amount of subscription made in the last seven days
+  componentDidMount() {
+    
+    this.getToday(this.state.currentDate, this.state.currentDate, this.state.limit)
+    
+    this.getPastWeek('22-12-2020', '29-12-2020', this.state.limit);
+    
+    this.getPastMonth('27-11-2020', '29-12-2020', this.state.limit)
+    
+    this.getPastTwoMonth('27-10-2020', '29-12-2020', this.state.limit)
+    
+    this.callAllSubscription(this.state.limit);
+
+  }
 
   render() {
     this.state.allSubs.map((subs) => {

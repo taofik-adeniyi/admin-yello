@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 
-const TriviaContext = React.createContext();
+const PredictionContext = React.createContext();
 
-export class TriviaProvider extends Component {
+export class PredictionProvider extends Component {
   state = {
     total: null,
   };
 
-
   componentDidMount() {
-    this.callAllTrivia();
+    this.makeHttpRequestWithPage();
   }
-  callAllTrivia = async (pageNumber) => {
+
+  makeHttpRequestWithPage = async (pageNumber) => {
     let response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/trivia/admin/summary`,
+      `${process.env.REACT_APP_BASE_URL}/predictions/admin/predictions`,
       {
         method: "GET",
         headers: {
@@ -28,18 +28,15 @@ export class TriviaProvider extends Component {
       total: data.total,
     });
   };
+
   render() {
-    const { total } = this.state
+    const { total } = this.state;
     return (
-      <TriviaContext.Provider
-        value={{
-          total
-        }}
-      >
+      <PredictionContext.Provider value={{ total }}>
         {this.props.children}
-      </TriviaContext.Provider>
+      </PredictionContext.Provider>
     );
   }
 }
 
-export default TriviaContext;
+export default PredictionContext;
