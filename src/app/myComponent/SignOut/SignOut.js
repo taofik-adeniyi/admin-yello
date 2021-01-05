@@ -11,7 +11,9 @@ class SignOut extends Component {
         const signOutHandler = () => {
             const sessionName = sessionStorage.getItem('isLoggedIn')
             // console.log('is loggine = ', sessionName)
-            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('email');
+            sessionStorage.removeItem('role');
             this.props.history.push("/")
             // alert('Log out Succesfull')
         }

@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 const getAuthToken = () => {
-  const checkToken = sessionStorage.getItem('isLoggedIn')
+  const checkToken = sessionStorage.getItem('token')
   return checkToken
 }
 

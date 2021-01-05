@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 class ErrorPage extends Component {
   render() {
+    console.log('we on the error page');
     return (
       <div>
         <div className="d-flex align-items-center text-center error-page bg-warning pt-5 pb-4 h-100">

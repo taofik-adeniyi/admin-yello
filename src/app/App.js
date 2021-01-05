@@ -23,13 +23,19 @@ import SubScriberContext, {
 } from "./myContext/SubScriberContext";
 import ErrorPage from "./myComponent/ErrorPage/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
+import { AuthProvider } from "./myContext/AuthContext";
 
 class App extends Component {
   render() {
     const show = false;
     return (
       <Switch>
-        <Route exact path="/" component={Login} />
+        <Route exact path="/">
+          <AuthProvider>
+            <Login />
+          </AuthProvider>
+        </Route>
+
         <Route exact path="/not-found" component={ErrorPage} />
 
         <PrivateRoute exact path="/revenue/games-played">

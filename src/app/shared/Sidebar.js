@@ -54,6 +54,8 @@ class Sidebar extends Component {
  
   } 
   render () {
+    const email = sessionStorage.getItem('email')
+    const role = sessionStorage.getItem('role')
     return (
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
         <div className="text-center sidebar-brand-wrapper d-flex align-items-center">
@@ -74,8 +76,8 @@ class Sidebar extends Component {
                       <div className="dot-indicator bg-success"></div>
                     </div>
                     <div className="text-wrapper">
-                      <p className="profile-name">Taofik Adeniyi</p>
-                      <p className="designation">Normal user</p>
+                      <p className="profile-name">{email}</p>
+                      <p className="designation">{role}</p>
                     </div>
                   </div>
                 </Dropdown.Toggle>
@@ -184,5 +186,4 @@ class Sidebar extends Component {
   }
 
 }
-
 export default withRouter(Sidebar);
