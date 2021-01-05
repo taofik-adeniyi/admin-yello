@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Button, Dropdown, Pagination, Spinner, InputGroup, FormControl, Modal } from 'react-bootstrap';
 import GoBack from '../GoBack/GoBack'
 import Paginate from '../Paginate/Paginate';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 let active = 2;
     let items = [];
@@ -22,10 +24,16 @@ class Users extends Component {
     total: null,
     spinner: true,
     show: false,
-    smShow: false
+    smShow: false,
+    toast: false
   };
 
   componentDidMount() {
+
+    
+      // this.state.toast ? this.setState({toast: false}) : null
+  
+
     this.makeHttpRequestWithPage(1);
   }
 
@@ -81,12 +89,9 @@ class Users extends Component {
       this.setState({show: false})
     }
 
-    const handleSmClose = () => {
-      this.setState({smShow: false})
-    }
-
-    const handleSmOpen = () => {
-      this.setState({show: false, smShow: true})
+    const handleToastOpen = () => {
+      this.setState({show: false, toast: true})
+      toast(" ... User Disabled/Deleted Succesfully ...");
     }
 
     return (
@@ -232,7 +237,7 @@ class Users extends Component {
                       No
                     </Button>
                     <Button variant="primary" 
-                    onClick={handleSmOpen}
+                    onClick={handleToastOpen}
                     >
                       Yes Delete/Disable
                     </Button>
@@ -240,22 +245,7 @@ class Users extends Component {
                 </Modal>
                 : null
                 }
-                {
-                  this.state.smShow ? 
-                  <Modal
-                    size="sm"
-                    show={this.state.smShow}
-                    onHide={handleSmClose}
-                    aria-labelledby="example-modal-sizes-title-sm"
-                  >
-                    <Modal.Header closeButton>
-                      <Modal.Title id="example-modal-sizes-title-sm">
-                        User Disabled/Deleted Successful
-                      </Modal.Title>
-                    </Modal.Header>
-                  </Modal>
-                  : null
-                }
+                <ToastContainer position="top-center" autoClose={3000} />
               </div>
             </div>
           </div>

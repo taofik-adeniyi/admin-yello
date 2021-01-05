@@ -8,14 +8,10 @@ import SubScribeCard from './Cards/SubscriptionCard/SubScribeCard'
 import RegisterCard from './Cards/RegistrationCard/RegisterCard'
 import GameCard from './Cards/GameCard/GameCard'
 import DepositCard from './Cards/DepositCard/DepositCard'
-// import SubscriberContext from '../../myContext/SubScriberContext'
+import {SubScriberProvider} from '../../myContext/SubScriberContext'
 
 class Revenue extends Component {
     render() {
-        // console.log(this.context);
-        // const {totalAmount, totalWeekAmount} = this.context
-        // const now = moment("1995-12-25")
-        // {moment(dateToBeFormate).format('DD/MM/YYYY')}
         return (
             <div>
                 <div className="row">
@@ -28,11 +24,9 @@ class Revenue extends Component {
                 </div>
                 
                 <RegisterCard />
-
-                <SubScribeCard 
-                    // totalAmount={totalAmount}
-                    // totalWeekAmount={totalWeekAmount}
-                />
+                <SubScriberProvider>
+                    <SubScribeCard />
+                </SubScriberProvider>
 
                 <GameCard />
 
@@ -42,6 +36,5 @@ class Revenue extends Component {
         )
     }
 }
-// Revenue.contextType = SubscriberContext
 
 export default Revenue

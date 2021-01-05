@@ -23,7 +23,6 @@ import SubScriberContext, {
 } from "./myContext/SubScriberContext";
 import ErrorPage from "./myComponent/ErrorPage/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
-import NewComponent from "./myComponent/NewComponent";
 
 class App extends Component {
   render() {
@@ -32,10 +31,6 @@ class App extends Component {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route exact path="/not-found" component={ErrorPage} />
-
-        <PrivateRoute exact path="/new-component">
-          <NewComponent />
-        </PrivateRoute>
 
         <PrivateRoute exact path="/revenue/games-played">
           <PageLayout>
