@@ -67,7 +67,7 @@ export class AuthProvider extends Component{
     }
     } catch (error) {
       this.setState({
-        error: "Server error"
+        error: "Email or Password or Server error"
       })
     }
 
