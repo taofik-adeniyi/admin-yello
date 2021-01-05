@@ -23,6 +23,17 @@
     -moz-transition: width 0.25s ease, background 0.25s ease;
     -ms-transition: width 0.25s ease, background 0.25s ease;
 }
+.sidebar-brand-wrapper {
+    position: fixed !important;
+    margin-left: 70px !important;
+}
+.tofix {
+    position: fixed !important;
+    margin-top: 80px !important;
+}
+.prof {
+    margin-left: 45px;
+}
 
 .sidebar > .nav .nav-item.nav-profile .nav-link .profile-name {
     margin-bottom: 5px;

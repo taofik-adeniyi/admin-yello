@@ -63,9 +63,9 @@ class Sidebar extends Component {
             </h3>
           </Link>
         </div>
-        <ul className="nav">
+        <ul className="nav tofix">
           <li className="nav-item nav-profile not-navigation-link">
-            <div className="nav-link">
+            <div className="nav-link prof">
               <Dropdown>
                 <Dropdown.Toggle className="nav-link user-switch-dropdown-toggler p-0 toggle-arrow-hide bg-transparent border-0 w-100">
                   <div className="d-flex justify-content-between align-items-start">
