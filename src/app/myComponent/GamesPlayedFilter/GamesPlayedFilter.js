@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Button , Form} from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 class GamesPlayedFilter extends Component {
     state = {

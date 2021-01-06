@@ -62,7 +62,7 @@ export class SubScriberProvider extends Component {
 
   /// to get from inception of time of launch
   toGetAllDays = () => {
-    const TodaysDate = new Date();
+    // const TodaysDate = new Date();
     const BeginningDate = new Date();
     const outcome = BeginningDate.setDate(BeginningDate.getDate() - 110);
     const result = outcome.toLocaleDateString("en-US");

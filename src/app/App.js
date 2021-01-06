@@ -18,16 +18,12 @@ import Deposit from "./myComponent/Revenue/Deposit/Deposit";
 import GamesPlayedFilter from "./myComponent/GamesPlayedFilter/GamesPlayedFilter";
 import WinningFilter from "./myComponent/WinningFilter/WinningFilter";
 import Subscription from "./myComponent/Revenue/Subscription/Subscription";
-import SubScriberContext, {
-  SubScriberProvider,
-} from "./myContext/SubScriberContext";
 import ErrorPage from "./myComponent/ErrorPage/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import { AuthProvider } from "./myContext/AuthContext";
 
 class App extends Component {
   render() {
-    const show = false;
     return (
       <Switch>
         <Route exact path="/">
@@ -76,9 +72,7 @@ class App extends Component {
 
         <PrivateRoute exact path="/revenue">
           <PageLayout>
-            <SubScriberProvider>
               <Revenue />
-            </SubScriberProvider>
           </PageLayout>
         </PrivateRoute>
 

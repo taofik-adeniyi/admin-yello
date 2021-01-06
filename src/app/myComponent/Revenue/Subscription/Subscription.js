@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import {
   Button,
   Form,
-  InputGroup,
-  FormControl,
+  // InputGroup,
+  // FormControl,
   Col,
   Dropdown,
   Modal,
@@ -13,7 +13,7 @@ import GoBack from "../../GoBack/GoBack";
 import Spinner from "../../../shared/Spinner";
 import Paginate from "../../Paginate/Paginate";
 import SearchBar from "../../../shared/SearchBar";
-import SubScribeCard from "../Cards/SubscriptionCard/SubScribeCard";
+// import SubScribeCard from "../Cards/SubscriptionCard/SubScribeCard";
 import  commaNumber from 'comma-number'
 
 class Subscription extends Component {
@@ -262,7 +262,7 @@ class Subscription extends Component {
       // })
 
       e.preventDefault();
-      if(this.state.search == ""){
+      if(this.state.search === ""){
           alert ("Please type in a mobile phone number")
       }else{
           this.userIdSubscription(this.state.search)
@@ -283,9 +283,9 @@ class Subscription extends Component {
     //   console.log(this.state.search);
     };
 
-    const searchResult = this.state.allSubscription.filter(
-      (res) => res.userId === this.state.search
-    );
+    // const searchResult = this.state.allSubscription.filter(
+    //   (res) => res.userId === this.state.search
+    // );
 
     const changeSearch = (e) => {
       this.setState({

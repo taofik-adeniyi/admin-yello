@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Dropdown, Pagination, Spinner, InputGroup, FormControl, Modal } from 'react-bootstrap';
+import { Button, Dropdown, Pagination, InputGroup, FormControl, Modal } from 'react-bootstrap';
 import GoBack from '../GoBack/GoBack'
 import Paginate from '../Paginate/Paginate';
 import { ToastContainer, toast } from 'react-toastify';
@@ -67,19 +67,19 @@ class Users extends Component {
       );
     }
 
-    let users, renderPageNumbers;
+    // let users, renderPageNumbers;
 
-    if (this.state.users !== null) {
-      users = this.state.users.map((user, id) => (
-        <tr key={user.phone_number}>
-          <td> {id+1} </td>
-          <td> <Button variant="warning"> Click to delete </Button> </td>
-          <td>{user.phone_number}</td>
-          <td>{user.attempted_questions_count}</td>
-          <td>{user.total_points}</td>
-        </tr>
-      ));
-    }
+    // if (this.state.users !== null) {
+    //   users = this.state.users.map((user, id) => (
+    //     <tr key={user.phone_number}>
+    //       <td> {id+1} </td>
+    //       <td> <Button variant="warning"> Click to delete </Button> </td>
+    //       <td>{user.phone_number}</td>
+    //       <td>{user.attempted_questions_count}</td>
+    //       <td>{user.total_points}</td>
+    //     </tr>
+    //   ));
+    // }
     
     const handleClick = () => {
       this.setState({show: true})

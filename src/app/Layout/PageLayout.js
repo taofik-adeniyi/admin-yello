@@ -4,9 +4,9 @@ import Sidebar from '../shared/Sidebar';
 import Footer from '../shared/Footer';
 
 class PageLayout extends Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     render() {
         return (

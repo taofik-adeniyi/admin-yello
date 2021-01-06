@@ -74,7 +74,7 @@ export class AuthProvider extends Component{
   }
   onSubmit = (e) => {
     e.preventDefault()
-    if(this.state.email == "" && this.state.password == "") {
+    if(this.state.email === "" && this.state.password === "") {
         this.setState({
           emailError: 'Type in your email',
           passwordError: 'Type in password'

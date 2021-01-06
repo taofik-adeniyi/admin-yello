@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, Button, ButtonGroup, Pagination , InputGroup, FormControl, Modal} from 'react-bootstrap';
+import { Dropdown, Button, InputGroup, FormControl, Modal} from 'react-bootstrap';
 import GoBack from '../GoBack/GoBack';
    
 
@@ -37,36 +37,6 @@ class Wonprediction extends Component {
   }
 
   render() {
-    const onFirst = () => {
-      this.makeHttpRequestWithPage(this.state._page)
-    }
-
-    const onPrev = () => {
-      this.makeHttpRequestWithPage(this.state._page - 1)
-    }
-
-    const onNext = () => {
-      return this.state._page + 1
-      this.makeHttpRequestWithPage(this.state._page + 1)
-    }
-
-    const onLast = () => {
-      this.makeHttpRequestWithPage(this.state._page)
-    }
-
-    let active = this.state._page;
-    let items = [];
-    for (let _page = this.state._page; _page <= (this.state.total/this.state._per_page); _page++) {
-      items.push(
-        <Pagination.Item 
-          onClick={() => this.makeHttpRequestWithPage(_page)} 
-          key={_page} 
-          active={_page === active}>
-          {_page}
-        </Pagination.Item>,
-      );
-    }
-
     let predictions;
     if (this.state.predictions !== null) {
       predictions = this.state.predictions.map((prediction, id) => (
@@ -175,14 +145,7 @@ class Wonprediction extends Component {
           </div>
         </div>
         <div>
-          <Pagination size="sm">
-            <Pagination.First onClick={onFirst} />
-            <Pagination.Prev onClick={onPrev} />
-              {/* {items} */}
-              <Pagination.Item>{this.state._page}</Pagination.Item>
-            <Pagination.Next onClick={onNext} />
-            <Pagination.Last onClick={onLast} />
-          </Pagination>
+         
         </div>
         </div>
     )

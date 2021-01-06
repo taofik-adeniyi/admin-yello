@@ -88,11 +88,6 @@ class BasicTable extends Component {
             </Dropdown>
           </div>
         </div>
-        {/* <div className="text-center">
-          <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
-        </div> */}
        
         <div className="row">    
           <div className="col-lg-12 stretch-card">
@@ -124,25 +119,6 @@ class BasicTable extends Component {
           <div className="row grid-margin" style={{margin: "10px"}}>
             <Pagination size="sm">{items}</Pagination>
           </div>
-          {/* <div className="row grid-margin">
-          <Pagination>
-            <Pagination.First />
-            <Pagination.Prev />
-            <Pagination.Item>{1}</Pagination.Item>
-            <Pagination.Ellipsis />
-
-            <Pagination.Item>{10}</Pagination.Item>
-            <Pagination.Item>{11}</Pagination.Item>
-            <Pagination.Item active>{12}</Pagination.Item>
-            <Pagination.Item>{13}</Pagination.Item>
-            <Pagination.Item disabled>{14}</Pagination.Item>
-
-            <Pagination.Ellipsis />
-            <Pagination.Item>{20}</Pagination.Item>
-            <Pagination.Next />
-            <Pagination.Last />
-          </Pagination>
-        </div> */}
         </div>
       </div>
       

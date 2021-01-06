@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
-import { Dropdown, Button, ButtonGroup, Pagination, Page, InputGroup, FormControl, Modal } from 'react-bootstrap';
-import Spinner from '../../shared/Spinner'
+import { Dropdown, Button, InputGroup, FormControl, Modal } from 'react-bootstrap';
 import GoBack from '../GoBack/GoBack';
 
 
-  let active = 2;
-  let items = [];
-  for (let number = 1; number <= 5; number++) {
-    items.push(
-      <Pagination.Item key={number} active={number === active}>
-        {number}
-      </Pagination.Item>,
-    );
-  }
 class Wontrivia extends Component {
   state= {
     lgShow: false,
@@ -47,22 +37,22 @@ class Wontrivia extends Component {
 
   render() {
     
-    const onFirst = () => {
-      this.makeHttpRequestWithPage(this.state._page)
-    }
+    // const onFirst = () => {
+    //   this.makeHttpRequestWithPage(this.state._page)
+    // }
 
-    const onPrev = () => {
-      this.makeHttpRequestWithPage(this.state._page - 1)
-    }
+    // const onPrev = () => {
+    //   this.makeHttpRequestWithPage(this.state._page - 1)
+    // }
 
-    const onNext = () => {
-      return this.state._page + 1
-      this.makeHttpRequestWithPage(this.state._page + 1)
-    }
+    // const onNext = () => {
+    //   return this.state._page + 1
+    //   this.makeHttpRequestWithPage(this.state._page + 1)
+    // }
 
-    const onLast = () => {
-      this.makeHttpRequestWithPage(this.state._page)
-    }
+    // const onLast = () => {
+    //   this.makeHttpRequestWithPage(this.state._page)
+    // }
 
     return (
       <div>
@@ -226,13 +216,7 @@ class Wontrivia extends Component {
           </div>
         </div>
           <div>
-          <Pagination size="sm">
-            <Pagination.First onClick={onFirst} />
-            <Pagination.Prev onClick={onPrev} />
-              <Pagination.Item>1</Pagination.Item>
-            <Pagination.Next onClick={onNext} />
-            <Pagination.Last onClick={onLast} />
-          </Pagination>
+         
           </div>
         </div>
     )

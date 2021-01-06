@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import {
   Dropdown,
   Button,
-  ButtonGroup,
+  // ButtonGroup,
   Pagination,
-  PageItem,
-  InputGroup,
-  FormControl,
+  // PageItem,
+  // InputGroup,
+  // FormControl,
   Modal,
-  Form,
+  // Form,
 } from "react-bootstrap";
-import axios from "axios";
+// import axios from "axios";
 import Spinner from "../../shared/Spinner";
 import GoBack from "../GoBack/GoBack";
 import SearchBar from "../../shared/SearchBar";
@@ -146,7 +146,7 @@ class Alltrivia extends Component {
 
     let questions;
 
-    if (this.state.questions != []) {
+    if (this.state.questions !== []) {
       questions = this.state.questions.map((question, id) => (
         <tr key={id}>
           <td> {id + 1} </td>
@@ -161,26 +161,26 @@ class Alltrivia extends Component {
       return <div>No Data to load for this user </div>;
     }
 
-    const onFirst = () => {
-      this.makeHttpRequestWithPage(this.state._page);
-    };
+    // const onFirst = () => {
+    //   this.makeHttpRequestWithPage(this.state._page);
+    // };
 
-    const onPrev = () => {
-      this.makeHttpRequestWithPage(this.state._page - 1);
-    };
+    // const onPrev = () => {
+    //   this.makeHttpRequestWithPage(this.state._page - 1);
+    // };
 
-    const onNext = () => {
-      return this.state._page + 1;
-      this.makeHttpRequestWithPage(this.state._page + 1);
-    };
+    // const onNext = () => {
+    //   return this.state._page + 1;
+    //   this.makeHttpRequestWithPage(this.state._page + 1);
+    // };
 
-    const onLast = () => {
-      this.makeHttpRequestWithPage(this.state._page);
-    };
+    // const onLast = () => {
+    //   this.makeHttpRequestWithPage(this.state._page);
+    // };
 
     const searchByPhone = (e) => {
       e.preventDefault();
-      if (this.state.search == "") {
+      if (this.state.search === "") {
         // return null
         alert("Please type in a mobile phone number");
       } else {
@@ -205,9 +205,9 @@ class Alltrivia extends Component {
       });
     };
 
-    const searchResult = this.state.trivia.filter(
-      (res) => res.phone_number === this.state.search
-    );
+    // const searchResult = this.state.trivia.filter(
+    //   (res) => res.phone_number === this.state.search
+    // );
 
     return (
       <div>

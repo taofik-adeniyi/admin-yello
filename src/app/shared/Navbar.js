@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dropdown } from 'react-bootstrap';
-import { Trans } from 'react-i18next';
+// import { Trans } from 'react-i18next';
 import SignOut from '../myComponent/SignOut/SignOut';
 
 class Navbar extends Component {

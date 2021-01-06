@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Dropdown, Pagination, Page, Modal, Button, InputGroup, FormControl } from 'react-bootstrap';
-import DatePicker from "react-datepicker";
+import { Dropdown, Modal, Button } from 'react-bootstrap';
 import bsCustomFileInput from 'bs-custom-file-input';
 import Spinner from '../../shared/Spinner'
 import GoBack from '../GoBack/GoBack'
@@ -106,7 +105,9 @@ class Allprediction extends Component {
 
   render() {
 
-    let predictions, renderPageNumbers, loading;
+    let predictions, 
+    // renderPageNumbers, 
+    loading;
 
     if (this.state.spinner) {
       return loading = <Spinner />
@@ -136,18 +137,18 @@ class Allprediction extends Component {
       }
 
 
-      renderPageNumbers = pageNumbers.map(number => {
-        // let classes = this.state.current_page === number ? styles.active : '';
+      // renderPageNumbers = pageNumbers.map(number => {
+      //   // let classes = this.state.current_page === number ? styles.active : '';
 
-        return (
-          <span key={number} onClick={() => this.makeHttpRequestWithPage(number)}>{number}</span>
-        );
-      });
+      //   return (
+      //     <span key={number} onClick={() => this.makeHttpRequestWithPage(number)}>{number}</span>
+      //   );
+      // });
     }
 
     let userPredict
 
-    if(this.state.userPredictions != []) {
+    if(this.state.userPredictions !== []) {
       userPredict = this.state.userPredictions.map((predict, id) => (
         <tr key={id}>
           <td> {id+1} </td>
@@ -168,7 +169,7 @@ class Allprediction extends Component {
 
     const searchByPhone = (e) => {
       e.preventDefault();
-      if (this.state.search == "") {
+      if (this.state.search === "") {
         // return null
         alert("Please type in a mobile phone number");
       } else {

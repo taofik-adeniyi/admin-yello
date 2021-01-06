@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 // import { Line, Doughnut, Bar, Radar } from 'react-chartjs-2';
-import { Line, Bar, Radar } from 'react-chartjs-2';
-import { Link } from 'react-router-dom';
-import { ProgressBar, Dropdown } from 'react-bootstrap';
-import GaugeChart from 'react-gauge-chart';
-import { VectorMap } from "react-jvectormap"
+import { Line } from 'react-chartjs-2';
+// import { Link } from 'react-router-dom';
+// import { ProgressBar, Dropdown } from 'react-bootstrap';
+// import GaugeChart from 'react-gauge-chart';
+// import { VectorMap } from "react-jvectormap"
 import TriviaCard from './TriviaCard';
 import PredictionCard from './PredictionCard';
 import RevenueCard from './RevenueCard';
@@ -12,16 +12,16 @@ import UsersCard from './UsersCard';
 import { TriviaProvider } from "../../myContext/TriviaContext";
 import { PredictionProvider } from "../../myContext/PredictionContext";
 
-const mapData = {
-  CN: 100000,
-  IN: 9900,
-  SA: 86,
-  EG: 70,
-  SE: 0,
-  FI: 0,
-  FR: 0,
-  US: 20
-};
+// const mapData = {
+//   CN: 100000,
+//   IN: 9900,
+//   SA: 86,
+//   EG: 70,
+//   SE: 0,
+//   FI: 0,
+//   FR: 0,
+//   US: 20
+// };
 
 // import DatePicker from 'react-datepicker';
 // import { Dropdown } from 'react-bootstrap';
