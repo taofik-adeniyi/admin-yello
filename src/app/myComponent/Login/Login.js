@@ -1,25 +1,27 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import AuthContext from "../../myContext/AuthContext";
+import { withRouter } from "react-router-dom"
 
 
 class Login extends Component {
   componentDidMount() {
-    console.log('login componenet');
-    // if (sessionStorage.getItem('token')) {
-    //   window.location.href = "/dashboard"
-    // } else {
-    //   window.location.href = "/"
-    // }
+   this.handleAuth()
   }
   
+  handleAuth = () => {
+    const token = sessionStorage.getItem('token')
+    if(token){
+      this.props.history.push("/dashboard")
+      console.log('ello');
+    }else {
+      this.props.history.push("/")
+      console.log('ello');
+    }
+  }
 
   render() {
-    // if (sessionStorage.getItem('token')) {
-    //   window.location.href = "/dashboard"
-    // } else {
-    //   window.location.href = "/"
-    // }
+    const { history } = this.props;
     const { emailChange, onSubmit, passwordChange, error, passwordError, emailError, email, password} = this.context
 
     return (
@@ -84,5 +86,5 @@ class Login extends Component {
 }
 
 Login.contextType = AuthContext
-export default Login;
+export default withRouter(Login);
 
