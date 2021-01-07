@@ -18,6 +18,11 @@ export class AuthProvider extends Component{
   
   componentDidMount() {
     // this.handleAuth()
+    // if (sessionStorage.getItem('token')) {
+    //   window.location.href = "/dashboard"
+    // } else {
+    //   window.location.href = "/"
+    // }
   }
   
   handleAuth = () => {

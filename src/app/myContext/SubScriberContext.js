@@ -5,10 +5,8 @@ const SubscriberContext = React.createContext();
 
 export class SubScriberProvider extends Component {
   state = {
-    username: "Adeniyi Taofik",
-    isAutheticated: false,
     currentDate: moment().format("DD-MM-YYYY"),
-    aweekDate: '',
+    lastWeek: null,
     amonthDate: '',
     twoMonthDate: '',
     limit: 1000,
@@ -34,18 +32,15 @@ export class SubScriberProvider extends Component {
   };
 
   //to get past week date 
-  toGetAweekDate = () => {
+  lastWeek = () => {
     const sevenDays = new Date();
     const outcome = sevenDays.setDate(sevenDays.getDate() - 7);
     const result = moment(outcome).format("DD-MM-YYYY");
-    this.setState({
-      aweekDate: result
-    })
-    return result;
+    return result
   };
 
   // to get past month date
-  toGetPastMonth = () => {
+  lastMonth = () => {
     const OneMonth = new Date();
     const outcome = OneMonth.setDate(OneMonth.getDate() - 30);
     const result = moment(outcome).format("DD-MM-YYYY");
@@ -53,7 +48,7 @@ export class SubScriberProvider extends Component {
   };
 
   // to get past two month date
-  toGetPastTwoMonth = () => {
+  lastTwoMonth = () => {
     const TwoMonth = new Date();
     const outcome = TwoMonth.setDate(TwoMonth.getDate() - 60);
     const result = moment(outcome).format("DD-MM-YYYY");
@@ -61,12 +56,13 @@ export class SubScriberProvider extends Component {
   };
 
   /// to get from inception of time of launch
-  toGetAllDays = () => {
+  allDays = () => {
     // const TodaysDate = new Date();
     const BeginningDate = new Date();
     const outcome = BeginningDate.setDate(BeginningDate.getDate() - 110);
-    const result = outcome.toLocaleDateString("en-US");
-    return result;
+    const result = moment(outcome).format("DD-MM-YYYY");
+    // return result;
+    console.log(result);
   };
   
 
@@ -171,20 +167,34 @@ export class SubScriberProvider extends Component {
 
   // to reuest for the total amount of subscription made in the last seven days
   componentDidMount() {
+    const lastWeek = this.lastWeek()
+    const lastMonth = this.lastMonth()
+    const lastTwoMonth = this.lastTwoMonth()
     
     this.getToday(this.state.currentDate, this.state.currentDate, this.state.limit)
     
-    this.getPastWeek('22-12-2020', '29-12-2020', this.state.limit);
+    this.getPastWeek(lastWeek, this.state.currentDate, this.state.limit);
     
-    this.getPastMonth('27-11-2020', '29-12-2020', this.state.limit)
+    this.getPastMonth(lastMonth, this.state.currentDate, this.state.limit)
     
-    this.getPastTwoMonth('27-10-2020', '29-12-2020', this.state.limit)
+    this.getPastTwoMonth(lastTwoMonth, this.state.currentDate, this.state.limit)
     
     this.callAllSubscription(this.state.limit);
-
   }
 
   render() {
+
+    // this.state.allSubs.map((subs) => {
+    //   // this.totalAmount += Number(subs.amount);
+    //   // const lotto = subs.amount.reduce((total, amount) => total + amount)
+    //   // console.log('our lotto', lotto);
+    //   const harry = subs.amount
+    //   // console.log(typeof harry)
+    //   console.log(Array.from(subs.amount))
+    // });
+
+    
+
     this.state.allSubs.map((subs) => {
       this.totalAmount += Number(subs.amount);
     });

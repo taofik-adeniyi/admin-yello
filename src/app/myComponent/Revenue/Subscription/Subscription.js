@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import {
   Button,
   Form,
-  // InputGroup,
-  // FormControl,
   Col,
   Dropdown,
   Modal,
@@ -13,7 +11,6 @@ import GoBack from "../../GoBack/GoBack";
 import Spinner from "../../../shared/Spinner";
 import Paginate from "../../Paginate/Paginate";
 import SearchBar from "../../../shared/SearchBar";
-// import SubScribeCard from "../Cards/SubscriptionCard/SubScribeCard";
 import  commaNumber from 'comma-number'
 
 class Subscription extends Component {
@@ -141,17 +138,12 @@ class Subscription extends Component {
       }
     );
 
-    // console.log('users' + response.users)
-    // console.log('res' + response)
-
     const dataa = await response.json();
-    // console.log("amount of subs" + dataa.data.amount);
 
     this.setState({
       total: dataa.total,
       pages: dataa.pages,
       spinner: false,
-      //   currentPage: dataa.page,
       allSubscription: dataa.data,
       amountTotal: dataa.amount,
       found: dataa.data
@@ -169,19 +161,9 @@ class Subscription extends Component {
       }
     );
 
-    // console.log('users' + response.users)
-    // console.log('res' + response)
-
     const dataa = await response.json();
-    // console.log("amount of subs" + dataa.data.amount);
 
     this.setState({
-    //   total: dataa.total,
-    //   pages: dataa.pages,
-    //   spinner: false,
-      //   currentPage: dataa.page,
-    //   allSubscription: dataa.data,
-    //   amountTotal: dataa.amount,
       found: dataa.data
     });
   };
@@ -207,15 +189,6 @@ class Subscription extends Component {
         )
       });
     }
-
-    // const getAmountOfSubs = () => {
-    //     this.state.allSubscription.map(list => {
-    //         let Total = list.amount
-    //     })
-    //     Total.reduce((a + b) => {
-    //         return a + b
-    //     }, 0);
-    // }
 
     const onFirst = () => {
       this.setState({
@@ -253,14 +226,6 @@ class Subscription extends Component {
     };
 
     const searchByPhone = (e) => {
-      // e.preventDefault()
-      // alert('Searched ' + this.state.search)
-      // this.callAllSubscription( '5fc6a5e6ef050a001be837ad')
-      // const searchResult = this.state.allSubscription.filter(res => res.userId === this.state.search)
-      // this.setState({
-      //     searchModal: true
-      // })
-
       e.preventDefault();
       if(this.state.search === ""){
           alert ("Please type in a mobile phone number")
@@ -271,21 +236,7 @@ class Subscription extends Component {
               searchModal: true
           })
       }
-    //   if (this.state.search == "") {
-    //     // return null
-    //     alert("Please type in a mobile phone number");
-    //   } else {
-    //     this.setState({
-    //       searchModal: true,
-    //       search: this.state.search,
-    //     });
-    //   }
-    //   console.log(this.state.search);
     };
-
-    // const searchResult = this.state.allSubscription.filter(
-    //   (res) => res.userId === this.state.search
-    // );
 
     const changeSearch = (e) => {
       this.setState({
@@ -329,21 +280,6 @@ class Subscription extends Component {
           <div className="col-lg-3"></div>
           <div className="col-lg-3"></div>
           <div className="col-lg-3 col-md-6">
-            {/* <Form onSubmit={searchByUserId} >
-                            <InputGroup className="mb-3">
-                            <FormControl
-                                onChange={changeSearch}
-                                value={ this.state.search }
-                                placeholder="Search By Phone No or Name"
-                                aria-label="User Phone Number"
-                                aria-describedby="basic-addon2"
-                            />
-                            <InputGroup.Append>
-                                <Button variant="outline-secondary" onClick={searchByUserId}>Search</Button>
-                            </InputGroup.Append>
-                            </InputGroup>
-                        </Form> */}
-
             <SearchBar
               search={this.state.search}
               changeSearch={changeSearch}
@@ -415,20 +351,6 @@ class Subscription extends Component {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  {/* {searchResult.map((res, id) => (
-                                    <tr>
-                                      <td> {id + 1} </td>
-                                      <td> {res.userId} </td>
-                                      <td> {res.amount} </td>
-                                      <td> {res.chargeMode} </td>
-                                      <td>
-                                        {" "}
-                                        {new Date(
-                                          res.createdAt
-                                        ).toLocaleDateString("en-US")}{" "}
-                                      </td>
-                                    </tr>
-                                  ))} */}
                                   {this.state.found.map((res, id) => (
                                     <tr>
                                       <td> {id + 1} </td>
@@ -462,7 +384,6 @@ class Subscription extends Component {
           </div>
         </div>
 
-{/* <SubScribeCard /> */}
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="card">
             <div className="card-body">

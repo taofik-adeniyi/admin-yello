@@ -7,7 +7,7 @@ class SubScribeCard extends Component {
   
   render() {
     const {totalAmount, totalWeekAmount, totalTwoMonthAmount, totalMonthAmount, totalTodayAmount} = this.context
-    console.log('subscribers', this.context);
+    // console.log('subscribers', this.context);
     return (
       <div className="col-lg-12 grid-margin stretch-card">
         <div className="card">

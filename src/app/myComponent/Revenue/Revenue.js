@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-// import DatePicker from 'react-datepicker'
-// import { Button, ProgressBar } from 'react-bootstrap'
-// import { Link } from 'react-router-dom'
 import './revenue.css'
 import GoBack from '../GoBack/GoBack'
 import SubScribeCard from './Cards/SubscriptionCard/SubScribeCard'
@@ -24,6 +21,7 @@ class Revenue extends Component {
                 </div>
                 
                 <RegisterCard />
+                
                 <SubScriberProvider>
                     <SubScribeCard />
                 </SubScriberProvider>

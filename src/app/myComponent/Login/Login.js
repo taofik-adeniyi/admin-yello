@@ -4,8 +4,22 @@ import AuthContext from "../../myContext/AuthContext";
 
 
 class Login extends Component {
+  componentDidMount() {
+    console.log('login componenet');
+    // if (sessionStorage.getItem('token')) {
+    //   window.location.href = "/dashboard"
+    // } else {
+    //   window.location.href = "/"
+    // }
+  }
+  
+
   render() {
-    
+    // if (sessionStorage.getItem('token')) {
+    //   window.location.href = "/dashboard"
+    // } else {
+    //   window.location.href = "/"
+    // }
     const { emailChange, onSubmit, passwordChange, error, passwordError, emailError, email, password} = this.context
 
     return (
