@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import {Link} from 'react-router-dom'
 import  commaNumber from 'comma-number'
 import SubscriberContext from '../../../../myContext/SubScriberContext'
+import {Naira} from '../../../../../assets/utilities/utils'
 
 class SubScribeCard extends Component {
   
@@ -36,21 +37,21 @@ class SubScribeCard extends Component {
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td align="right"> ₦{commaNumber(totalTodayAmount)} </td>
+                    <td align="right"> {Naira()}{commaNumber(totalTodayAmount)} </td>
                   </tr>
                   <tr>
                     <td className="py-1"> Subscription's in the Past Week </td>
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td align="right"> ₦{commaNumber(totalWeekAmount)} </td>
+                    <td align="right"> {Naira()}{commaNumber(totalWeekAmount)} </td>
                   </tr>
                   <tr>
                     <td className="py-1"> Subscription's in the Past Month </td>
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td align="right"> ₦{commaNumber(totalMonthAmount)} </td>
+                    <td align="right"> {Naira()}{commaNumber(totalMonthAmount)} </td>
                   </tr>
                   <tr>
                     <td className="py-1">
@@ -60,14 +61,14 @@ class SubScribeCard extends Component {
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td align="right"> ₦{commaNumber(totalTwoMonthAmount)} </td>
+                    <td align="right"> {Naira()}{commaNumber(totalTwoMonthAmount)} </td>
                   </tr>
                   <tr>
                     <td className="py-1"> Total Subscription's </td>
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td align="right"> ₦{commaNumber(totalAmount)} </td>
+                    <td align="right"> {Naira()}{commaNumber(totalAmount)} </td>
                   </tr>
                 </tbody>
               </table>

@@ -85,7 +85,8 @@
     "slick-carousel": "^1.8.1",
     "sweetalert2-react": "^0.8.3",
     "ti-icons": "^0.1.2",
-    "typicons.font": "^2.0.9"
+    "typicons.font": "^2.0.9",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "PORT=5050 react-scripts start",

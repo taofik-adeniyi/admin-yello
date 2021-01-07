@@ -16,16 +16,6 @@ import GoBack from "../GoBack/GoBack";
 import SearchBar from "../../shared/SearchBar";
 import Paginate from "../Paginate/Paginate";
 
-let active = 2;
-let items = [];
-for (let number = 1; number <= 5; number++) {
-  items.push(
-    <Pagination.Item key={number} active={number === active}>
-      {number}
-    </Pagination.Item>
-  );
-}
-
 class Alltrivia extends Component {
   state = {
     lgShow: false,
@@ -42,29 +32,30 @@ class Alltrivia extends Component {
     this.callAllTrivia();
   }
 
-  callAllTrivia = async (pageNumber) => {
-    let response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/trivia/admin/summary`,
-      {
-        method: "GET",
-        headers: {
-          "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
-        },
-      }
-    );
-
-    // console.log('users' + response.users)
-
-    const data = await response.json();
-    console.log("users me" + data.users);
-
-    this.setState({
-      trivia: data.users,
-      total: data.total,
-      _per_page: data._per_page,
-      _page: data._page,
-      spinner: false,
-    });
+  callAllTrivia = async () => {
+    try {
+      let response = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/trivia/admin/summary`,
+        {
+          method: "GET",
+          headers: {
+            "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
+          },
+        }
+      );
+  
+      const data = await response.json();
+  
+      this.setState({
+        trivia: data.users,
+        total: data.total,
+        _per_page: data._per_page,
+        _page: data._page,
+        spinner: false,
+      });
+    } catch (error) {
+      console.log('aping', error);
+    }
   };
 
   callTriviaByPhone = async (phoneNumber) => {

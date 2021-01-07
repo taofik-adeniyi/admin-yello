@@ -11,7 +11,8 @@ import GoBack from "../../GoBack/GoBack";
 import Spinner from "../../../shared/Spinner";
 import Paginate from "../../Paginate/Paginate";
 import SearchBar from "../../../shared/SearchBar";
-import  commaNumber from 'comma-number'
+import {SubScriberProvider} from '../../../myContext/SubScriberContext'
+import TotalAmount from "./TotalAmount";
 
 class Subscription extends Component {
   state = {
@@ -314,7 +315,9 @@ class Subscription extends Component {
                         <td></td>
                         <td></td>
                         <td>  </td>
-                        <td> {commaNumber(this.totalAmount)} </td>
+                        <SubScriberProvider>
+                          <TotalAmount />
+                        </SubScriberProvider>
                       </tr>
                     </tbody>
                   </table>
