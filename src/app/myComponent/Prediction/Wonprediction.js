@@ -11,6 +11,7 @@ import Paginate from "../Paginate/Paginate";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 import SearchBar from "../../shared/SearchBar";
+import ReactPaginate from "react-paginate"
 
 class Wonprediction extends Component {
   state = {
@@ -312,6 +313,7 @@ class Wonprediction extends Component {
         </div>
         <div>
           <Paginate />
+          <ReactPaginate />
         </div>
       </div>
     );
