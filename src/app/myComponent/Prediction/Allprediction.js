@@ -11,12 +11,11 @@ class Allprediction extends Component {
     startDate: new Date(),
     predictions: [],
     totalReactPackages: '',
-    predictionsLength: null,
+    predictionsTotal: null,
     per_page: null,
+    page: 1,
     current_page: null,
     lgShow: false,
-    val: '',
-    _page: 1,
     userPredictions: [],
     spinner: true,
     found: [],
@@ -48,10 +47,9 @@ class Allprediction extends Component {
 
     this.setState({
       predictions: data.predictions,
-      _per_page: data.per_page,
-      _page: data.page,
-      predictionsLength: data.total,
-      val: data.total,
+      per_page: data._per_page,
+      page: data._page,
+      predictionsTotal: data.total,
       spinner: false
     });
   }
@@ -67,12 +65,6 @@ class Allprediction extends Component {
     const data = await response.json();
 
     this.setState({
-      // predictions: data.predictions,
-      // _per_page: data.per_page,
-      // _page: data.page,
-      // predictionsLength: data.total,
-      // val: data.total,
-      // spinner: false,
       found: data.predictions
     });
   }
@@ -83,8 +75,6 @@ class Allprediction extends Component {
       const params = new URLSearchParams({
         phone_number: phoneNumber
       })
-      // const url = `https://wawu.com/predictions?${params.toString()}`
-      // console.log(url)
       let response = await fetch(`${process.env.REACT_APP_BASE_URL}/predictions/admin/predictions?${params.toString()}`, {
         method: 'GET',
         headers: {
@@ -92,9 +82,7 @@ class Allprediction extends Component {
         },
       });
   
-      // console.log('users' + response.total)
       const data = await response.json();
-      // console.log('users' + data.questions)
   
       this.setState({
         userPredictions: data.predictions,
@@ -106,14 +94,13 @@ class Allprediction extends Component {
   render() {
 
     let predictions, 
-    // renderPageNumbers, 
     loading;
 
     if (this.state.spinner) {
       return loading = <Spinner />
     } else {
       predictions = this.state.predictions.map((prediction, id) => (
-        <tr key={prediction.phone_number}>
+        <tr key={id}>
           <td> {id+1} </td>
           <td>
             <Button variant="warning" onClick={() => this.callEachUserPredictions(prediction.phone_number)} >
@@ -131,19 +118,10 @@ class Allprediction extends Component {
     }
 
     const pageNumbers = [];
-    if (this.predictionsLength !== null) {
-      for (let i = 1; i <= Math.ceil(this.predictionsLength / this.state._per_page); i++) {
+    if (this.state.predictionsTotal !== null) {
+      for (let i = 1; i <= Math.ceil(this.state.predictionsTotal / this.state.per_page); i++) {
         pageNumbers.push(i);
       }
-
-
-      // renderPageNumbers = pageNumbers.map(number => {
-      //   // let classes = this.state.current_page === number ? styles.active : '';
-
-      //   return (
-      //     <span key={number} onClick={() => this.makeHttpRequestWithPage(number)}>{number}</span>
-      //   );
-      // });
     }
 
     let userPredict
@@ -160,7 +138,6 @@ class Allprediction extends Component {
           <td> {predict.staked_at} </td>
         </tr>
       ))
-      // console.log('a')
     }else {
       return(
         <div>No Data to load for this user </div>
@@ -170,13 +147,11 @@ class Allprediction extends Component {
     const searchByPhone = (e) => {
       e.preventDefault();
       if (this.state.search === "") {
-        // return null
         alert("Please type in a mobile phone number");
       } else {
         this.queryPrediction(this.state.search)
         this.setState({
           searchModal: true,
-          // search: this.state.search,
         });
       }
       console.log(this.state.search);
@@ -187,19 +162,29 @@ class Allprediction extends Component {
         search: e.target.value,
       });
     };
+
     const closeSearchModal = () => {
       this.setState({
         searchModal: false,
       });
     };
 
+    const handleNext =()=> {
+      return true
+    }
+
+    const handlePrev = () => {
+      this.setState((prevState) => ({
+        _page: prevState._page - 1,
+      }));
+    };
+
     return (
       <div>
-        {console.log('pred' + this.state.predictions)}
         <div className="page-header">
           < h3 className="page-title"> 
           <GoBack />
-          All Predictions: {this.state.predictionsLength} </h3>
+          All Predictions: {this.state.predictionsTotal} </h3>
         </div>
         <div className="row">
           <div className="col-lg-3 grid-margin stretch-card">
@@ -253,7 +238,12 @@ class Allprediction extends Component {
                     </tbody>
                   </table>
                 </div>
-                <Paginate />
+                <Paginate 
+                  onNext={handleNext} 
+                  onPrev={handlePrev} 
+                  noOfPages={Math.ceil(this.state.predictionsTotal / this.state.per_page)}
+                  currentPage={this.state.page}
+                />
                 {
                   this.state.lgShow ? 
                     <Modal
@@ -270,6 +260,12 @@ class Allprediction extends Component {
                         </Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
+                      <Paginate 
+                        onNext={handleNext} 
+                        onPrev={handlePrev} 
+                        noOfPages={Math.ceil(this.state.predictionsTotal / this.state.per_page)}
+                        currentPage={this.state.page}
+                      />
                       <div className="table-responsive">
                           <table className="table table-striped">
                             <thead>
@@ -285,6 +281,12 @@ class Allprediction extends Component {
                               { userPredict }
                             </tbody>
                           </table>
+                          <Paginate 
+                        onNext={handleNext} 
+                        onPrev={handlePrev} 
+                        noOfPages={Math.ceil(this.state.predictionsTotal / this.state.per_page)}
+                        currentPage={this.state.page}
+                      />
                         </div>
                       </Modal.Body>
                     </Modal> 
@@ -298,7 +300,6 @@ class Allprediction extends Component {
           <div>
           </div>
           <div>
-          {/* {paginate could also be here} */}
           </div>
           {this.state.searchModal ? (
           <Modal show={this.state.searchModal} onHide={closeSearchModal}>
@@ -306,6 +307,12 @@ class Allprediction extends Component {
               <Modal.Title>Modal heading</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+              <Paginate 
+                onNext={handleNext} 
+                onPrev={handlePrev} 
+                noOfPages={Math.ceil(this.state.predictionsTotal / this.state.per_page)}
+                currentPage={this.state.page}
+              />
               <div className="row">
                 <div className="col-lg-12 grid-margin stretch-card">
                   <div className="card">
@@ -316,7 +323,6 @@ class Allprediction extends Component {
                           <thead>
                             <tr>
                               <th> id </th>
-                              {/* <th> View Player </th> */}
                               <th> Phone Number </th>
                               <th> Amount </th>
                               <th> Status </th>
@@ -326,16 +332,7 @@ class Allprediction extends Component {
                             {this.state.found.map((res, id) => (
                               <tr>
                                 <td> {id + 1} </td>
-                                {/* <td>
-                                  <Button
-                                    variant="warning"
-                                    onClick={() =>
-                                      this.callEachUserTrivia(res.phone_number)
-                                    }
-                                  >
-                                    View Player
-                                  </Button>
-                                </td> */}
+                               
                                 <td> {res.phone_number} </td>
                                 <td> {res.amount} </td>
                                 <td> {res.status} </td>
@@ -346,6 +343,12 @@ class Allprediction extends Component {
                       </div>
                     </div>
                   </div>
+                <Paginate 
+                  onNext={handleNext} 
+                  onPrev={handlePrev} 
+                  noOfPages={Math.ceil(this.state.predictionsTotal / this.state.per_page)}
+                  currentPage={this.state.page}
+                />
                 </div>
               </div>
             </Modal.Body>

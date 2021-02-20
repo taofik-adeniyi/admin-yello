@@ -140,8 +140,8 @@ class Sidebar extends Component {
             </div>
             <Collapse in={ this.state.formElementsMenuOpen }>
               <ul className="nav flex-column sub-menu">
-                <li className="nav-item"> <Link className={ this.isPathActive('/form-elements/basic-elements') ? 'nav-link active' : 'nav-link' } to="/form-elements/basic-elements" to="/all-prediction"><Trans>All Prediction</Trans></Link></li>
-                <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/dropdowns') ? 'nav-link active' : 'nav-link' } to="/basic-ui/dropdowns" to="/won-prediction"><Trans>Won Prediction</Trans></Link></li>
+                <li className="nav-item"> <Link className={ this.isPathActive('/form-elements/basic-elements') ? 'nav-link active' : 'nav-link' }  to="/all-prediction"><Trans>All Prediction</Trans></Link></li>
+                <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/dropdowns') ? 'nav-link active' : 'nav-link' } to="/won-prediction"><Trans>Won Prediction</Trans></Link></li>
               </ul>
             </Collapse>
           </li>
@@ -155,6 +155,12 @@ class Sidebar extends Component {
             <Link className={ this.isPathActive('/tables/basic-table') ? 'nav-link active' : 'nav-link' } to="/revenue">
               <i className="mdi mdi-television menu-icon"></i>
               <span className="menu-title"><Trans>Revenue</Trans></span>
+            </Link>
+          </li>
+          <li className={ this.isPathActive('/tables') ? 'nav-item active' : 'nav-item' }>
+            <Link className={ this.isPathActive('/tables/basic-table') ? 'nav-link active' : 'nav-link' } to="/users-transaction">
+              <i className="mdi mdi-television menu-icon"></i>
+              <span className="menu-title"><Trans>Users Transactions</Trans></span>
             </Link>
           </li>
         </ul>

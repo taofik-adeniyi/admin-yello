@@ -3,7 +3,6 @@ import { Dropdown, Button, Modal } from "react-bootstrap";
 import SearchBar from "../../shared/SearchBar";
 import GoBack from "../GoBack/GoBack";
 import Paginate from "../Paginate/Paginate";
-import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 
 class Wontrivia extends Component {
@@ -180,6 +179,7 @@ class Wontrivia extends Component {
                       </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
+                    <Paginate />
                       <div className="table-responsive">
                         <table className="table table-striped">
                           <thead>
@@ -203,11 +203,12 @@ class Wontrivia extends Component {
                               : "..loading..."}
                           </tbody>
                         </table>
+                        <Paginate />
                       </div>
                     </Modal.Body>
                   </Modal>
                 ) : null}
-
+                <Paginate />
                 {this.state.searchModal ? (
                   <Modal
                     size="lg"
@@ -225,6 +226,7 @@ class Wontrivia extends Component {
                       </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
+                    <Paginate />
                       <div className="table-responsive">
                         <table className="table table-striped">
                           <thead>
@@ -248,6 +250,7 @@ class Wontrivia extends Component {
                               : "..loading..."}
                           </tbody>
                         </table>
+                        <Paginate />
                       </div>
                     </Modal.Body>
                   </Modal>
@@ -257,7 +260,7 @@ class Wontrivia extends Component {
           </div>
         </div>
         <div>
-          <Paginate />
+          
         </div>
       </div>
     );

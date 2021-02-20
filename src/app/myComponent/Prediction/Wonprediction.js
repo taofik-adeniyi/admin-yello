@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import {
   Dropdown,
   Button,
-  InputGroup,
-  FormControl,
   Modal,
 } from "react-bootstrap";
 import GoBack from "../GoBack/GoBack";
@@ -11,7 +9,6 @@ import Paginate from "../Paginate/Paginate";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 import SearchBar from "../../shared/SearchBar";
-import ReactPaginate from "react-paginate"
 
 class Wonprediction extends Component {
   state = {
@@ -126,7 +123,6 @@ class Wonprediction extends Component {
           searchModal: true,
         });
         this.queryPrediction(this.state.search)
-        // console.log(this.state.search);
       }
     };
 
@@ -212,6 +208,7 @@ class Wonprediction extends Component {
                       </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
+                    <Paginate />
                       <div className="table-responsive">
                         <table className="table table-striped">
                           <thead>
@@ -248,9 +245,11 @@ class Wonprediction extends Component {
                           </tbody>
                         </table>
                       </div>
+                      <Paginate />
                     </Modal.Body>
                   </Modal>
                 ) : null}
+                <Paginate />
                 {this.state.lgShow ? (
                   <Modal
                     size="lg"
@@ -268,6 +267,7 @@ class Wonprediction extends Component {
                       </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
+                    <Paginate />
                       <div className="table-responsive">
                         <table className="table table-striped">
                           <thead>
@@ -303,6 +303,7 @@ class Wonprediction extends Component {
                                 ))}
                           </tbody>
                         </table>
+                        <Paginate />
                       </div>
                     </Modal.Body>
                   </Modal>
@@ -312,8 +313,6 @@ class Wonprediction extends Component {
           </div>
         </div>
         <div>
-          <Paginate />
-          <ReactPaginate />
         </div>
       </div>
     );

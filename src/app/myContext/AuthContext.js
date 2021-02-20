@@ -118,7 +118,7 @@ export class AuthProvider extends Component{
     return (
       <AuthContext.Provider value={{
         isAutheticated, username, email, token, password, error, passwordError,
-        emailChange, passwordChange, onSubmit, signOutAuth, handleAuth, loginfetch
+        emailChange, passwordChange, onSubmit, signOutAuth, handleAuth, loginfetch, emailError
       }}>
         {this.props.children}
       </AuthContext.Provider>

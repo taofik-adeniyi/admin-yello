@@ -21,6 +21,7 @@ import Subscription from "./myComponent/Revenue/Subscription/Subscription";
 import ErrorPage from "./myComponent/ErrorPage/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import { AuthProvider } from "./myContext/AuthContext";
+import UserTransaction from "./myComponent/UserTransaction/UserTransaction";
 
 class App extends Component {
   render() {
@@ -73,6 +74,11 @@ class App extends Component {
         <PrivateRoute exact path="/revenue">
           <PageLayout>
               <Revenue />
+          </PageLayout>
+        </PrivateRoute>
+        <PrivateRoute exact path="/users-transaction">
+          <PageLayout>
+              <UserTransaction />
           </PageLayout>
         </PrivateRoute>
 

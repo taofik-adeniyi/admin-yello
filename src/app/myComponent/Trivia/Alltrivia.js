@@ -2,40 +2,36 @@ import React, { Component } from "react";
 import {
   Dropdown,
   Button,
-  // ButtonGroup,
-  Pagination,
-  // PageItem,
-  // InputGroup,
-  // FormControl,
   Modal,
-  // Form,
 } from "react-bootstrap";
-// import axios from "axios";
 import Spinner from "../../shared/Spinner";
 import GoBack from "../GoBack/GoBack";
 import SearchBar from "../../shared/SearchBar";
 import Paginate from "../Paginate/Paginate";
+import moment from 'moment';
 
 class Alltrivia extends Component {
   state = {
     lgShow: false,
     _page: 1,
+    _per_page: "",
     spinner: true,
     trivia: [],
     questions: [],
     search: "",
     searchModal: false,
-    found: []
+    found: [],
+    total: "",
   };
 
   componentDidMount() {
-    this.callAllTrivia();
+    this.requestAllTrivia(this.state._page);
   }
 
-  callAllTrivia = async () => {
+  requestAllTrivia = async (pageNo) => {
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BASE_URL}/trivia/admin/summary`,
+        `${process.env.REACT_APP_BASE_URL}/trivia/admin/summary?_page=${pageNo}`,
         {
           method: "GET",
           headers: {
@@ -43,9 +39,9 @@ class Alltrivia extends Component {
           },
         }
       );
-  
+
       const data = await response.json();
-  
+
       this.setState({
         trivia: data.users,
         total: data.total,
@@ -54,11 +50,10 @@ class Alltrivia extends Component {
         spinner: false,
       });
     } catch (error) {
-      console.log('aping', error);
     }
   };
 
-  callTriviaByPhone = async (phoneNumber) => {
+  viewTriviaByPhone = async (phoneNumber) => {
     let response = await fetch(
       `${process.env.REACT_APP_BASE_URL}/trivia/admin/summary?phone_number=${phoneNumber}`,
       {
@@ -69,18 +64,10 @@ class Alltrivia extends Component {
       }
     );
 
-    // console.log('users' + response.users)
-
     const data = await response.json();
-    // console.log("users me" + data.users);
 
     this.setState({
-      // trivia: data.users,
-      // total: data.total,
-      // _per_page: data._per_page,
-      // _page: data._page,
-      // spinner: false,
-      found: data.users
+      found: data.users,
     });
   };
 
@@ -97,10 +84,7 @@ class Alltrivia extends Component {
       }
     );
 
-    // console.log('users' + response.total)
-    // console.log(phoneNumber)
     const data = await response.json();
-    // console.log('users' + data.questions)
 
     this.setState({
       questions: data.questions,
@@ -117,16 +101,15 @@ class Alltrivia extends Component {
     } else {
       allTrivia = this.state.trivia.map((triviaList, id) => (
         <tr key={triviaList.phone_number}>
-          <td>{id + 1}</td>
+          <td>{(id + 1) * this.state._page}</td>
           <td>
             {" "}
             <Button
               variant="warning"
               onClick={() => this.callEachUserTrivia(triviaList.phone_number)}
             >
-              {" "}
-              View Player{" "}
-            </Button>{" "}
+              {" "}View Player{" "}
+            </Button>
           </td>
           <td>{triviaList.phone_number}</td>
           <td>{triviaList.attempted_questions_count}</td>
@@ -136,52 +119,60 @@ class Alltrivia extends Component {
     }
 
     let questions;
+    // let start = (this.state._page - 1) * this.state._per_page;
+    // start += 1;
 
     if (this.state.questions !== []) {
       questions = this.state.questions.map((question, id) => (
         <tr key={id}>
-          <td> {id + 1} </td>
           <td> {question.label} </td>
           <td> {question.status} </td>
           <td> {question.points} </td>
-          <td> {new Date(question.drawn_at).toLocaleDateString("en-US")} </td>
+          <td> {moment(question.drawn_at).format("DD-MM-YYYY")}</td>
         </tr>
       ));
-      // console.log('a')
     } else {
       return <div>No Data to load for this user </div>;
     }
 
-    // const onFirst = () => {
-    //   this.makeHttpRequestWithPage(this.state._page);
-    // };
+    const callOneUser = (caller) => {
+      this.setState({
+        searchModal: false,
+      });
+      this.callEachUserTrivia(caller);
+    };
 
-    // const onPrev = () => {
-    //   this.makeHttpRequestWithPage(this.state._page - 1);
-    // };
+    let nosFound;
 
-    // const onNext = () => {
-    //   return this.state._page + 1;
-    //   this.makeHttpRequestWithPage(this.state._page + 1);
-    // };
-
-    // const onLast = () => {
-    //   this.makeHttpRequestWithPage(this.state._page);
-    // };
+    if (this.state.found !== []) {
+      nosFound = this.state.found.map((res, id) => (
+        <tr key={id}>
+          <td> {id + 1} </td>
+          <td>
+            <Button
+              variant="warning"
+              onClick={() => callOneUser(res.phone_number)}
+            >
+              View Player
+            </Button>
+          </td>
+          <td> {res.phone_number} </td>
+          <td> {res.attempted_questions_count} </td>
+          <td> {res.total_points} </td>
+        </tr>
+      ));
+    }
 
     const searchByPhone = (e) => {
       e.preventDefault();
       if (this.state.search === "") {
-        // return null
         alert("Please type in a mobile phone number");
       } else {
-        this.callTriviaByPhone(this.state.search)
+        this.viewTriviaByPhone(this.state.search);
         this.setState({
           searchModal: true,
-          // search: this.state.search,
         });
       }
-      console.log(this.state.search);
     };
 
     const changeSearch = (e) => {
@@ -196,9 +187,36 @@ class Alltrivia extends Component {
       });
     };
 
-    // const searchResult = this.state.trivia.filter(
-    //   (res) => res.phone_number === this.state.search
-    // );
+    const handleNext = async () => {
+      const pageNo = this.state._page;
+      let response = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/trivia/admin/summary?_page=${
+          pageNo + 1
+        }`,
+        {
+          method: "GET",
+          headers: {
+            "client-id": `${process.env.REACT_APP_CLIENT_ID}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      this.setState({
+        trivia: data.users,
+        total: data.total,
+        _per_page: data._per_page,
+        _page: data._page,
+        spinner: false,
+      });
+    };
+
+    const handlePrev = () => {
+      this.setState((prevState) => ({
+        _page: prevState._page - 1,
+      }));
+    };
 
     return (
       <div>
@@ -261,7 +279,12 @@ class Alltrivia extends Component {
                   </table>
                 </div>
 
-                <Paginate />
+                <Paginate
+                  onPrev={handlePrev}
+                  currentPage={this.state._page}
+                  noOfPages={Math.ceil(this.state.total / this.state._per_page)}
+                  onNext={handleNext}
+                />
 
                 {this.state.lgShow ? (
                   <Modal
@@ -280,11 +303,16 @@ class Alltrivia extends Component {
                       </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
+                    <Paginate
+                      onPrev={handlePrev}
+                      currentPage={this.state._page}
+                      noOfPages={Math.ceil(this.state.total / this.state._per_page)}
+                      onNext={handleNext}
+                    />
                       <div className="table-responsive">
                         <table className="table table-striped">
                           <thead>
                             <tr>
-                              <th> id </th>
                               <th> Question </th>
                               <th> Status </th>
                               <th> Point </th>
@@ -293,6 +321,12 @@ class Alltrivia extends Component {
                           </thead>
                           <tbody>{questions}</tbody>
                         </table>
+                        <Paginate
+                      onPrev={handlePrev}
+                      currentPage={this.state._page}
+                      noOfPages={Math.ceil(this.state.total / this.state._per_page)}
+                      onNext={handleNext}
+                    />
                       </div>
                     </Modal.Body>
                   </Modal>
@@ -307,6 +341,12 @@ class Alltrivia extends Component {
               <Modal.Title>Modal heading</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+            <Paginate
+                      onPrev={handlePrev}
+                      currentPage={this.state._page}
+                      noOfPages={Math.ceil(this.state.total / this.state._per_page)}
+                      onNext={handleNext}
+                    />
               <div className="row">
                 <div className="col-lg-12 grid-margin stretch-card">
                   <div className="card">
@@ -323,30 +363,17 @@ class Alltrivia extends Component {
                               <th> Total Points </th>
                             </tr>
                           </thead>
-                          <tbody>
-                            {this.state.found.map((res, id) => (
-                              <tr>
-                                <td> {id + 1} </td>
-                                <td>
-                                  <Button
-                                    variant="warning"
-                                    onClick={() =>
-                                      this.callEachUserTrivia(res.phone_number)
-                                    }
-                                  >
-                                    View Player
-                                  </Button>
-                                </td>
-                                <td> {res.phone_number} </td>
-                                <td> {res.attempted_questions_count} </td>
-                                <td> {res.total_points} </td>
-                              </tr>
-                            ))}
-                          </tbody>
+                          <tbody>{nosFound}</tbody>
                         </table>
                       </div>
                     </div>
                   </div>
+                  <Paginate
+                      onPrev={handlePrev}
+                      currentPage={this.state._page}
+                      noOfPages={Math.ceil(this.state.total / this.state._per_page)}
+                      onNext={handleNext}
+                    />
                 </div>
               </div>
             </Modal.Body>

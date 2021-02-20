@@ -196,24 +196,24 @@ export class SubScriberProvider extends Component {
     
 
     this.state.allSubs.map((subs) => {
-      this.totalAmount += Number(subs.amount);
+      return this.totalAmount += Number(subs.amount);
     });
 
 
     this.state.oneWeekSub.map((ones) => {
-      this.totalWeekAmount += Number(ones.amount);
+      return this.totalWeekAmount += Number(ones.amount);
     });
 
     this.state.oneMonthSub.map((oneMonth) => {
-      this.totalMonthAmount += Number(oneMonth.amount)
+      return this.totalMonthAmount += Number(oneMonth.amount)
     })
 
     this.state.twoMonthSub.map((twoMonth) => {
-      this.totalTwoMonthAmount += Number(twoMonth.amount)
+      return this.totalTwoMonthAmount += Number(twoMonth.amount)
     })
 
     this.state.todaysSub.map((today) => {
-      this.totalTodayAmount += Number(today.amount)
+      return this.totalTodayAmount += Number(today.amount)
     })
 
     const { totalWeekAmount, totalAmount, totalMonthAmount, totalTwoMonthAmount, totalTodayAmount } = this;

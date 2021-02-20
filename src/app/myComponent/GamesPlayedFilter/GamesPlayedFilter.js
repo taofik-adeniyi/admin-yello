@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button , Form} from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
+import GoBack from '../GoBack/GoBack';
 // import { Link } from 'react-router-dom'
 
 class GamesPlayedFilter extends Component {
@@ -27,7 +28,9 @@ class GamesPlayedFilter extends Component {
             <div>
                 <div className="page-header">
                     <h3 className="page-title"> 
-                        <Button variant="warning">Back</Button>&nbsp;&nbsp;
+                        {/* <Button variant="warning">Back</Button>&nbsp;&nbsp;
+                        Games Played Log */}
+                        <GoBack />
                         Games Played Log
                     </h3>
                 </div>

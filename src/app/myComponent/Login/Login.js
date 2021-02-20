@@ -21,7 +21,7 @@ class Login extends Component {
   }
 
   render() {
-    const { history } = this.props;
+    // const { history } = this.props;
     const { emailChange, onSubmit, passwordChange, error, passwordError, emailError, email, password} = this.context
 
     return (
