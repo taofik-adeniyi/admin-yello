@@ -343,14 +343,14 @@ class Allprediction extends Component {
                       </div>
                     </div>
                   </div>
-                <Paginate 
-                  onNext={handleNext} 
-                  onPrev={handlePrev} 
-                  noOfPages={Math.ceil(this.state.predictionsTotal / this.state.per_page)}
-                  currentPage={this.state.page}
-                />
                 </div>
               </div>
+              <Paginate 
+                    onNext={handleNext} 
+                    onPrev={handlePrev} 
+                    noOfPages={Math.ceil(this.state.predictionsTotal / this.state.per_page)}
+                    currentPage={this.state.page}
+                  />
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={closeSearchModal}>

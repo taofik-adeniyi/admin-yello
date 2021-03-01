@@ -341,12 +341,12 @@ class Alltrivia extends Component {
               <Modal.Title>Modal heading</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <Paginate
+            {/* <Paginate
                       onPrev={handlePrev}
                       currentPage={this.state._page}
                       noOfPages={Math.ceil(this.state.total / this.state._per_page)}
                       onNext={handleNext}
-                    />
+                    /> */}
               <div className="row">
                 <div className="col-lg-12 grid-margin stretch-card">
                   <div className="card">
@@ -368,14 +368,14 @@ class Alltrivia extends Component {
                       </div>
                     </div>
                   </div>
-                  <Paginate
+                </div>
+              </div>
+                  {/* <Paginate
                       onPrev={handlePrev}
                       currentPage={this.state._page}
                       noOfPages={Math.ceil(this.state.total / this.state._per_page)}
                       onNext={handleNext}
-                    />
-                </div>
-              </div>
+                    /> */}
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={closeSearchModal}>
